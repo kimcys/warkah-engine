@@ -1,0 +1,21 @@
+---
+// Doa over the misty rose garden (frame roses.webp): bismillah, the prayer, "Amin ya rabbal 'alamin".
+import type { Card } from "../../../lib/event";
+import { frameBox, plainLines, wrap } from "../frame";
+interface Props { card: Card; attrs: Record<string, string> }
+const { card, attrs } = Astro.props;
+const { e } = card;
+const lead = plainLines(e.text.doaLeadHtml).join(" ");
+const body = e.text.doaHtml.flatMap((html) => plainLines(html)).join(" ");
+const lines = wrap(body, 50);
+const cx = 284;
+---
+<section class="frame-page doa reveal" {...attrs} aria-label="Doa untuk pengantin">
+  <p class="sr-only">{lead} {body}</p>
+  <svg class="frame-text" {...frameBox} aria-hidden="true" focusable="false">
+    <text x={cx} y="352" class="ft-arabic" font-size="32" direction="rtl">{e.text.bismillah}</text>
+    <text x={cx} y="414" class="ft-serif" font-size="15">{lead}</text>
+    {lines.map((line, i) => <text x={cx} y={442 + i * 23} class="ft-serif" font-size="15">{line}</text>)}
+    <text x={cx} y={442 + lines.length * 23 + 46} class="ft-arabic" font-size="24" direction="rtl">آمِيْن يَا رَبَّ الْعَالَمِيْن</text>
+  </svg>
+</section>

@@ -1,0 +1,26 @@
+---
+// The words on the clear acrylic sign inside the floral arch, laid on the video frame in its own coordinates.
+// variant "hero" = frame arch.webp (close), "opening" = frame opening.webp (sign smaller and further away).
+import type { Card } from "../../lib/event";
+import { frameBox } from "./frame";
+interface Props { card: Card; variant?: "hero" | "opening" }
+const { card, variant = "hero" } = Astro.props;
+const { first, second, date } = card;
+const a = first.short.toUpperCase();
+const b = second.short.toUpperCase();
+// The opening frame shows the same sign smaller: the close-up board (196,292 to 402,642) maps onto it through this transform.
+const place = variant === "opening" ? "translate(292 645) scale(0.72) translate(-299 -467)" : "";
+// Both names share one size, as in the video (IZZAH and ADIB are the same height): the longest name sets it.
+const nameSize = Math.min(40, Math.floor(184 / (Math.max(a.length, b.length) * 0.88)));
+---
+<svg class="frame-text" {...frameBox} aria-hidden="true" focusable="false">
+  <g transform={place}>
+    <text x="294" y="338" class="ft-script" font-size="31">The Beginning</text>
+    <text x="294" y="361" class="ft-serif ft-sub" font-size="15.5">Of Forever</text>
+    <text x="294" y="520" class="ft-amp" font-size="150">&amp;</text>
+    <text x="294" y="452" class="ft-name" font-size={nameSize}>{a}</text>
+    <text x="294" y="540" class="ft-name" font-size={nameSize}>{b}</text>
+    <text x="294" y="603" class="ft-caps" font-size="15">{date.dayName.toUpperCase()}</text>
+    <text x="294" y="629" class="ft-caps" font-size="14">{date.long.toUpperCase()}</text>
+  </g>
+</svg>

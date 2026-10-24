@@ -1,0 +1,16 @@
+---
+// Hero: the floral arch up close, names on the acrylic sign.
+import type { Card } from "../../../lib/event";
+import SignText from "../SignText.astro";
+interface Props { card: Card; attrs: Record<string, string> }
+const { card, attrs } = Astro.props;
+const { e, first, second, date } = card;
+const city = e.venue.area.split(",")[0].trim();
+---
+<section class="frame-page hero" id="home" {...attrs} aria-label={`${first.short} dan ${second.short}, ${date.dayName} ${date.long}`}>
+  <h2 class="sr-only">{first.short} &amp; {second.short} — {date.dayName}, {date.long} — {e.venue.name}, {city}</h2>
+  <SignText card={card} />
+  <div class="page-hint" aria-hidden="true">
+    <svg viewBox="0 0 24 24"><path d="m6.5 14.5 5.5-5.5 5.5 5.5" /></svg>
+  </div>
+</section>

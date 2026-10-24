@@ -1,0 +1,13 @@
+---
+// "Kad oleh warkah · warkah.web.app" on every card (brand rule: the only Warkah branding on a client card).
+import type { Card } from "../../lib/event";
+interface Props { card: Card }
+const { card } = Astro.props;
+const { credit, base } = card;
+---
+<p class="developer-credit warkah-credit">
+  {credit.label}
+  <a href={credit.url} target="_blank" rel="noopener noreferrer">
+    <img src={`${base}warkah/mark-small.svg`} alt="" width="16" height="16" style="width:1.15em;height:1.15em;vertical-align:-0.25em;margin:0 0.15em 0 0.3em" />warkah
+  </a>
+</p>

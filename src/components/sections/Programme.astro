@@ -1,0 +1,47 @@
+---
+import type { Card } from "../../lib/event";
+interface Props { card: Card; attrs: Record<string, string> }
+const { card, attrs } = Astro.props;
+const { e, date } = card;
+
+// Icons for aturcara items (event.json → aturcara[].icon)
+const ICONS: Record<string, string> = {
+  makan: '<path d="M6 3v8a2 2 0 0 0 2 2v8M10 3v8a2 2 0 0 1-2 2M18 21V3c-2.2 1.2-3.5 4-3.5 7.5 0 1.6.9 2.5 2 2.5h1.5" />',
+  pengantin: '<circle cx="9" cy="14" r="5" /><circle cx="15" cy="14" r="5" /><path d="m10.5 5.5 1.5-2 1.5 2-1.5 2Z" />',
+  bersurai: '<path d="M19 14.5A7.5 7.5 0 0 1 9.5 5a7.5 7.5 0 1 0 9.5 9.5Z" /><path d="M16 4.5v2M15 5.5h2M19.5 8.5v1.6M18.7 9.3h1.6" />',
+  akad: '<path d="M7 4h10v16H7z" /><path d="M10 8h4M10 12h4M10 16h2" />',
+  doa: '<path d="M8 20v-6l-3-3 3-7h2l-1 6 3 3v7M16 20v-6l3-3-3-7h-2l1 6-3 3v7" />',
+  jam: '<circle cx="12" cy="12" r="8.5" /><path d="M12 7.5V12l3 2" />'
+};
+---
+<section class="section-card programme reveal" {...attrs} id="programme" aria-label="Aturcara majlis">
+  <h2>Aturcara Majlis</h2>
+  <div class="date-block">
+    <span class="date-day">{date.dayName}</span>
+    <div class="date-row">
+      <span class="date-side">{date.month}</span>
+      <strong>{date.day}</strong>
+      <span class="date-side">{date.year}</span>
+    </div>
+  </div>
+  <ol class="timeline">
+    {e.aturcara.map((item) => (
+      <li>
+        <span class="timeline-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" set:html={ICONS[item.icon]} />
+        </span>
+        <span class="timeline-body">
+          <span class="timeline-label">{item.label}</span>
+          <span class="timeline-time">{item.time}</span>
+        </span>
+      </li>
+    ))}
+  </ol>
+  <p class="countdown-line" data-countdown aria-label="Kiraan detik ke majlis">
+    <span><strong id="days">0</strong> hari</span>
+    <span><strong id="hours">0</strong> jam</span>
+    <span><strong id="minutes">0</strong> minit</span>
+    <span><strong id="seconds">0</strong> saat</span>
+  </p>
+  <p id="countdownOver" class="countdown-over" hidden></p>
+</section>

@@ -1,0 +1,16 @@
+{
+  "_comment": "Shared Warkah Firebase project. Every new card stores its data here under events/<slug>/. Paste the web app config from Firebase console > Project settings > Your apps.",
+  "firebaseProject": "warkah-kad",
+  "firebaseConfig": {
+    "apiKey": "",
+    "authDomain": "warkah-kad.firebaseapp.com",
+    "projectId": "warkah-kad",
+    "storageBucket": "warkah-kad.firebasestorage.app",
+    "messagingSenderId": "",
+    "appId": ""
+  },
+  "credit": {
+    "label": "Kad oleh",
+    "url": "https://warkah.web.app"
+  }
+}

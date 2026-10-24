@@ -1,0 +1,30 @@
+---
+import type { Card } from "../../lib/event";
+interface Props { card: Card; attrs: Record<string, string> }
+const { card, attrs } = Astro.props;
+const { e, first, second } = card;
+const [parentA, parentB] = e.host.parents;
+---
+<section class="section-card invitation reveal" {...attrs} aria-label="Jemputan">
+  <p class="salam-arabic" lang="ar" dir="rtl">{e.text.bismillah}</p>
+  <p class="salam">{e.text.salam}</p>
+
+  <div class="parents">
+    <span>{parentA}</span>
+    {parentB && <span class="amp" aria-hidden="true">&amp;</span>}
+    {parentB && <span>{parentB}</span>}
+  </div>
+
+  <p class="invite-copy" set:html={e.text.inviteHtml} />
+  <p class="honorifics" set:html={e.text.honorificsHtml} />
+  <p id="guestLine" class="guest-line" hidden></p>
+  <p class="invite-copy">{e.host.inviteRelation}</p>
+
+  <div class="couple-names">
+    <span class="couple-name">{first.name}</span>
+    <span class="couple-full">{first.full}</span>
+    <span class="couple-amp" aria-hidden="true">&amp;</span>
+    <span class="couple-name">{second.name}</span>
+    <span class="couple-full">{second.full}</span>
+  </div>
+</section>

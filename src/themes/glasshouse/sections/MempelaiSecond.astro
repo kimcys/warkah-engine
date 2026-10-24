@@ -1,0 +1,7 @@
+---
+import type { Card } from "../../../lib/event";
+import Mempelai from "./Mempelai.astro";
+interface Props { card: Card; attrs: Record<string, string> }
+const { card, attrs } = Astro.props;
+---
+<Mempelai card={card} attrs={attrs} position="second" />

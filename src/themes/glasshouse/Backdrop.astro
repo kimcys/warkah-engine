@@ -1,0 +1,143 @@
+---
+// Sparkles, plus the scroll experience, modelled on the Blossom theme:
+//  - one continuous free scroll (no snapping); each scene fades into the next through a misty overlap (style.css)
+//  - every line of text (HTML, or the words drawn on a frame) zooms up from 100px below at 60% scale, fading in over
+//    --aos-duration with ease, the moment that line itself scrolls into view
+//  - a line that leaves the bottom of the screen resets and replays when scrolled back to; the cover lines stagger
+// In "pages" mode (the default, see theme.ts) none of that runs: card.js does the camera move between the fixed scene
+// layers and the panel stagger, and this script only moves each frame's printed words into its layer and rises them
+// line by line when their page lands.
+
+// Scene layers for the "pages" scroll mode (hidden by CSS in "free" mode). One per video frame; the words printed on a
+// frame are moved in here by the script below, so they travel with their scene.
+const SCENES = ["arch", "court", "lamp", "hall", "bride", "groom", "stage", "aisle", "phone", "roses", "garden", "gate"];
+---
+{SCENES.map((name) => (
+  <div class={`scene-layer scene-${name}`} aria-hidden="true"><div class="scene-text"></div></div>
+))}
+<div class="fairy-lights" aria-hidden="true"></div>
+<div class="petal-field" aria-hidden="true"></div>
+<script is:inline>
+(() => {
+  // ---------- "pages" mode: printed words travel with their scene ----------
+  const startPages = () => {
+    const card = document.getElementById("card");
+    if (!card) return;
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const pages = Array.from(card.querySelectorAll(":scope > section[data-scene]"));
+    const clones = pages.map((page) => {
+      const svg = page.querySelector(":scope > .frame-text");
+      const layer = document.querySelector(`.scene-${page.dataset.scene} .scene-text`);
+      if (!svg || !layer) return null;
+      const clone = svg.cloneNode(true);
+      clone.classList.add("is-clone");
+      const lines = Array.from(clone.querySelectorAll("text")).filter((t) => t.textContent.trim());
+      // wait for the camera move to settle, then rise one line after another
+      lines.forEach((t, i) => t.style.setProperty("--aos-delay", `${380 + i * 95}ms`));
+      layer.append(clone);
+      page.classList.add("is-cloned");
+      return { clone, lines };
+    });
+    let active = -1;
+    let wanted = 0;
+    const show = (i) => {
+      if (active === i) return;
+      const old = clones[active];
+      if (old) { old.clone.classList.remove("is-active"); old.lines.forEach((t) => t.classList.remove("aos-in")); }
+      active = i;
+      const next = clones[i];
+      if (next) {
+        next.clone.classList.add("is-active");
+        // two frames later so the hidden state is painted first and the rise is seen
+        requestAnimationFrame(() => requestAnimationFrame(() => next.lines.forEach((t) => t.classList.add("aos-in"))));
+      }
+    };
+    if (reduce) { clones.forEach((c) => c && (c.clone.classList.add("is-active"), c.lines.forEach((t) => t.classList.add("aos-in")))); return; }
+    // the page whose middle is on screen is the current one (same rule card.js uses for the scenes)
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        wanted = pages.indexOf(entry.target);
+        if (document.body.classList.contains("card-opened")) show(wanted);
+      });
+    }, { root: card, rootMargin: "-45% 0px -45% 0px" });
+    pages.forEach((page) => io.observe(page));
+    // nothing animates while the doors/opening screen are up; the cover's words rise as the card opens
+    new MutationObserver(() => { if (document.body.classList.contains("card-opened")) show(wanted); })
+      .observe(document.body, { attributes: true, attributeFilter: ["class"] });
+  };
+
+  // ---------- "free" mode: continuous scroll with per-line reveal ----------
+  const start = () => {
+    const card = document.getElementById("card");
+    if (!card || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const PICK = "p, h1, h2, h3, h4, img, button, figure, .countdown-grid, .wish-list, .portrait-pair, .carousel, .timeline, .programme-row, text";
+    const SVG_SHIFT = 60;       // a hidden SVG line sits 60 frame-units low (see style.css)
+    const HTML_SHIFT = 100;     // a hidden HTML line sits 100px low
+    let targets = [];           // { el, svg }
+    let built = false;
+    let armed = false;
+    let queued = false;
+
+    const build = () => {
+      if (built) return;
+      built = true;
+      Array.from(card.querySelectorAll(":scope > section[data-scene]")).forEach((page, pageIndex) => {
+        const found = Array.from(page.querySelectorAll(PICK)).filter((el) =>
+          !el.closest("[data-no-aos]") && !el.closest(".sr-only") && !el.classList.contains("sr-only") && !el.hidden &&
+          // outermost match only, so a block animates as one piece
+          !(el.parentElement && el.parentElement.closest(PICK) && page.contains(el.parentElement.closest(PICK))) &&
+          (el.tagName.toLowerCase() !== "text" || el.textContent.trim())
+        );
+        found.forEach((el, i) => {
+          el.classList.add("aos");
+          const isSvg = el.tagName.toLowerCase() === "text";
+          // lines drawn on one frame arrive together, a little apart; the cover staggers wider, like Blossom
+          if (isSvg) el.style.setProperty("--aos-delay", `${i * (pageIndex === 0 ? 200 : 120)}ms`);
+          targets.push({ el, svg: isSvg ? el.ownerSVGElement : null });
+        });
+      });
+    };
+
+    // Reveal when a line's resting top passes ~12% above the bottom edge (AOS "offset"); reset once it is fully below
+    // the screen again. Driven by scroll position so a jump anywhere resyncs every line.
+    const sync = () => {
+      queued = false;
+      const vh = card.clientHeight;
+      const base = card.getBoundingClientRect().top;
+      const limit = vh * 0.88;
+      const rows = targets.map(({ el, svg }) => {
+        const r = el.getBoundingClientRect();
+        let top = r.top - base;
+        if (!el.classList.contains("aos-in")) {
+          // measure the resting position: a hidden line is shifted down (and shrunk about its middle)
+          const unit = svg ? Math.max(svg.getBoundingClientRect().width / 576, svg.getBoundingClientRect().height / 1024) : 1;
+          top -= (svg ? SVG_SHIFT * unit : HTML_SHIFT) - r.height * 0.2;
+        }
+        return top;
+      });
+      targets.forEach(({ el }, i) => {
+        if (rows[i] < limit) el.classList.add("aos-in");
+        else if (rows[i] > vh) el.classList.remove("aos-in");
+      });
+    };
+
+    const queue = () => { if (armed && !queued) { queued = true; requestAnimationFrame(sync); } };
+    const arm = () => {
+      if (armed || !document.body.classList.contains("card-opened")) return;
+      build();
+      armed = true;
+      card.addEventListener("scroll", queue, { passive: true });
+      window.addEventListener("resize", queue);
+      sync();
+    };
+    new MutationObserver(arm).observe(document.body, { attributes: true, attributeFilter: ["class"] });
+    // lines are tagged now (hidden) so nothing flashes before the card opens
+    build();
+    arm();
+  };
+  const run = () => (document.body.classList.contains("scroll-free") ? start() : startPages());
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
+  else run();
+})();
+</script>

@@ -1,0 +1,83 @@
+rules_version = '2';
+
+// Shared Warkah project. Every card stores its data under events/{eventId}/ (eventId = client folder name).
+// Before a card goes live, create the document events/{eventId} in the Firebase console with:
+//   owners: ["couple@gmail.com", "parent@gmail.com"]   (Google accounts allowed to open /admin)
+// Cards for event ids that have no such document cannot save anything.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function validString(value, maxLength) {
+      return value is string && value.size() > 0 && value.size() <= maxLength;
+    }
+
+    function eventExists(eventId) {
+      return exists(/databases/$(database)/documents/events/$(eventId));
+    }
+
+    // Warkah staff accounts: can read every event's RSVPs. Replace with your own Google account(s).
+    function isWarkahAdmin() {
+      return request.auth != null && request.auth.token.email_verified == true
+        && request.auth.token.email in ["you@example.com"];
+    }
+
+    function isOwner(eventId) {
+      return request.auth != null && request.auth.token.email_verified == true
+        && request.auth.token.email in get(/databases/$(database)/documents/events/$(eventId)).data.owners;
+    }
+
+    match /events/{eventId} {
+      allow read: if isWarkahAdmin() || isOwner(eventId);
+      allow write: if false; // created / edited in the Firebase console only
+
+      // Ucapan: shown on the card, so anyone can read.
+      match /wishes/{wishId} {
+        allow read: if true;
+        allow create: if eventExists(eventId)
+          && request.resource.data.keys().hasOnly(["name", "message", "createdAt"])
+          && validString(request.resource.data.name, 80)
+          && validString(request.resource.data.message, 180)
+          && request.resource.data.createdAt == request.time;
+        allow update, delete: if false;
+      }
+
+      // RSVP with guest names: private. Only the couple (owners) and Warkah can read.
+      match /rsvps/{rsvpId} {
+        allow read: if isWarkahAdmin() || isOwner(eventId);
+        allow create: if eventExists(eventId)
+          && request.resource.data.keys().hasOnly(["name", "attendance", "guests", "submittedAt"])
+          && validString(request.resource.data.name, 80)
+          && request.resource.data.attendance in ["Hadir", "Tidak Hadir"]
+          && request.resource.data.guests is int
+          && request.resource.data.guests >= 0
+          && request.resource.data.guests <= 10
+          && request.resource.data.submittedAt == request.time;
+        allow update, delete: if false;
+      }
+
+      // Guest counts without names, so the card can show "N Orang". Written together with each RSVP.
+      match /rsvpPublic/{rsvpId} {
+        allow read: if true;
+        allow create: if eventExists(eventId)
+          && request.resource.data.keys().hasOnly(["attendance", "guests", "submittedAt"])
+          && request.resource.data.attendance in ["Hadir", "Tidak Hadir"]
+          && request.resource.data.guests is int
+          && request.resource.data.guests >= 0
+          && request.resource.data.guests <= 10
+          && request.resource.data.submittedAt == request.time;
+        allow update, delete: if false;
+      }
+
+      // Gift claims. A single gift is a document named after it (g1, g12 ...), so it can be claimed once.
+      // A shared gift takes one document per person: g3-<random>. Claims can't be changed or removed.
+      match /gifts/{giftId} {
+        allow read: if true;
+        allow create: if eventExists(eventId)
+          && (giftId.matches('g[0-9]+') || giftId.matches('g[0-9]+-[a-z0-9]{6,16}'))
+          && request.resource.data.keys().hasOnly(["name", "createdAt"])
+          && validString(request.resource.data.name, 80)
+          && request.resource.data.createdAt == request.time;
+        allow update, delete: if false;
+      }
+    }
+  }
+}

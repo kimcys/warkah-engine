@@ -1,0 +1,14 @@
+---
+// Hero: the garden poster (the cover artwork is the page; names are in the picture).
+import type { Card } from "../../../lib/event";
+interface Props { card: Card; attrs: Record<string, string> }
+const { card, attrs } = Astro.props;
+const { e, first, second, date } = card;
+---
+<section class="hero" id="home" {...attrs} aria-label={`${first.short} dan ${second.short}, ${date.dayName} ${date.long}`}>
+  <h1 class="sr-only">{first.short} &amp; {second.short} — {date.dayName}, {date.long}{e.couple.hashtag ? ` — ${e.couple.hashtag}` : ""}</h1>
+  <div class="hero-poster" aria-hidden="true"></div>
+  <div class="page-hint" aria-hidden="true">
+    <svg viewBox="0 0 24 24"><path d="m6.5 14.5 5.5-5.5 5.5 5.5" /></svg>
+  </div>
+</section>

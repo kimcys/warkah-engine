@@ -1,0 +1,21 @@
+---
+import type { Card } from "../../lib/event";
+interface Props { card: Card; attrs: Record<string, string> }
+const { card, attrs } = Astro.props;
+const { e, first, second, date, asset } = card;
+const city = e.venue.area.split(",")[0].trim();
+---
+<section class="hero" id="home" {...attrs} aria-label={`${first.short} dan ${second.short}, ${date.dayName} ${date.long}`}>
+  <h1 class="sr-only">{first.short} &amp; {second.short} — {date.dayName}, {date.long} — {e.venue.name}, {city}</h1>
+  <div class="hero-copy" aria-hidden="true">
+    <p class="kicker">{e.text.heroKicker}</p>
+    {e.art?.title
+      ? <p class="hero-names is-art"><img src={asset(e.art.title)} alt="" /></p>
+      : <p class="hero-names">{first.short} <span>&amp;</span> {second.short}</p>}
+    <p class="hero-date"><span>{date.dayName}</span><i></i><span>{date.dotted}</span></p>
+    <p class="hero-venue">{e.venue.name}, {city}</p>
+  </div>
+  <div class="page-hint" aria-hidden="true">
+    <svg viewBox="0 0 24 24"><path d="m6.5 14.5 5.5-5.5 5.5 5.5" /></svg>
+  </div>
+</section>

@@ -1,0 +1,49 @@
+---
+// Opening: the royal storybook on the desk. "Buka Kad" zooms into the framed portrait.
+import type { Card } from "../../lib/event";
+interface Props { card: Card }
+const { card } = Astro.props;
+const { e, first, second, themeAsset } = card;
+---
+<section id="opening" class="opening-screen" aria-label="Buka kad jemputan">
+  <div class="desk-stage" aria-hidden="true">
+    <img class="desk-img" src={themeAsset("opening/desk.webp?v=3")} alt="" />
+    <span class="candle-glow"></span>
+    <span class="frame-glint"></span>
+
+    <svg class="ribbon" viewBox="0 0 320 300" role="img" aria-label={`${first.short} dan ${second.short}`}>
+      <defs>
+        <linearGradient id="ribbonFace" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#f1e6cc" />
+          <stop offset="0.55" stop-color="#d9c7a0" />
+          <stop offset="1" stop-color="#bda47a" />
+        </linearGradient>
+        <linearGradient id="ribbonFold" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#a8916a" />
+          <stop offset="1" stop-color="#7d6746" />
+        </linearGradient>
+      </defs>
+      <path class="ribbon-tail" d="M18 92 54 82V176L18 190l16-49Z" fill="url(#ribbonFold)" />
+      <path class="ribbon-tail" d="M302 120 266 130V224l36 14-16-49Z" fill="url(#ribbonFold)" />
+      <path class="ribbon-band" d="M36 70C96 46 168 98 284 62V214C224 250 150 196 36 232Z" fill="url(#ribbonFace)" stroke="#8a7350" stroke-width="1.6" />
+      <path d="M44 84C100 64 168 110 276 76M44 218C150 188 224 238 276 204" fill="none" stroke="#fff7e0" stroke-opacity=".6" stroke-width="1" />
+      <text class="ribbon-small" x="160" y="104" text-anchor="middle">{e.text.ribbonSmall}</text>
+      <text class="ribbon-name" x="160" y="148" text-anchor="middle">{first.short}</text>
+      <text class="ribbon-amp" x="160" y="172" text-anchor="middle">&amp;</text>
+      <text class="ribbon-name" x="160" y="214" text-anchor="middle">{second.short}</text>
+    </svg>
+  </div>
+
+  <p class="opening-kicker">{e.text.openingKicker}</p>
+
+  <div class="opening-actions">
+    <button id="openInvite" class="open-button" type="button" aria-label="Buka kad jemputan">
+      <svg class="open-button-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 8.5 12 3l8 5.5v10c0 .8-.7 1.5-1.5 1.5h-13C4.7 20 4 19.3 4 18.5v-10Z" />
+        <path d="m4 8.5 8 6 8-6" />
+      </svg>
+      <span>Buka Kad</span>
+    </button>
+    <p id="openGuest" class="opening-guest" hidden></p>
+  </div>
+</section>

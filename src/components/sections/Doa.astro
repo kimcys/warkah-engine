@@ -1,0 +1,13 @@
+---
+import type { Card } from "../../lib/event";
+interface Props { card: Card; attrs: Record<string, string> }
+const { card, attrs } = Astro.props;
+const { e, first, second } = card;
+---
+<section class="section-card doa reveal" {...attrs} aria-label="Doa untuk pengantin">
+  <p class="bismillah" lang="ar" dir="rtl">{e.text.bismillah}</p>
+  <p class="doa-lead" set:html={e.text.doaLeadHtml} />
+  <p class="doa-names">{first.short} &amp; {second.short}</p>
+  {e.text.doaHtml.map((line) => <p set:html={line} />)}
+  <p class="doa-amin">Amin</p>
+</section>

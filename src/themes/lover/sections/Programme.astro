@@ -1,0 +1,15 @@
+---
+import type { Card } from "../../../lib/event";
+interface Props { card: Card; attrs: Record<string, string> }
+const { card, attrs } = Astro.props;
+const { e } = card;
+---
+<section class="section-card programme reveal" {...attrs} id="programme" aria-label="Aturcara majlis">
+  <h2>Aturcara Majlis</h2>
+  {e.aturcara.map((item) => (
+    <div class="programme-row">
+      <span>{item.time}</span>
+      <p>{item.label}</p>
+    </div>
+  ))}
+</section>

@@ -1,0 +1,28 @@
+---
+// Lover invitation: parents stacked, refined invite copy, full names split by a heart.
+import type { Card } from "../../../lib/event";
+interface Props { card: Card; attrs: Record<string, string> }
+const { card, attrs } = Astro.props;
+const { e, first, second } = card;
+const [parentA, parentB] = e.host.parents;
+---
+<section class="section-card invitation reveal" {...attrs} aria-label="Jemputan">
+  <p class="bismillah" lang="ar" dir="rtl">{e.text.bismillah}</p>
+  <p class="salam">{e.text.salam}</p>
+
+  <div class="parents parents-art">
+    <span>{parentA}</span>
+    {parentB && <span>{parentB}</span>}
+  </div>
+
+  <p class="invite-copy invite-copy-refined" set:html={e.text.inviteHtml} />
+  <p class="invite-copy invite-copy-refined" set:html={e.text.honorificsHtml} />
+  <p id="guestLine" class="guest-line" hidden></p>
+  <p class="invite-copy invite-copy-refined">{e.host.inviteRelation}</p>
+
+  <div class="full-names full-names-art">
+    <span>{first.name} {first.full}</span>
+    <span class="name-heart" aria-hidden="true">&#9829;</span>
+    <span>{second.name} {second.full}</span>
+  </div>
+</section>

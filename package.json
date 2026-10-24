@@ -1,0 +1,20 @@
+{
+  "name": "warkah-engine",
+  "private": true,
+  "type": "module",
+  "description": "Warkah digital invitation engine: one codebase, one folder per client.",
+  "scripts": {
+    "new": "node scripts/new.mjs",
+    "dev": "node scripts/run.mjs dev",
+    "build": "node scripts/run.mjs build",
+    "build:all": "node scripts/run.mjs build --all",
+    "deploy": "node scripts/deploy.mjs",
+    "deploy:rules": "firebase deploy --only firestore"
+  },
+  "dependencies": {
+    "astro": "^7.4.2"
+  },
+  "engines": {
+    "node": ">=18.20.8"
+  }
+}

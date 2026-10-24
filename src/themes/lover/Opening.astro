@@ -1,0 +1,37 @@
+---
+// Opening: script names on the pastel sky with a "Buka Kad" envelope button.
+import type { Card } from "../../lib/event";
+interface Props { card: Card }
+const { card } = Astro.props;
+const { e, first, second, date, asset } = card;
+const art = e.art;
+const city = e.venue.area.split(",")[0].trim();
+---
+<section id="opening" class="opening-screen" aria-label="Buka kad jemputan">
+  <div class="opening-content">
+    <p class="cover-kicker">{e.text.openingKicker}</p>
+    {art?.title ? (
+      <p class="cover-names is-art" aria-label={`${first.short} dan ${second.short}`}><img src={asset(art.title)} alt="" aria-hidden="true" /></p>
+    ) : (
+      <p class="cover-names" aria-label={`${first.short} dan ${second.short}`}>
+        <span>{first.short}</span>
+        <i aria-hidden="true">&amp;</i>
+        <span>{second.short}</span>
+      </p>
+    )}
+    <p class="cover-date">{date.dotted.replace(/\./g, " | ")}</p>
+    <p class="cover-meta">{date.timeRange}<br />{e.venue.name}, {city}</p>
+
+    <button id="openInvite" class="open-button" type="button" aria-label="Buka kad jemputan">
+      <svg class="open-button-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 8.5 12 3l8 5.5v10c0 .8-.7 1.5-1.5 1.5h-13C4.7 20 4 19.3 4 18.5v-10Z" />
+        <path d="m4 8.5 8 6 8-6" />
+      </svg>
+      <span>Buka Kad</span>
+    </button>
+    <p id="openGuest" class="opening-guest" hidden></p>
+    {art?.hashtag
+      ? <p class="cover-hashtag is-art" aria-label={e.couple.hashtag}><img src={asset(art.hashtag)} alt="" aria-hidden="true" /></p>
+      : e.couple.hashtag && <p class="cover-hashtag">{e.couple.hashtag}</p>}
+  </div>
+</section>

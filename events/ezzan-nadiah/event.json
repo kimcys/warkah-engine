@@ -1,0 +1,252 @@
+{
+  "theme": "lover",
+  "package": "custom",
+  "hosting": {
+    "site": "ezzan-nadiah-wedding",
+    "project": "ezzan-nadiah-wedding"
+  },
+  "store": {
+    "mode": "legacy",
+    "firebaseConfig": {
+      "apiKey": "AIzaSyBY5AiXT28wV-2xxVRV7p6NVxg0_F2JzCM",
+      "authDomain": "ezzan-nadiah-wedding.firebaseapp.com",
+      "projectId": "ezzan-nadiah-wedding",
+      "storageBucket": "ezzan-nadiah-wedding.firebasestorage.app",
+      "messagingSenderId": "23552105993",
+      "appId": "1:23552105993:web:8e90f128c2dd401b77e2d8"
+    },
+    "localKey": "ezzan-nadiah-segamat"
+  },
+  "meta": {
+    "title": "Majlis Perkahwinan Ezzan & Nadiah",
+    "description": "Undangan Majlis Perkahwinan Muhammad Ezzan & Nur Nadiah — Sabtu, 12.12.2026, Dewan Muafakat Taman Yayasan, Segamat.",
+    "shareDescription": "Undangan Majlis Perkahwinan Muhammad Ezzan & Nur Nadiah — Sabtu, 12.12.2026, Segamat",
+    "ogAlt": "Kad jemputan Ezzan & Nadiah, Walimatul Urus Sabtu 12 Disember 2026. Tekan Buka Kad."
+  },
+  "couple": {
+    "groom": {
+      "name": "Muhammad Ezzan",
+      "full": "bin Hj. Mohamed Eusop",
+      "short": "Ezzan",
+      "role": "Putera kepada",
+      "parentsHtml": "Hj. Mohamed Eusop bin Indran<br>&amp; Hjh. Norsita binti Hj. Buang"
+    },
+    "bride": {
+      "name": "Nur Nadiah",
+      "full": "binti Hj. Ahmad Shukri",
+      "short": "Nadiah",
+      "role": "Puteri kepada",
+      "parentsHtml": "Hj. Ahmad Shukri bin Hasan Basri<br>&amp; Hjh. Puteri Balkis binti Hj. Megat Husain"
+    },
+    "hashtag": "#EzzyfoundNaddy"
+  },
+  "host": {
+    "parents": [
+      "Hj. Mohamed Eusop bin Indran",
+      "Hjh. Norsita binti Hj. Buang"
+    ],
+    "inviteRelation": "ke majlis perkahwinan putera kami"
+  },
+  "date": {
+    "start": "2026-12-12T11:00:00+08:00",
+    "end": "2026-12-12T16:00:00+08:00"
+  },
+  "venue": {
+    "name": "Dewan Muafakat Taman Yayasan",
+    "area": "Segamat, Johor",
+    "address": "Dewan Muafakat Taman Yayasan, Segamat, Johor, Malaysia",
+    "maps": "https://share.google/IYCUzVrrl80fU00AH",
+    "waze": "https://waze.com/ul?q=Dewan%20Muafakat%20Taman%20Yayasan%20Segamat&navigate=yes"
+  },
+  "aturcara": [
+    {
+      "icon": "makan",
+      "label": "Jamuan Makan",
+      "time": "11:00 AM – 4:00 PM"
+    },
+    {
+      "icon": "pengantin",
+      "label": "Majlis Bersanding",
+      "time": "Ketibaan pengantin 12:00 PM"
+    },
+    {
+      "icon": "bersurai",
+      "label": "Majlis Bersurai",
+      "time": "4:00 PM"
+    }
+  ],
+  "music": {
+    "src": "audio/song.m4a",
+    "title": "Bagaikan Sakti (OST Puteri Gunung Ledang)",
+    "artist": "Siti Nurhaliza & M. Nasir"
+  },
+  "gallery": [
+    {
+      "src": "gallery/1.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Ezzan dan Nadiah berdiri di pelamin bunga"
+    },
+    {
+      "src": "gallery/2.webp",
+      "width": 787,
+      "height": 1400,
+      "alt": "Ezzan dan Nadiah berjalan dengan payung renda di taman"
+    },
+    {
+      "src": "gallery/3.webp",
+      "width": 1400,
+      "height": 788,
+      "alt": "Ezzan dan Nadiah memegang akhbar Save The Date"
+    },
+    {
+      "src": "gallery/4.webp",
+      "width": 787,
+      "height": 1400,
+      "alt": "Pantulan Ezzan dan Nadiah pada cermin pertunangan"
+    },
+    {
+      "src": "gallery/5.webp",
+      "width": 933,
+      "height": 1400,
+      "alt": "Payung renda, jambak bunga dan kad Save The Date"
+    }
+  ],
+  "contacts": [
+    {
+      "name": "Hjh. Norsita",
+      "role": "Ibu Pengantin",
+      "phone": "013-774 7092"
+    },
+    {
+      "name": "Hj Eusop",
+      "role": "Ayah Pengantin",
+      "phone": "013-724 6338"
+    },
+    {
+      "name": "Ekhsan",
+      "role": "Abang Pengantin",
+      "phone": "012-371 2744"
+    },
+    {
+      "name": "Ekhwan",
+      "role": "Abang Pengantin",
+      "phone": "013-681 7748"
+    },
+    {
+      "name": "Ekhzarizal",
+      "role": "Abang Pengantin",
+      "phone": "013-528 1242"
+    },
+    {
+      "name": "Eizlan Haikal",
+      "role": "Abang Pengantin",
+      "phone": "012-800 3752"
+    },
+    {
+      "name": "Fitri",
+      "role": "Abang Pengantin",
+      "phone": "019-360 9616"
+    }
+  ],
+  "rsvp": {
+    "maxGuests": 2
+  },
+  "features": {
+    "gifts": true,
+    "duitnow": false
+  },
+  "gifts": {
+    "groupMinPrice": 500,
+    "items": [
+      {
+        "id": "g1",
+        "name": "Hydro Elite Air Purifier",
+        "note": "Zero Healthcare. Penapis udara HEPA, UV dan karbon aktif",
+        "price": "307.12",
+        "url": "https://my.shp.ee/KzdBWBTu"
+      },
+      {
+        "id": "g2",
+        "name": "J-Relief Handheld Massager",
+        "note": "Zero Healthcare. Alat urut tangan mudah alih",
+        "price": "333.52",
+        "url": "https://my.shp.ee/cZsDjKCq"
+      },
+      {
+        "id": "g3",
+        "name": "AVALON Massage Chair",
+        "note": "Zero Healthcare. Kerusi urut",
+        "price": "2,049.18",
+        "url": "https://my.shp.ee/d8kCBBmb"
+      },
+      {
+        "id": "g4",
+        "name": "Katil Baldu Putih",
+        "note": "Lamb Velvet. Pilih saiz dan warna di Shopee",
+        "price": "407.63",
+        "url": "https://my.shp.ee/ZttGBTo9"
+      },
+      {
+        "id": "g5",
+        "name": "Kabinet Kasut 2-in-1 + Bangku",
+        "note": "Ruang simpanan besar, mudah dipasang",
+        "price": "316.00",
+        "url": "https://my.shp.ee/cS3CX414"
+      },
+      {
+        "id": "g6",
+        "name": "Kerusi Malas Tatami (Lazy Chair)",
+        "note": "Cream style, sofa berkusyen",
+        "price": "266.28",
+        "url": "https://my.shp.ee/pb7vXiaj"
+      },
+      {
+        "id": "g7",
+        "name": "PRISM+ Q55 Ultra QLED 4K Google TV",
+        "note": "TV 55 inci",
+        "price": "1,655.28",
+        "url": "https://my.shp.ee/8GjdhagQ"
+      },
+      {
+        "id": "g8",
+        "name": "Sistem Pancuran 3-Way (Livinox / Rubine)",
+        "note": "Pemanas air DC dengan rain shower",
+        "price": "498.16",
+        "url": "https://my.shp.ee/sGcihdwb"
+      },
+      {
+        "id": "g9",
+        "name": "Sofa Bed L-Shape + Storage",
+        "note": "Flexi Home Furniture. Tarik keluar jadi katil, mudah dibersih, pet friendly, free pasang",
+        "price": "1,557.24",
+        "url": "https://my.shp.ee/XkFe3BYi"
+      },
+      {
+        "id": "g10",
+        "name": "Russell Taylors Retro Microwave Oven 20L M4",
+        "note": "Ketuhar gelombang mikro gaya retro 20L",
+        "price": "203.59",
+        "url": "https://my.shp.ee/WcvSf2ts"
+      },
+      {
+        "id": "g11",
+        "name": "Dyson PencilVac Fluffycones",
+        "note": "Pembersih vakum ringan, anti-tangle",
+        "price": "2,269.00",
+        "url": "https://my.shp.ee/iCYksPUV"
+      }
+    ]
+  },
+  "calendarDescription": "Majlis Perkahwinan Muhammad Ezzan bin Hj Mohamed Eusop & Nur Nadiah binti Hj. Ahmad Shukri. Jamuan makan 11:00 AM - 4:00 PM, ketibaan pengantin 12:00 PM, majlis bersurai 4:00 PM. #EzzyfoundNaddy",
+  "defaultWishes": [
+    {
+      "name": "Tetamu",
+      "message": "Tahniah Ezzan dan Nadiah. Semoga berbahagia hingga ke Jannah."
+    },
+    {
+      "name": "Keluarga",
+      "message": "Semoga majlis dipermudahkan dan diberkati Allah SWT."
+    }
+  ]
+}

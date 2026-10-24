@@ -1,0 +1,34 @@
+---
+// One page per person over the couple frame: the bride (frame bride.webp) with her name to the right,
+// the groom (frame groom.webp) with his name to the left, exactly where the concept puts them.
+import type { Card } from "../../../lib/event";
+import { frameBox, plainLines } from "../frame";
+// The card page renders theme components with only { card, attrs }, so the two pages are tiny wrappers
+// (MempelaiFirst / MempelaiSecond) that pick the person from couple.first.
+interface Props { card: Card; attrs: Record<string, string>; position: "first" | "second" }
+const { card, attrs, position } = Astro.props;
+const isFirst = position === "first";
+const who: "groom" | "bride" = isFirst ? card.e.couple.first : card.e.couple.first === "groom" ? "bride" : "groom";
+const person = card.e.couple[who];
+const role = person.role ?? (who === "groom" ? "Putera kepada" : "Puteri kepada");
+// parents on their own lines, "&" on a line between them, as in the concept
+const parents = plainLines(person.parentsHtml).flatMap((line) => (line.startsWith("& ") ? ["&", line.slice(2)] : [line]));
+const lines = parents.length ? [role.toUpperCase(), ...parents.map((p) => p.toUpperCase())] : [person.full.toUpperCase()];
+const x = who === "bride" ? 318 : 262;
+const y = who === "bride" ? 356 : 330;
+---
+<section
+  class={`frame-page mempelai mempelai-${who} reveal`}
+  {...attrs}
+  data-scene={who}
+  id={isFirst ? "mempelai" : undefined}
+  aria-label={who === "groom" ? "Pengantin lelaki" : "Pengantin perempuan"}
+>
+  <p class="sr-only">{person.name} {person.full}. {parents.length ? `${role} ${parents.join(" ")}` : ""}</p>
+  <svg class="frame-text" {...frameBox} aria-hidden="true" focusable="false">
+    <text x={x} y={y} class="ft-script" font-size="34">{person.name}</text>
+    {lines.map((line, i) => (
+      <text x={x} y={y + 30 + (i === 0 ? 0 : 8) + i * 17} class={i === 0 && parents.length ? "ft-small" : "ft-caps"} font-size={i === 0 && parents.length ? 11 : 12}>{line}</text>
+    ))}
+  </svg>
+</section>

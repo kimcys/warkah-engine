@@ -1,0 +1,19 @@
+---
+// Opening: the first frame of the concept (drapes open on the floral arch) with the names on the acrylic sign.
+// "Buka Kad" pushes the camera into the sign, then the first page (the sign up close) takes over.
+import type { Card } from "../../lib/event";
+import SignText from "./SignText.astro";
+interface Props { card: Card }
+const { card } = Astro.props;
+const { first, second, date } = card;
+---
+<section id="opening" class="opening-screen" aria-label="Buka kad jemputan">
+  <div class="opening-scene" aria-hidden="true"><SignText card={card} variant="opening" /></div>
+  <h1 class="sr-only">{first.short} &amp; {second.short}, {date.dayName} {date.long}</h1>
+  <div class="opening-content">
+    <p id="openGuest" class="opening-guest" hidden></p>
+    <button id="openInvite" class="open-button" type="button" aria-label="Buka kad jemputan">
+      <span>Buka Kad</span>
+    </button>
+  </div>
+</section>

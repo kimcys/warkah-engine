@@ -1,0 +1,17 @@
+---
+// Penutup, as in the original: thanks line, InsyaAllah, Terima Kasih, the hashtag and the credit.
+import type { Card } from "../../../lib/event";
+import FooterCredit from "../../../components/ui/FooterCredit.astro";
+interface Props { card: Card; attrs: Record<string, string> }
+const { card, attrs } = Astro.props;
+const { e } = card;
+---
+<section class="section-card thanks reveal" {...attrs} aria-label="Penghargaan">
+  <p>{e.text.thanks}</p>
+  <p class="thanks-insya">InsyaAllah</p>
+  <p class="thanks-sign">Terima Kasih</p>
+  <div class="thanks-illustration">
+    {e.couple.hashtag && <p class="hashtag">{e.couple.hashtag}</p>}
+  </div>
+  <FooterCredit card={card} />
+</section>

@@ -1,0 +1,21 @@
+---
+// One page per person (groom / bride). The first one also carries id="mempelai".
+import type { Card } from "../../lib/event";
+interface Props { card: Card; attrs: Record<string, string>; who: "groom" | "bride"; isFirst: boolean }
+const { card, attrs, who, isFirst } = Astro.props;
+const person = card.e.couple[who];
+const role = person.role ?? (who === "groom" ? "Putera kepada" : "Puteri kepada");
+---
+<section
+  class={`section-card mempelai mempelai-${who} reveal`}
+  {...attrs}
+  id={isFirst ? "mempelai" : undefined}
+  aria-label={who === "groom" ? "Pengantin lelaki" : "Pengantin perempuan"}
+>
+  <div class="mempelai-card">
+    <p class="mempelai-name">{person.name}</p>
+    <p class="mempelai-full">{person.full}</p>
+    <p class="mempelai-role">{role}</p>
+    <p class="mempelai-parents" set:html={person.parentsHtml} />
+  </div>
+</section>

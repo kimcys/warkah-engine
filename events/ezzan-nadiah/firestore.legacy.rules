@@ -1,0 +1,44 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function validString(value, maxLength) {
+      return value is string
+        && value.size() > 0
+        && value.size() <= maxLength;
+    }
+
+    match /wishes/{wishId} {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasOnly(["name", "message", "createdAt"])
+        && validString(request.resource.data.name, 80)
+        && validString(request.resource.data.message, 180)
+        && request.resource.data.createdAt is timestamp;
+      allow update, delete: if false;
+    }
+
+    // One document per claim. A single gift is a document named after it (g1, g2, ...), so it
+    // can be claimed once only. The group gifts (g3, g7: above RM500) take one document per person,
+    // named g3-<random>. A claim can only be created, never changed or removed.
+    match /gifts/{giftId} {
+      allow read: if true;
+      allow create: if (giftId.matches('g[0-9]+') || giftId.matches('g[0-9]+-[a-z0-9]{6,16}'))
+        && request.resource.data.keys().hasOnly(["name", "createdAt"])
+        && validString(request.resource.data.name, 80)
+        && request.resource.data.createdAt is timestamp;
+      allow update, delete: if false;
+    }
+
+    match /rsvps/{rsvpId} {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasOnly(["name", "attendance", "guests", "submittedAt"])
+        && validString(request.resource.data.name, 80)
+        && request.resource.data.attendance in ["Hadir", "Tidak Hadir"]
+        && request.resource.data.guests is int
+        && request.resource.data.guests >= 0
+        && request.resource.data.guests <= 2
+        && request.resource.data.submittedAt is timestamp;
+      allow update, delete: if false;
+    }
+  }
+}

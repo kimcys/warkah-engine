@@ -1,0 +1,19 @@
+---
+import type { Card } from "../../lib/event";
+interface Props { card: Card; attrs: Record<string, string> }
+const { card, attrs } = Astro.props;
+const { e } = card;
+---
+<section class="section-card rsvp-summary reveal" {...attrs} id="rsvpSummary" aria-label="Kehadiran">
+  <h2>Kehadiran</h2>
+  <p class="rsvp-summary-count" aria-live="polite"><strong id="rsvpGuestCount">&hellip;</strong> Orang</p>
+  <p class="rsvp-deadline" set:html={e.text.rsvpDeadlineHtml} />
+  <p id="rsvpDone" class="rsvp-done" hidden></p>
+  <button id="rsvpOpenButton" class="primary-button" data-panel="rsvpPanel" type="button">Sahkan Kehadiran</button>
+  {e.features.wishes && (
+    <div id="wishesSection" class="wishes-block">
+      <p class="sub-heading">Ucapan Tetamu</p>
+      <div id="wishList" class="wish-list" aria-live="polite"></div>
+    </div>
+  )}
+</section>

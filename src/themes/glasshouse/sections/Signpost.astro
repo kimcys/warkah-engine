@@ -1,0 +1,22 @@
+---
+// The lamp-post sign at the doorway: the venue name on the black board (frame lamp.webp).
+import type { Card } from "../../../lib/event";
+import { fitSize, frameBox } from "../frame";
+interface Props { card: Card; attrs: Record<string, string> }
+const { card, attrs } = Astro.props;
+const { e } = card;
+const words = e.venue.name.trim().split(/\s+/);
+// "Forest Valley Hall" → small italic FOREST / bold VALLEY / script Hall, as the concept's "Gangsa / KEMBOJA / Palace"
+const lead = words.length >= 3 ? words[0] : "";
+const last = words.length >= 2 ? words[words.length - 1] : "";
+const middle = words.slice(lead ? 1 : 0, last ? -1 : undefined).join(" ").toUpperCase();
+---
+<section class="frame-page venue-sign-page" {...attrs} id="venueSign" aria-label={`${e.text.venueHeading} ${e.venue.name}`}>
+  <p class="sr-only">{e.text.venueHeading} {e.venue.name}, {e.venue.area}</p>
+  <svg class="frame-text" {...frameBox} aria-hidden="true" focusable="false">
+    <rect x="226" y="447" width="139" height="113" fill="none" stroke="#e9e3d6" stroke-width="1.2" />
+    {lead && <text x="295" y="485" class="ft-board-lead" font-size="15">{lead.toUpperCase()}</text>}
+    <text x="295" y={lead ? 511 : 505} class="ft-board-big" font-size={fitSize(middle, 118, 20)}>{middle}</text>
+    {last && <text x="295" y={lead ? 537 : 531} class="ft-board-script" font-size="20">{last}</text>}
+  </svg>
+</section>

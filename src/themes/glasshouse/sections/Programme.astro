@@ -1,0 +1,19 @@
+---
+// Programme as a vertical timeline with a small butterfly marker per item.
+import type { Card } from "../../../lib/event";
+interface Props { card: Card; attrs: Record<string, string> }
+const { card, attrs } = Astro.props;
+const { e } = card;
+---
+<section class="section-card programme reveal" {...attrs} id="programme" aria-label="Aturcara majlis">
+  <h2>Aturcara Majlis</h2>
+  <ol class="timeline">
+    {e.aturcara.map((item) => (
+      <li class="timeline-item">
+        <span class="timeline-mark" aria-hidden="true"></span>
+        <span class="timeline-time">{item.time}</span>
+        <p class="timeline-label">{item.label}</p>
+      </li>
+    ))}
+  </ol>
+</section>

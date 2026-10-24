@@ -1,0 +1,30 @@
+---
+import type { Card } from "../../lib/event";
+interface Props { card: Card; attrs: Record<string, string> }
+const { card, attrs } = Astro.props;
+const { e, asset } = card;
+---
+<section class="section-card gallery reveal" {...attrs} id="gallery" aria-label="Galeri">
+  <h2>Galeri</h2>
+  <p class="tap-hint">Sentuh gambar untuk paparan penuh</p>
+  <div class="carousel" data-carousel>
+    <div class="carousel-viewport">
+      <div class="carousel-track" data-carousel-track>
+        {e.gallery.map((photo) => (
+          <figure class="carousel-slide">
+            <img data-lightbox="gallery" src={asset(`${photo.src}?v=${e.meta.version}`)} width={photo.width} height={photo.height} alt={photo.alt} loading="lazy" decoding="async" />
+          </figure>
+        ))}
+      </div>
+    </div>
+    <div class="carousel-controls">
+      <button class="carousel-button" type="button" data-carousel-prev aria-label="Slaid sebelumnya">
+        <svg class="carousel-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6.5 8.8 12l5.7 5.5" /></svg>
+      </button>
+      <div class="carousel-dots" data-carousel-dots aria-label="Pilihan slaid"></div>
+      <button class="carousel-button" type="button" data-carousel-next aria-label="Slaid seterusnya">
+        <svg class="carousel-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 6.5 5.7 5.5-5.7 5.5" /></svg>
+      </button>
+    </div>
+  </div>
+</section>

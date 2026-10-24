@@ -1,0 +1,15 @@
+---
+import type { Card } from "../../../lib/event";
+interface Props { card: Card; attrs: Record<string, string> }
+const { attrs } = Astro.props;
+---
+<section class="section-card countdown reveal" {...attrs} aria-label="Kiraan detik ke majlis">
+  <p class="kicker" data-countdown>Menghitung hari menuju majlis</p>
+  <div class="countdown-grid" data-countdown>
+    <div><strong id="days">0</strong><span>Hari</span></div>
+    <div><strong id="hours">0</strong><span>Jam</span></div>
+    <div><strong id="minutes">0</strong><span>Minit</span></div>
+    <div><strong id="seconds">0</strong><span>Saat</span></div>
+  </div>
+  <p id="countdownOver" class="countdown-over" hidden></p>
+</section>

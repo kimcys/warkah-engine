@@ -1,0 +1,35 @@
+---
+import type { Card } from "../../../lib/event";
+interface Props { card: Card; attrs: Record<string, string> }
+const { card, attrs } = Astro.props;
+const { e, date } = card;
+const address = e.venue.address.startsWith(e.venue.name) ? e.venue.address.slice(e.venue.name.length).replace(/^[,\s]+/, "") : e.venue.address;
+const lines = address.split(",").map((part) => part.trim()).filter((part) => part && part !== "Malaysia");
+// first two parts on line one, the rest on line two, like the original poster layout
+const lineOne = lines.slice(0, 2).join(", ") + (lines.length > 2 ? "," : "");
+const lineTwo = lines.slice(2).join(", ");
+---
+<section class="section-card details reveal" {...attrs} id="details" aria-label="Butiran majlis">
+  <h2>Butiran Majlis</h2>
+  <div class="date-block">
+    <span class="date-day">{date.dayName}</span>
+    <div class="date-row">
+      <span class="date-side">{date.month}</span>
+      <strong>{date.day}</strong>
+      <span class="date-side">{date.year}</span>
+    </div>
+    <span class="date-hijri">{date.timeRange}</span>
+  </div>
+  <div class="venue-block">
+    <svg class="venue-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 21s6-5.2 6-11a6 6 0 0 0-12 0c0 5.8 6 11 6 11Z" />
+      <path d="M12 12.2a2.2 2.2 0 1 0 0-4.4 2.2 2.2 0 0 0 0 4.4Z" />
+    </svg>
+    <h3>{e.venue.name}</h3>
+    <p>{lineOne}{lineTwo && <><br />{lineTwo}</>}</p>
+  </div>
+  <div class="button-row">
+    <button class="primary-button" data-panel="locationPanel" type="button">Lokasi</button>
+    <button class="secondary-button" data-panel="calendarPanel" type="button">Simpan Tarikh</button>
+  </div>
+</section>

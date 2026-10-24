@@ -1,0 +1,202 @@
+{
+  "theme": "glasshouse",
+  "package": "custom",
+  "hosting": {
+    "site": "safwan-alia-wed",
+    "project": "safwan-alia-wed"
+  },
+  "store": {
+    "mode": "legacy",
+    "firebaseConfig": {
+      "apiKey": "AIzaSyCNmhgcIVehwRbGbD1nlqmAdwdUnQOsOJU",
+      "authDomain": "safwan-alia-wed.firebaseapp.com",
+      "projectId": "safwan-alia-wed",
+      "storageBucket": "safwan-alia-wed.firebasestorage.app",
+      "messagingSenderId": "497715381777",
+      "appId": "1:497715381777:web:3c9661a37dbad780b713b0"
+    },
+    "localKey": "safwan-alia"
+  },
+  "meta": {
+    "title": "Walimatul Urus Safwan & Alia",
+    "description": "Jemputan Walimatul Urus Ahmad Safwan & Alia Nurathirah — 22.01.2027",
+    "ogAlt": "Kad jemputan Safwan dan Alia: gerbang bunga di rumah kaca",
+    "ogWidth": 720,
+    "ogHeight": 1280
+  },
+  "couple": {
+    "groom": {
+      "name": "Ahmad Safwan",
+      "full": "Bin Ahmad Shukri",
+      "short": "Safwan",
+      "role": "Putera kepada",
+      "parentsHtml": "Ahmad Shukri Bin Hasan Basri<br>&amp; Puteri Balkis Binti Megat Husain"
+    },
+    "bride": {
+      "name": "Alia Nurathirah",
+      "full": "Binti Ibrahim",
+      "short": "Alia",
+      "role": "Puteri kepada",
+      "parentsHtml": "Nama ibu bapa akan dikemas kini"
+    }
+  },
+  "host": {
+    "parents": [
+      "Ahmad Shukri Bin Hasan Basri",
+      "Puteri Balkis Binti Megat Husain"
+    ],
+    "inviteRelation": "ke majlis perkahwinan putera kami"
+  },
+  "date": {
+    "start": "2027-01-22T18:00:00+08:00",
+    "end": "2027-01-22T23:00:00+08:00"
+  },
+  "venue": {
+    "name": "Forest Valley Hall",
+    "area": "Cheras, Selangor",
+    "address": "Forest Valley Hall, Jalan Permaisuri 10/6, Bandar Mahkota Cheras, 43200 Cheras, Selangor",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Forest+Valley+Hall+Jalan+Permaisuri+10%2F6+Bandar+Mahkota+Cheras+43200+Cheras+Selangor",
+    "waze": "https://waze.com/ul?q=Forest%20Valley%20Hall%20Bandar%20Mahkota%20Cheras&navigate=yes"
+  },
+  "aturcara": [
+    {
+      "icon": "jam",
+      "label": "Kedatangan Tetamu",
+      "time": "6:00 PM"
+    },
+    {
+      "icon": "pengantin",
+      "label": "Ketibaan Pengantin",
+      "time": "8:15 PM"
+    },
+    {
+      "icon": "bersurai",
+      "label": "Majlis Bersurai",
+      "time": "11:00 PM"
+    }
+  ],
+  "contacts": [
+    {
+      "name": "Ahmad Shukri",
+      "role": "Bapa",
+      "phone": "019-281 0598"
+    },
+    {
+      "name": "Puteri Balkis",
+      "role": "Ibu",
+      "phone": "019-346 9720"
+    },
+    {
+      "name": "Nur Nadiah",
+      "role": "Keluarga",
+      "phone": "017-350 4169"
+    },
+    {
+      "name": "Ahmad Shahmi",
+      "role": "Keluarga",
+      "phone": "018-355 7787"
+    }
+  ],
+  "rsvp": {
+    "maxGuests": 4
+  },
+  "features": {
+    "mempelai": true,
+    "portraits": true,
+    "gallery": true,
+    "doa": true,
+    "rsvp": true,
+    "wishes": true,
+    "gifts": true,
+    "duitnow": true
+  },
+  "calendarDescription": "Walimatul Urus Ahmad Safwan Bin Ahmad Shukri dan Alia Nurathirah Binti Ibrahim. Kedatangan tetamu 6 petang - 11 malam, ketibaan pengantin 8:15 malam.",
+  "text": {
+    "openingKicker": "Walimatul Urus",
+    "poem": [
+      "Di taman kaca yang berseri,",
+      "Kupu-kupu menari bersama bunga,",
+      "Doakan kami sentiasa bahagia,",
+      "Dalam rahmat kasih yang ikhlas."
+    ],
+    "doaLeadHtml": "Ya Allah,",
+    "doaHtml": [
+      "jadikanlah ikatan perkahwinan ini berkekalan hingga ke Jannah, serta kurniakanlah sakinah (ketenangan), mawaddah (kasih sayang), dan rahmah (belas kasihan) dalam rumah tangga mereka.&rdquo;"
+    ]
+  },
+  "music": {
+    "src": "audio/song.m4a",
+    "type": "audio/mp4",
+    "title": "Lagu akan dikemas kini",
+    "artist": "Safwan & Alia"
+  },
+  "gallery": [
+    {
+      "src": "gallery/1.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Gambar galeri 1 (akan dikemas kini)"
+    },
+    {
+      "src": "gallery/2.webp",
+      "width": 787,
+      "height": 1400,
+      "alt": "Gambar galeri 2 (akan dikemas kini)"
+    },
+    {
+      "src": "gallery/3.webp",
+      "width": 1400,
+      "height": 788,
+      "alt": "Gambar galeri 3 (akan dikemas kini)"
+    },
+    {
+      "src": "gallery/4.webp",
+      "width": 1000,
+      "height": 1250,
+      "alt": "Gambar galeri 4 (akan dikemas kini)"
+    },
+    {
+      "src": "gallery/5.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Gambar galeri 5 (akan dikemas kini)"
+    }
+  ],
+  "gifts": {
+    "groupMinPrice": 500,
+    "items": [
+      {
+        "id": "g1",
+        "name": "Contoh Hadiah 1",
+        "note": "Butiran hadiah akan dikemas kini",
+        "price": "150.00",
+        "url": "https://shopee.com.my/"
+      },
+      {
+        "id": "g2",
+        "name": "Contoh Hadiah 2",
+        "note": "Butiran hadiah akan dikemas kini",
+        "price": "299.00",
+        "url": "https://shopee.com.my/"
+      },
+      {
+        "id": "g3",
+        "name": "Contoh Hadiah 3",
+        "note": "Butiran hadiah akan dikemas kini",
+        "price": "650.00",
+        "url": "https://shopee.com.my/"
+      },
+      {
+        "id": "g4",
+        "name": "Contoh Hadiah 4",
+        "note": "Butiran hadiah akan dikemas kini",
+        "price": "1200.00",
+        "url": "https://shopee.com.my/"
+      }
+    ]
+  },
+  "duitnow": {
+    "image": "duitnow/qr.png",
+    "accountName": "Nama akaun akan dikemas kini"
+  }
+}

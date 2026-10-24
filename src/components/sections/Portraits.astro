@@ -1,0 +1,25 @@
+---
+import type { Card } from "../../lib/event";
+interface Props { card: Card; attrs: Record<string, string> }
+const { card, attrs } = Astro.props;
+const { e, asset } = card;
+const v = e.meta.version;
+---
+<section class="section-card couple reveal" {...attrs} id="couple" aria-label="Potret pengantin">
+  <h2>Potret Pengantin</h2>
+  <p class="tap-hint">Sentuh gambar untuk paparan penuh</p>
+  <div class="portrait-pair">
+    <figure class="portrait portrait-groom">
+      <div class="portrait-oval">
+        <img src={asset(`${e.portraits.groom}?v=${v}`)} data-lightbox="portrait" alt={`Potret ${e.couple.groom.name}`} loading="lazy" decoding="async" />
+      </div>
+      <figcaption>{e.couple.groom.short}</figcaption>
+    </figure>
+    <figure class="portrait portrait-bride">
+      <div class="portrait-oval">
+        <img src={asset(`${e.portraits.bride}?v=${v}`)} data-lightbox="portrait" alt={`Potret ${e.couple.bride.name}`} loading="lazy" decoding="async" />
+      </div>
+      <figcaption>{e.couple.bride.short}</figcaption>
+    </figure>
+  </div>
+</section>

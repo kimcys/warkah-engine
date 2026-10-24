@@ -1,0 +1,183 @@
+{
+  "theme": "lover",
+  "package": "custom",
+  "hosting": {
+    "site": "aiman-alyana",
+    "project": "aiman-yana-wed"
+  },
+  "store": {
+    "mode": "legacy",
+    "firebaseConfig": {
+      "apiKey": "AIzaSyBifW3zbncREMhxjqw9g0ITWnxD396Kkss",
+      "authDomain": "aiman-yana-wed.firebaseapp.com",
+      "projectId": "aiman-yana-wed",
+      "storageBucket": "aiman-yana-wed.firebasestorage.app",
+      "messagingSenderId": "171399879009",
+      "appId": "1:171399879009:web:fbf380999b1a22c2bbcd20"
+    },
+    "localKey": "aiman-alyana"
+  },
+  "meta": {
+    "title": "Walimatul Urus Aiman & Alyana",
+    "description": "Jemputan Walimatul Urus Muhammad Aiman Hakim & Nurul Alyana — 08.08.2026",
+    "ogWidth": 1241,
+    "ogHeight": 1747,
+    "ogAlt": "Pastel wedding invitation for Aiman and Alyana."
+  },
+  "couple": {
+    "groom": {
+      "name": "Muhammad Aiman Hakim",
+      "full": "bin Azahari",
+      "short": "Aiman",
+      "role": "Putera kepada",
+      "parentsHtml": "Hj. Azahari bin Hj. Jahali<br>&amp; Hjh. Fuziyah binti Hj. Matsih"
+    },
+    "bride": {
+      "name": "Nurul Alyana",
+      "full": "binti Che Aman",
+      "short": "Alyana",
+      "role": "Puteri kepada",
+      "parentsHtml": "Che Aman"
+    },
+    "hashtag": "#AiLoveYa"
+  },
+  "host": {
+    "parents": [
+      "Hj. Azahari bin Hj. Jahali",
+      "Hjh. Fuziyah binti Hj. Matsih"
+    ],
+    "inviteRelation": "ke majlis kesyukuran perkahwinan anakanda kami"
+  },
+  "date": {
+    "start": "2026-08-08T11:00:00+08:00",
+    "end": "2026-08-08T15:00:00+08:00"
+  },
+  "venue": {
+    "name": "Seri Mentari Glasshall",
+    "area": "Melaka",
+    "address": "Seri Mentari Glasshall, Jalan Bukit Katil - Duyong, 75460 Melaka, Malaysia",
+    "maps": "https://www.google.com/maps?q=2.1970694,102.2903182",
+    "waze": "https://waze.com/ul/hw22srxvwk"
+  },
+  "aturcara": [
+    {
+      "icon": "jam",
+      "label": "Ketibaan Tetamu",
+      "time": "11:00 AM"
+    },
+    {
+      "icon": "pengantin",
+      "label": "Ketibaan Pengantin",
+      "time": "12:00 PM"
+    },
+    {
+      "icon": "bersurai",
+      "label": "Majlis Bersurai",
+      "time": "3:00 PM"
+    }
+  ],
+  "music": {
+    "src": "audio/song.mp3",
+    "type": "audio/mpeg",
+    "title": "Lover",
+    "artist": "Taylor Swift"
+  },
+  "gallery": [
+    {
+      "src": "gallery/1.webp",
+      "width": 1400,
+      "height": 934,
+      "alt": "Aiman dan Alyana duduk di sofa putih berlatar bunga"
+    },
+    {
+      "src": "gallery/2.webp",
+      "width": 1400,
+      "height": 934,
+      "alt": "Aiman dan Alyana berdiri berpegangan tangan pada waktu malam"
+    },
+    {
+      "src": "gallery/3.webp",
+      "width": 1400,
+      "height": 934,
+      "alt": "Aiman dan Alyana memotong kek perkahwinan"
+    },
+    {
+      "src": "gallery/4.webp",
+      "width": 1400,
+      "height": 934,
+      "alt": "Aiman dan Alyana duduk bersandar di lantai kayu"
+    },
+    {
+      "src": "gallery/5.webp",
+      "width": 1400,
+      "height": 934,
+      "alt": "Cincin perkahwinan di atas latar coklat"
+    }
+  ],
+  "contacts": [
+    {
+      "name": "Fuziyah",
+      "role": "Ibu",
+      "phone": "011-1143 1945"
+    },
+    {
+      "name": "Azahari",
+      "role": "Ayah",
+      "phone": "016-673 3354"
+    },
+    {
+      "name": "Haziq",
+      "role": "Abang",
+      "phone": "018-403 4460"
+    }
+  ],
+  "rsvp": {
+    "maxGuests": 10
+  },
+  "features": {
+    "mempelai": false,
+    "wishes": true,
+    "doa": false
+  },
+  "calendarDescription": "Walimatul Urus Muhammad Aiman Hakim Bin Azahari dan Nurul Alyana Binti Che Aman. 11 Pagi - 3 Petang. #AiLoveYa",
+  "defaultWishes": [
+    {
+      "name": "Tetamu",
+      "message": "Tahniah Aiman dan Alyana. Semoga berbahagia hingga ke Jannah."
+    },
+    {
+      "name": "Keluarga",
+      "message": "Semoga majlis dipermudahkan dan diberkati Allah SWT."
+    }
+  ],
+  "text": {
+    "heroKicker": "Walimatul Urus",
+    "thanks": "Kami sekeluarga dengan tulus ikhlas mengucapkan setinggi-tinggi penghargaan dan ribuan terima kasih.",
+    "poem": [
+      "Bersama cinta yang mekar,",
+      "Kami mulakan langkah bahagia,",
+      "Doakan kami sentiasa,",
+      "Dalam rahmat kasih yang ikhlas."
+    ]
+  },
+  "art": {
+    "title": "art/title.png",
+    "hashtag": "art/hashtag.png"
+  },
+  "dressCode": {
+    "title": "Tema Warna",
+    "colors": [
+      {
+        "label": "Biru",
+        "tone": "blue",
+        "icon": "shirt"
+      },
+      {
+        "label": "Pink",
+        "tone": "pink",
+        "icon": "dress"
+      }
+    ],
+    "note": "Kod warna biru/pink."
+  }
+}

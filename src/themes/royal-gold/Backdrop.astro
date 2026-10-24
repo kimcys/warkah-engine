@@ -1,0 +1,9 @@
+---
+// Scene layers behind the pages + ambience containers (filled by card.js).
+const scenes = ["stage", "chandelier", "couple", "groom", "bride", "aisle", "garden"];
+---
+{scenes.map((name) => <div class={`scene-layer scene-${name}`} aria-hidden="true"></div>)}
+<div class="light-rays" aria-hidden="true"></div>
+<div class="scene-vignette" aria-hidden="true"></div>
+<div class="fairy-lights" aria-hidden="true"></div>
+<div class="petal-field" aria-hidden="true"></div>

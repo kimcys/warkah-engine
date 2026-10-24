@@ -1,0 +1,137 @@
+---
+// Bottom sheets: calendar, location, music, RSVP form, contacts, gifts.
+import type { Card } from "../../lib/event";
+interface Props { card: Card }
+const { card } = Astro.props;
+const { e, date, asset, slug } = card;
+const v = e.meta.version;
+const guestOptions = Array.from({ length: e.rsvp.maxGuests }, (_, i) => i + 1);
+const hasGiftPanel = e.features.gifts || e.features.duitnow;
+const gifts = e.gifts;
+---
+<section id="calendarPanel" class="bottom-panel" aria-label="Kalendar" hidden>
+  <button class="panel-close" type="button" aria-label="Tutup">&times;</button>
+  <h2>Kalendar</h2>
+  <p>{date.dayName}, {date.long}<br />{date.timeRange}</p>
+  <div class="button-row">
+    <a id="googleCalendar" class="primary-button" target="_blank" rel="noopener">Google Calendar</a>
+    <button id="appleCalendar" class="secondary-button" type="button">Apple / ICS</button>
+  </div>
+</section>
+
+<section id="locationPanel" class="bottom-panel" aria-label="Lokasi" hidden>
+  <button class="panel-close" type="button" aria-label="Tutup">&times;</button>
+  <h2>Lokasi</h2>
+  <p>{e.venue.name}<br />{e.venue.area}</p>
+  {(e.venue.qrMaps || e.venue.qrWaze) && (
+    <>
+      <div class="qr-grid">
+        {e.venue.qrMaps && (
+          <figure class="qr-card">
+            <img src={asset(`${e.venue.qrMaps}?v=${v}`)} alt="Kod QR Google Maps" loading="lazy" decoding="async" />
+            <figcaption>Google Maps</figcaption>
+          </figure>
+        )}
+        {e.venue.qrWaze && (
+          <figure class="qr-card">
+            <img src={asset(`${e.venue.qrWaze}?v=${v}`)} alt="Kod QR Waze" loading="lazy" decoding="async" />
+            <figcaption>Waze</figcaption>
+          </figure>
+        )}
+      </div>
+      <p class="qr-note">Imbas QR untuk lokasi majlis.</p>
+    </>
+  )}
+  <div class="button-row">
+    <a id="googleMaps" class="primary-button" target="_blank" rel="noopener">Google Maps</a>
+    <a id="waze" class="secondary-button" target="_blank" rel="noopener">Waze</a>
+  </div>
+</section>
+
+{e.music && (
+  <section id="musicPanel" class="bottom-panel" aria-label="Muzik" hidden>
+    <button class="panel-close" type="button" aria-label="Tutup">&times;</button>
+    <h2>Muzik</h2>
+    <div class="now-playing">
+      <span class="vinyl" aria-hidden="true"></span>
+      <div>
+        <strong>{e.music.title}</strong>
+        <span>{e.music.artist}</span>
+      </div>
+    </div>
+    <audio id="bgAudio" preload="none" loop>
+      <source src={asset(`${e.music.src}?v=${v}`)} type={e.music.type} />
+      {e.music.fallback && <source src={asset(`${e.music.fallback.src}?v=${v}`)} type={e.music.fallback.type} />}
+    </audio>
+    <button id="musicToggle" class="primary-button" type="button">Mainkan Lagu</button>
+    <p id="musicStatus" class="small-note" role="status">Lagu akan dimainkan selepas tetamu tekan Buka Kad.</p>
+  </section>
+)}
+
+{e.features.rsvp && (
+  <section id="rsvpPanel" class="bottom-panel" aria-label="RSVP" hidden>
+    <button class="panel-close" type="button" aria-label="Tutup">&times;</button>
+    <h2>RSVP</h2>
+    <p class="panel-sub">Sila sahkan kehadiran anda ke majlis kami.</p>
+    <form id="rsvpForm" class="form-stack">
+      <label>
+        Nama
+        <input name="name" type="text" maxlength="80" placeholder="Nama anda" autocomplete="name" required />
+      </label>
+      <label>
+        Kehadiran
+        <select name="attendance" required>
+          <option value="">Pilih satu</option>
+          <option value="Hadir">Hadir</option>
+          <option value="Tidak Hadir">Tidak Hadir</option>
+        </select>
+      </label>
+      <label id="guestsField">
+        Bilangan Tetamu
+        <select name="guests" required>
+          {guestOptions.map((n) => <option value={String(n)}>{n}</option>)}
+        </select>
+      </label>
+      {e.features.wishes && (
+        <label>
+          Ucapan (pilihan)
+          <textarea name="message" rows="3" maxlength="180" placeholder="Tulis ucapan untuk pengantin (pilihan)"></textarea>
+        </label>
+      )}
+      <button class="primary-button" type="submit">Hantar RSVP</button>
+    </form>
+    <p id="rsvpStatus" class="status-text" role="status"></p>
+  </section>
+)}
+
+<section id="contactPanel" class="bottom-panel" aria-label="Hubungi" hidden>
+  <button class="panel-close" type="button" aria-label="Tutup">&times;</button>
+  <h2>Hubungi</h2>
+  <div id="contactList" class="contact-list"></div>
+</section>
+
+{hasGiftPanel && (
+  <section id="giftPanel" class="bottom-panel" aria-label="Hadiah" hidden>
+    <button class="panel-close" type="button" aria-label="Tutup">&times;</button>
+    <h2>Hadiah</h2>
+    <p class="panel-sub">{e.text.giftIntro}</p>
+    {e.features.gifts && (
+      <>
+        <p class="gift-note">
+          Harga adalah anggaran dari {gifts.shop} dan boleh berubah. Tekan &ldquo;Saya akan beli ini&rdquo; supaya tetamu lain tahu hadiah itu sudah dipilih. Hadiah bernilai lebih RM{gifts.groupMinPrice} boleh dikongsi beramai-ramai.
+        </p>
+        <div id="giftList" class="gift-list"></div>
+      </>
+    )}
+    {e.features.duitnow && (
+      <div id="giftDuitnow" class="gift-duitnow" hidden>
+        <p class="gift-or">{e.features.gifts ? "atau sumbangan melalui DuitNow" : "Sumbangan melalui DuitNow"}</p>
+        <figure class="qr-card gift-qr">
+          <img id="giftQr" alt="Kod QR DuitNow" width="220" height="220" decoding="async" />
+          <figcaption id="giftName">DuitNow QR</figcaption>
+        </figure>
+        <a id="giftSave" class="secondary-button" download={`duitnow-${slug}.png`}>Simpan QR</a>
+      </div>
+    )}
+  </section>
+)}

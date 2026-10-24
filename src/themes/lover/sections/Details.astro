@@ -1,0 +1,25 @@
+---
+// Lover details: date block beside location + time, in one ruled board.
+import type { Card } from "../../../lib/event";
+interface Props { card: Card; attrs: Record<string, string> }
+const { card, attrs } = Astro.props;
+const { e, date } = card;
+---
+<section class="section-card details reveal" {...attrs} id="details" aria-label="Butiran majlis">
+  <h2>Butiran Majlis</h2>
+  <div class="detail-board">
+    <div class="date-block">
+      <span>{date.dayName}</span>
+      <strong>{date.day.padStart(2, "0")}</strong>
+      <span>{date.month} {date.year}</span>
+    </div>
+    <div class="line-block">
+      <h3 class="tulisan-bold">Lokasi</h3>
+      <p>{e.venue.name}<br />{e.venue.address.replace(e.venue.name + ", ", "")}</p>
+      <div class="line-block-segment">
+        <h3 class="tulisan-bold">Aturcara Majlis</h3>
+        <p>{date.timeRange}</p>
+      </div>
+    </div>
+  </div>
+</section>
