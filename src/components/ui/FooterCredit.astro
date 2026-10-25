@@ -1,18 +1,33 @@
 ---
 // "Kad oleh [seal] warkah · warkah.com.my" on every card (brand rule: the only Warkah branding on a client card).
-// One structure for every card: the seal and the script wordmark are the brand files (public/warkah/), drawn as masks
-// so they take the colour of the card's own theme; the theme CSS sets the colour and size of .developer-credit.
+// One structure for every card, in its own block, drawn as a small parchment scroll (rolled ends, torn edges, aged paper).
+// The paper, the rolls and the ink take each theme's colours (--scroll-* variables in the theme's style.css). The seal
+// (the brand's simple flat mark) and the script wordmark are inline vectors so they stay sharp on any screen; a CSS mask
+// would go soft on iPhones.
 import type { Card } from "../../lib/event";
+import markRaw from "../../assets/warkah/mark.svg?raw";
+import wordRaw from "../../assets/warkah/wordmark.svg?raw";
 interface Props { card: Card }
 const { card } = Astro.props;
-const { credit, base } = card;
+const { credit } = card;
+
+const inside = (raw: string) => raw.replace(/^<svg[^>]*>/, "").replace(/<\/svg>\s*$/, "").replace(/<title>.*?<\/title>/, "");
+const mark = inside(markRaw)
+  .replaceAll('fill="#6B2119"', 'fill="currentColor"')       // the seal takes the theme ink
+  .replaceAll('stroke="#F5EDE0"', 'class="detail-line"')      // ring and "w" take the paper colour (cut-out look)
+  .replaceAll('fill="#F5EDE0"', 'class="detail-fill"');
+const word = inside(wordRaw).replaceAll('fill="#2B1B18"', 'fill="currentColor"');
 ---
-<p class="developer-credit warkah-credit">
-  <a class="credit-link" href={credit.url} target="_blank" rel="noopener noreferrer" aria-label={`${credit.label} warkah · ${credit.domain}`}>
-    <span class="credit-by">{credit.label}</span>
-    <span class="credit-mark" aria-hidden="true" style={`--mask:url(${base}warkah/mark.svg)`}></span>
-    <span class="credit-name" aria-hidden="true" style={`--mask:url(${base}warkah/wordmark.svg)`}></span>
-    <span class="credit-dot" aria-hidden="true">·</span>
-    <span class="credit-domain">{credit.domain}</span>
+<div class="warkah-credit">
+  <a class="credit-scroll" href={credit.url} target="_blank" rel="noopener noreferrer" aria-label={`${credit.label} warkah · ${credit.domain}`}>
+    <span class="roll" aria-hidden="true"></span>
+    <span class="paper">
+      <span class="credit-by">{credit.label}</span>
+      <svg class="credit-mark" viewBox="0 0 200 200" aria-hidden="true" focusable="false" set:html={mark} />
+      <svg class="credit-name" viewBox="0 0 671 240" aria-hidden="true" focusable="false" set:html={word} />
+      <span class="credit-dot" aria-hidden="true">·</span>
+      <span class="credit-domain">{credit.domain}</span>
+    </span>
+    <span class="roll roll-r" aria-hidden="true"></span>
   </a>
-</p>
+</div>
