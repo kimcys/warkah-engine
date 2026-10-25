@@ -4,8 +4,10 @@ interface Props { card: Card }
 const { card } = Astro.props;
 const { e } = card;
 const hasGiftPanel = e.features.gifts || e.features.duitnow;
+const buttons = [hasGiftPanel, (card.theme as any).calendarNav, true, e.music, e.features.rsvp, card.kenangHref, true].filter(Boolean).length;
+const navCount = Math.max(5, buttons);   // themes that lay the bar out in fixed columns need this
 ---
-<nav class="bottom-nav" aria-label="Tindakan kad jemputan">
+<nav class="bottom-nav" aria-label="Tindakan kad jemputan" style={`--nav-count:${navCount}`}>
   {hasGiftPanel && (
     <button id="giftNavButton" data-panel="giftPanel" type="button" aria-label="Hadiah">
       <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -47,6 +49,15 @@ const hasGiftPanel = e.features.gifts || e.features.duitnow;
       </svg>
       <span class="sr-only">RSVP</span>
     </button>
+  )}
+  {card.kenangHref && (
+    <a class="nav-link" href={card.kenangHref} target="_blank" rel="noopener" aria-label="Kenangan">
+      <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 8h3l1.6-2.4h6.8L17 8h3v11H4z" />
+        <circle cx="12" cy="13" r="3.6" />
+      </svg>
+      <span class="sr-only">Kenangan</span>
+    </a>
   )}
   <button data-panel="contactPanel" type="button" aria-label="Hubungi">
     <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">

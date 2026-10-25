@@ -474,6 +474,7 @@ button {
 .primary-button:focus-visible,
 .secondary-button:focus-visible,
 .bottom-nav button:focus-visible,
+.bottom-nav a.nav-link:focus-visible,
 .panel-close:focus-visible,
 .carousel-button:focus-visible,
 .carousel-dot:focus-visible {
@@ -1244,7 +1245,7 @@ button {
   z-index: 12;
   height: 62px;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(var(--nav-count, 5), 1fr);
   gap: 8px;
   padding: 8px;
   border-radius: 999px;
@@ -1262,7 +1263,8 @@ button {
   pointer-events: none;
 }
 
-.bottom-nav button {
+.bottom-nav button,
+.bottom-nav a.nav-link {
   display: grid;
   place-items: center;
   padding: 0;
@@ -1273,7 +1275,8 @@ button {
   transition: background 0.2s ease;
 }
 
-.bottom-nav button:hover {
+.bottom-nav button:hover,
+.bottom-nav a.nav-link:hover {
   background: #fff;
 }
 
@@ -2482,3 +2485,16 @@ button {
   font-weight: 800;
   line-height: 1.7;
 }
+
+.bottom-nav a.nav-link { text-decoration: none; }
+
+/* ---------- Warkah credit: same structure on every card, colours from this theme (see FooterCredit.astro) ---------- */
+.warkah-credit { display: flex; justify-content: center; text-align: center; }
+.warkah-credit .credit-link { display: inline-flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0.4em; text-transform: none; letter-spacing: 0.03em; font-weight: 500; }
+.warkah-credit .credit-by,
+.warkah-credit .credit-domain { opacity: 0.85; }
+.warkah-credit .credit-dot { opacity: 0.5; }
+.warkah-credit .credit-mark,
+.warkah-credit .credit-name { display: inline-block; flex: none; background-color: currentColor; -webkit-mask: var(--mask) center / contain no-repeat; mask: var(--mask) center / contain no-repeat; }
+.warkah-credit .credit-mark { width: 2.1em; height: 2.1em; }
+.warkah-credit .credit-name { width: 5.3em; height: 1.9em; }   /* wordmark is 671 x 240 */

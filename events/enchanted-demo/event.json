@@ -140,7 +140,8 @@
     "wishes": true,
     "doa": true,
     "portraits": true,
-    "gallery": true
+    "gallery": true,
+    "kenang": true
   },
   "calendarDescription": "Majlis Perkahwinan Nur Nadiah binti Hj. Ahmad Shukri & Muhammad Ezzan bin Hj. Mohamed Eusop. Ketibaan tetamu 11:00 AM - 4:00 PM, ketibaan pengantin 12:30 PM. #EzzyfoundNaddy",
   "defaultWishes": [
@@ -158,5 +159,8 @@
     "heroKicker": "Majlis Perkahwinan",
     "inviteHtml": "Dengan penuh rasa kesyukuran,<br>kami ingin menjemput",
     "rsvpDeadlineHtml": "Sila sahkan kehadiran sebelum<br><strong>01 November 2026</strong>"
+  },
+  "kenang": {
+    "slug": "demo"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "theme": "lover",
+  "theme": "royal-gold",
   "package": "custom",
   "hosting": {
     "site": "ezzan-nadiah-wedding",
@@ -153,6 +153,7 @@
     "maxGuests": 2
   },
   "features": {
+    "kenang": true,
     "gifts": true,
     "duitnow": false
   },

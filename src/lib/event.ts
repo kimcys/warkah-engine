@@ -89,6 +89,7 @@ export async function loadEvent() {
   return {
     slug, e, theme, date, base, siteUrl, asset, themeAsset, first, second, clientData,
     credit: warkah.credit,
+    kenangHref: warkah.kenangEnabled && e.features.kenang ? `${warkah.kenangUrl.replace(/\/$/, "")}/${e.kenang.slug ?? slug}` : null,
     version: Date.now().toString(36)   // cache-busting tag for css/js on every build
   };
 }

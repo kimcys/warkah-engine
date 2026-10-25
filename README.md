@@ -72,7 +72,7 @@ The full list (with defaults) is in `src/content.config.ts`. The ones you always
 | `aturcara` | `[{ "icon": "makan", "label": "Jamuan Makan", "time": "11:00 AM – 4:00 PM" }]` (icons: makan, pengantin, bersurai, akad, doa, jam) |
 | `contacts` | name, role, phone |
 | `music.fallback` | optional second song file for browsers that cannot play the first: `{ "src": "audio/song.mp3", "type": "audio/mpeg" }` |
-| `features` | add-ons on/off: `gifts`, `duitnow`, `gallery`, `portraits`, `doa`, `mempelai`, `wishes`, `rsvp` |
+| `features` | add-ons on/off: `gifts`, `duitnow`, `kenang`, `gallery`, `portraits`, `doa`, `mempelai`, `wishes`, `rsvp` |
 | `calendarDescription` | text for Google / Apple calendar |
 
 Wording such as the doa, pantun and "Walimatul Urus" have defaults; set them under `text` only when a client wants different words.
@@ -81,6 +81,9 @@ Bride-side majlis: set `couple.first` to `"bride"` and `host.inviteRelation` to 
 ### Add-ons = switches
 
 - Gift list: `"features": { "gifts": true }` + `gifts.items` (ids `g1`, `g2`, …; photos in `assets/gifts/g1.webp`). Gifts above `gifts.groupMinPrice` (RM500) can be shared.
+- Warkah Kenang (photobooth + memory wall): `"features": { "kenang": true }` adds a camera button to the bottom bar that opens
+  `<kenangUrl>/<slug>` (kenangUrl is in `warkah.config.json`). If the Kenang event uses a different slug, add `"kenang": { "slug": "…" }`.
+  The Kenang page is created in the Kenang Studio (`/studio`). **Master switch:** `kenangEnabled` in `warkah.config.json` is `false` for now, so no card shows the button even where `features.kenang` is on; set it to `true` and redeploy a card to launch.
 - DuitNow: `"features": { "duitnow": true }` + `"duitnow": { "image": "duitnow/qr.png", "accountName": "…" }`.
 - Extra photos: add entries to `gallery`.
 - Max guests per RSVP: `"rsvp": { "maxGuests": 2 }`.

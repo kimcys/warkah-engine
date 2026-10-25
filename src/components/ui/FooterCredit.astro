@@ -1,13 +1,18 @@
 ---
-// "Kad oleh warkah · warkah.web.app" on every card (brand rule: the only Warkah branding on a client card).
+// "Kad oleh [seal] warkah · warkah.com.my" on every card (brand rule: the only Warkah branding on a client card).
+// One structure for every card: the seal and the script wordmark are the brand files (public/warkah/), drawn as masks
+// so they take the colour of the card's own theme; the theme CSS sets the colour and size of .developer-credit.
 import type { Card } from "../../lib/event";
 interface Props { card: Card }
 const { card } = Astro.props;
 const { credit, base } = card;
 ---
 <p class="developer-credit warkah-credit">
-  {credit.label}
-  <a href={credit.url} target="_blank" rel="noopener noreferrer">
-    <img src={`${base}warkah/mark-small.svg`} alt="" width="16" height="16" style="width:1.15em;height:1.15em;vertical-align:-0.25em;margin:0 0.15em 0 0.3em" />warkah
+  <a class="credit-link" href={credit.url} target="_blank" rel="noopener noreferrer" aria-label={`${credit.label} warkah · ${credit.domain}`}>
+    <span class="credit-by">{credit.label}</span>
+    <span class="credit-mark" aria-hidden="true" style={`--mask:url(${base}warkah/mark.svg)`}></span>
+    <span class="credit-name" aria-hidden="true" style={`--mask:url(${base}warkah/wordmark.svg)`}></span>
+    <span class="credit-dot" aria-hidden="true">·</span>
+    <span class="credit-domain">{credit.domain}</span>
   </a>
 </p>

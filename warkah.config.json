@@ -9,8 +9,11 @@
     "messagingSenderId": "",
     "appId": ""
   },
+  "kenangEnabled": false,
+  "kenangUrl": "https://warkah-kenang.web.app",
   "credit": {
     "label": "Kad oleh",
-    "url": "https://warkah.web.app"
+    "domain": "warkah.com.my",
+    "url": "https://warkah.com.my"
   }
 }

@@ -11,7 +11,7 @@ const FIREBASE_VERSION = "12.15.0";
 // Gifts above this price (RM) can be shared: several guests can put their name on them.
 const GROUP_GIFT_MIN_PRICE = INVITATION.groupGiftMinPrice ?? 500;
 
-const WISHES_PAGE_SIZE = 3;
+const WISHES_PAGE_SIZE = THEME.wishesPerPage ?? 3;   // per theme (theme.ts client.wishesPerPage), 3 by default
 const KEY_PREFIX = DATA.keyPrefix || `warkah-${DATA.slug}`;
 const LOCAL_WISHES_KEY = `${KEY_PREFIX}-wishes`;
 const LOCAL_GIFTS_KEY = `${KEY_PREFIX}-gifts`;

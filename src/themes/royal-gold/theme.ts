@@ -34,6 +34,7 @@ export default {
     scenes: true,
     fairyLights: 22,
     petals: ["#8f1a2c", "#a3283b", "#6f1020", "#c23a4e", "#b8860b"],
-    openingDelay: 250
+    openingDelay: 250,
+    wishesPerPage: 2   // ucapan shown per page in the wishes list
   }
 } as const;
