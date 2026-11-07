@@ -1,5 +1,6 @@
 {
   "theme": "enchanted-garden",
+  "art": { "bakedHero": true },
   "package": "custom",
   "hosting": {
     "site": "ezzan-nadiah",

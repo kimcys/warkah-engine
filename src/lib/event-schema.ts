@@ -134,7 +134,7 @@ export const eventSchema = z.object({
     duitnow: z.object({ image: z.string().default(""), accountName: z.string().default("") }).prefault({}),
 
     // Optional hand-drawn lettering (images in assets/) used instead of typed names / hashtag, e.g. the Lover card.
-    art: z.object({ title: z.string().optional(), hashtag: z.string().optional() }).optional(),
+    art: z.object({ title: z.string().optional(), hashtag: z.string().optional(), bakedHero: z.boolean().optional() }).optional(),   // bakedHero: this client's own hero poster (theme/cover/) already has the names and date painted in
 
     // Verse shown on the Ayat page (features.ayat). Defaults to Ar-Rum 30:21.
     ayat: z.object({

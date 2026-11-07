@@ -2764,3 +2764,16 @@ button {
   text-underline-offset: 3px;
   cursor: pointer;
 }
+
+/* Hero text drawn over the text-free poster: the names in the trees, the date on the path (same places as the painted original). */
+.hero-text { position: absolute; inset: 0 0 calc(var(--nav-height) + 4px); pointer-events: none; text-align: center; color: #fff; }
+.hero-names {
+  position: absolute; left: 6%; right: 6%; top: 29%; margin: 0;
+  font-family: var(--font-script); font-weight: 400; line-height: 1.02;
+  font-size: clamp(2.7rem, 15vw, 3.9rem);
+  text-shadow: 0 2px 14px rgba(20, 50, 20, 0.55), 0 0 3px rgba(20, 50, 20, 0.35);
+}
+.hero-date, .hero-hashtag { position: absolute; left: 6%; right: 6%; margin: 0; font-family: var(--font-script); color: #3e3a34; }
+.hero-date { top: 82%; font-size: clamp(1.35rem, 6.2vw, 1.7rem); line-height: 1.2; }
+.hero-hashtag { top: 92%; font-size: clamp(1rem, 4.4vw, 1.2rem); opacity: 0.85; }
+.card-opened .hero-text { animation: heroSettle 2.4s cubic-bezier(0.2, 0.7, 0.2, 1) both; }

@@ -1,5 +1,6 @@
 ---
-// Hero: the garden poster (the cover artwork is the page; names are in the picture).
+// Hero: the garden poster, with the names, date and hashtag as live text over it. A client whose own poster already has them painted in
+// (events/<slug>/theme/cover/ + art.bakedHero) shows just the picture.
 import type { Card } from "../../../lib/event";
 interface Props { card: Card; attrs: Record<string, string> }
 const { card, attrs } = Astro.props;
@@ -9,6 +10,13 @@ const { e, first, second, date } = card;
 <section class="hero" id="home" {...attrs} aria-label={t("{a} dan {b}, {day} {date}", { a: first.short, b: second.short, day: date.dayName, date: date.long })}>
   <h1 class="sr-only">{first.short} &amp; {second.short} — {date.dayName}, {date.long}{e.couple.hashtag ? ` — ${e.couple.hashtag}` : ""}</h1>
   <div class="hero-poster" aria-hidden="true"></div>
+  {!e.art?.bakedHero && (
+    <div class="hero-text" aria-hidden="true">
+      <p class="hero-names">{first.short} &amp;<br />{second.short}</p>
+      <p class="hero-date">{date.dayName},<br />{date.long}</p>
+      {e.couple.hashtag && <p class="hero-hashtag">{e.couple.hashtag}</p>}
+    </div>
+  )}
   <div class="page-hint" aria-hidden="true">
     <svg viewBox="0 0 24 24"><path d="m6.5 14.5 5.5-5.5 5.5 5.5" /></svg>
   </div>

@@ -9,8 +9,9 @@ import { EVENTS_DIR, ROOT, fail, run } from "./lib.mjs";
 import { sampleEvent } from "../src/lib/sample-merge.js";
 
 const args = process.argv.slice(2);
-const theme = args.find((a) => !a.startsWith("--") && a !== args[args.indexOf("--lang") + 1]);
-const lang = args.includes("--lang") ? args[args.indexOf("--lang") + 1] : "ms";
+const langAt = args.indexOf("--lang");
+const lang = langAt >= 0 ? args[langAt + 1] : "ms";
+const theme = args.find((a, i) => !a.startsWith("--") && (langAt < 0 || i !== langAt + 1));
 if (!theme || !existsSync(join(ROOT, "src", "themes", theme, "sample.json"))) fail("Use: npm run sample -- <theme> [--lang en] [--build]\nThemes: royal-gold, lover, glasshouse, enchanted-garden");
 if (!["ms", "en"].includes(lang)) fail('--lang must be "ms" or "en"');
 
