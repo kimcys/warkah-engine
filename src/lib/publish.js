@@ -1,5 +1,5 @@
 // Turns a customer's draft into the event.json of the REAL card (publishing). Plain JavaScript, no file access: the build server and the tests both use it.
-// Unlike a preview it has no ribbon, keeps guests' RSVPs, wishes and gifts (shared store), is served at https://<card domain>/<slug>/, and never shows a
+// Unlike a preview it has no ribbon, keeps guests' RSVPs, wishes and gifts (in Warkah Kad's own store: mode "cloudflare"), is served at https://<card domain>/<slug>/, and never shows a
 // sample photo: the customer's photos, gifts and song are theirs alone.
 import { fillWithSample } from "./sample-merge.js";
 import { completeDraft } from "./system-fields.js";
@@ -9,9 +9,10 @@ export const ASSET_KEYS = ["gallery", "portraits", "gifts", "duitnow", "music"];
 
 /**
  *   sample     the theme's sample card (the base for empty words); features   the switches that apply (effectiveFeatures of their package)
+ *   api        the site that serves the guest API, when it is not the card's own site (left out: the card and the API share a host)
  * Throws an Error with a plain message when the address is not valid.
  */
-export function publishEvent(draft, sample, { slug, features }) {
+export function publishEvent(draft, sample, { slug, features, api }) {
   if (!draft || typeof draft !== "object") throw new Error("The draft is not an object.");
   if (!/^[a-z0-9][a-z0-9-]*$/.test(slug || "")) throw new Error(`"${slug}" is not a valid address.`);
   const base = structuredClone(sample);
@@ -21,7 +22,7 @@ export function publishEvent(draft, sample, { slug, features }) {
   filled.features = features;
   const event = completeDraft(filled, { slug, lang: draft.lang === "en" ? "en" : "ms" });
   delete event.preview;
-  event.store = { mode: "shared" };
+  event.store = api ? { mode: "cloudflare", api } : { mode: "cloudflare" };
   return event;
 }
 

@@ -40,8 +40,10 @@ export const eventSchema = z.object({
     //  mode "shared": Warkah project, under events/<slug>/ (default for new cards)
     //  mode "legacy": the card's own old Firebase project, root collections (Ezzan & Nadiah)
     //  mode "demo":   saved on the guest's phone only (catalogue demos)
+    //  mode "cloudflare": Warkah Kad's own API (/api/g/<slug>/...), read by the customer in their Warkah Kad account (cards built in Warkah Kad)
     store: z.object({
-      mode: z.enum(["shared", "legacy", "demo"]).default("shared"),
+      mode: z.enum(["shared", "legacy", "demo", "cloudflare"]).default("shared"),
+      api: z.string().url().optional(),                 // only for "cloudflare": the site that serves the API; left out = the card's own site
       firebaseConfig: z.record(z.string()).optional(),  // only for "legacy"
       localKey: z.string().optional()                   // keep an old card's on-phone storage names
     }).prefault({}),
@@ -65,7 +67,12 @@ export const eventSchema = z.object({
       model: z.object({
         groom: z.enum(modelIds("groom")).optional(),
         bride: z.enum(modelIds("bride")).optional()
-      }).optional()                                         // which figures stand on the groom and bride pages
+      }).optional(),                                        // which figures stand on the groom and bride pages
+      // The colour of each figure's outfit, "#RRGGBB" (left out = the picture as it is). Applied when the card is built (scripts/recolour-staged.mjs).
+      outfit: z.object({
+        groom: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional(),
+        bride: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional()
+      }).optional()
     }),
 
     host: z.object({

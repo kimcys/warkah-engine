@@ -19,6 +19,7 @@ export { BUILDER_STEPS, labelFor } from "./lib/builder-steps";
 export type { BuilderField, BuilderStep } from "./lib/builder-steps";
 export { FEATURES, OFFERED_FEATURES, FEATURE_KEYS } from "./lib/features";
 export type { FeatureDef } from "./lib/features";
+export { OUTFIT_COLOURS, parseHex, recolourOptionsFor, recolourOutfit } from "./lib/recolour.js";
 export { ADDONS, ADDON_KEYS, TIERS } from "./lib/tiers";
 export type { Addon, Tier } from "./lib/tiers";
 export { ASSET_RULES } from "./lib/asset-rules";

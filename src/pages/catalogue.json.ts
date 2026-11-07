@@ -6,6 +6,7 @@ import { themes } from "../themes";
 import { THEME_KEYS } from "../lib/theme-keys";
 import { FEATURES } from "../lib/features";
 import { ADDONS, TIERS } from "../lib/tiers";
+import { OUTFIT_COLOURS } from "../lib/recolour.js";
 import { ASSET_RULES } from "../lib/asset-rules";
 import { BUILDER_STEPS } from "../lib/builder-steps";
 import { eventSchema } from "../lib/event-schema";
@@ -52,6 +53,7 @@ export const GET: APIRoute = () => {
     features: FEATURES,
     tiers: TIERS,
     addons: ADDONS,
+    outfitColours: OUTFIT_COLOURS,
     assetRules: ASSET_RULES,
     steps: BUILDER_STEPS,
     eventJsonSchema: z.toJSONSchema(eventSchema, { io: "input", unrepresentable: "any" })

@@ -60,17 +60,22 @@ export function stage(slug, event) {
 
 // Ships only the groom/bride figures this card can show: the client's choice (couple.model), else the theme's defaultModels.
 // A theme with neither (it paints its own couple) ships none. If the theme's defaults cannot be read, ship the whole library.
+/** The model ids this card shows, { groom, bride }: the client's choice (couple.model), else the theme's defaultModels (null where the theme paints its own couple). */
+export function modelIdsFor(event) {
+  const themeSource = readFileSync(join(ROOT, "src", "themes", event.theme, "theme.ts"), "utf8");
+  const defaults = themeSource.match(/defaultModels:\s*\{\s*groom:\s*"([^"]+)"\s*,\s*bride:\s*"([^"]+)"/);
+  const chosen = event.couple?.model ?? {};
+  return { groom: chosen.groom ?? defaults?.[1] ?? null, bride: chosen.bride ?? defaults?.[2] ?? null, themeHasDefaults: themeSource.includes("defaultModels"), defaultsReadable: !!defaults };
+}
+
 function stageModels(event, out) {
   const dir = join(ROOT, "models");
   if (!existsSync(dir)) return;
   if (process.env.WARKAH_ALL_MODELS) return copyInto(dir, join(out, "models"));   // the builder's instant previews let the customer swap models
   if (event.features?.mempelai === false) return;                                  // no groom/bride pages, no figures
-  const themeSource = readFileSync(join(ROOT, "src", "themes", event.theme, "theme.ts"), "utf8");
-  const wantsDefaults = themeSource.includes("defaultModels");
-  const defaults = themeSource.match(/defaultModels:\s*\{\s*groom:\s*"([^"]+)"\s*,\s*bride:\s*"([^"]+)"/);
-  if (wantsDefaults && !defaults) return copyInto(dir, join(out, "models"));
-  const chosen = event.couple?.model ?? {};
-  const ids = new Set([chosen.groom ?? defaults?.[1], chosen.bride ?? defaults?.[2]].filter(Boolean));
+  const found = modelIdsFor(event);
+  if (found.themeHasDefaults && !found.defaultsReadable) return copyInto(dir, join(out, "models"));
+  const ids = new Set([found.groom, found.bride].filter(Boolean));
   if (!ids.size) return;
   mkdirSync(join(out, "models"), { recursive: true });
   for (const id of ids) {

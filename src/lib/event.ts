@@ -72,7 +72,9 @@ export async function loadEvent() {
   const [first, second] = e.couple.first === "groom" ? [e.couple.groom, e.couple.bride] : [e.couple.bride, e.couple.groom];
 
   const store =
-    e.store.mode === "legacy"
+    e.store.mode === "cloudflare"
+      ? { mode: "cloudflare", api: e.store.api ?? "", config: null, root: "", publicCounts: true }
+      : e.store.mode === "legacy"
       ? { mode: "firebase", config: e.store.firebaseConfig ?? null, root: "", publicCounts: false }
       : e.store.mode === "shared" && warkah.firebaseConfig.apiKey
         ? { mode: "firebase", config: warkah.firebaseConfig, root: `events/${slug}`, publicCounts: true }

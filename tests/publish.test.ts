@@ -12,7 +12,7 @@ const dina: any = { theme: "lover", lang: "ms", couple: { first: "bride", groom:
 
 const make = (d: any, tier: any = "full", slug = "dina-farid") => publishEvent(d, sampleFor("lover", "ms"), { slug, features: effectiveFeatures(d, tier) });
 const event = make(dina);
-check("a real card is not a preview and keeps guests' answers", event.preview === undefined && event.store.mode === "shared");
+check("a real card is not a preview and keeps guests' answers", event.preview === undefined && event.store.mode === "cloudflare" && event.store.api === undefined);
 check("it is served at the card domain, under its own address", event.hosting.base === "/dina-farid/" && /^kad\./.test(event.hosting.domain));
 check("it validates", validateEvent(event).ok, JSON.stringify((validateEvent(event) as any).problems?.slice(0, 2) ?? ""));
 const text = JSON.stringify(event);

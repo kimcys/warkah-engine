@@ -2343,6 +2343,80 @@
       "note": "Kod QR DuitNow untuk tetamu yang mahu memberi sumbangan."
     }
   ],
+  "outfitColours": [
+    {
+      "id": "asal",
+      "label": "Asal",
+      "labelEn": "Original",
+      "hex": null
+    },
+    {
+      "id": "putih-gading",
+      "label": "Putih gading",
+      "labelEn": "Ivory",
+      "hex": "#F3EAD7"
+    },
+    {
+      "id": "hijau-sage",
+      "label": "Hijau sage",
+      "labelEn": "Sage green",
+      "hex": "#9DB59A"
+    },
+    {
+      "id": "hijau-zamrud",
+      "label": "Hijau zamrud",
+      "labelEn": "Emerald",
+      "hex": "#1F6B4F"
+    },
+    {
+      "id": "biru-laut",
+      "label": "Biru laut",
+      "labelEn": "Navy",
+      "hex": "#1F2F5C"
+    },
+    {
+      "id": "biru-langit",
+      "label": "Biru langit",
+      "labelEn": "Sky blue",
+      "hex": "#8FB4D9"
+    },
+    {
+      "id": "merah-hati",
+      "label": "Merah hati",
+      "labelEn": "Maroon",
+      "hex": "#7A1F2B"
+    },
+    {
+      "id": "merah-jambu",
+      "label": "Merah jambu",
+      "labelEn": "Dusty rose",
+      "hex": "#D9A1A8"
+    },
+    {
+      "id": "ungu-lavender",
+      "label": "Ungu lavender",
+      "labelEn": "Lavender",
+      "hex": "#B8A4D6"
+    },
+    {
+      "id": "emas-champagne",
+      "label": "Emas champagne",
+      "labelEn": "Champagne gold",
+      "hex": "#D9BF8C"
+    },
+    {
+      "id": "kelabu-batu",
+      "label": "Kelabu batu",
+      "labelEn": "Stone grey",
+      "hex": "#8C8C94"
+    },
+    {
+      "id": "hitam",
+      "label": "Hitam",
+      "labelEn": "Black",
+      "hex": "#1B1B1F"
+    }
+  ],
   "assetRules": [
     {
       "key": "cover",
@@ -2606,6 +2680,20 @@
           "feature": "mempelai"
         },
         {
+          "path": "couple.outfit.groom",
+          "label": "Warna pakaian pengantin lelaki",
+          "kind": "outfit",
+          "feature": "mempelai",
+          "help": "Pilihan. Tanpa pilihan, pakaian kekal seperti dalam gambar model."
+        },
+        {
+          "path": "couple.outfit.bride",
+          "label": "Warna pakaian pengantin perempuan",
+          "kind": "outfit",
+          "feature": "mempelai",
+          "help": "Pilihan. Tanpa pilihan, pakaian kekal seperti dalam gambar model."
+        },
+        {
           "path": "music.src",
           "label": "Lagu latar",
           "kind": "song",
@@ -2787,8 +2875,13 @@
             "enum": [
               "shared",
               "legacy",
-              "demo"
+              "demo",
+              "cloudflare"
             ]
+          },
+          "api": {
+            "type": "string",
+            "format": "uri"
           },
           "firebaseConfig": {
             "type": "object",
@@ -2929,6 +3022,19 @@
                   "bride-5",
                   "bride-6"
                 ]
+              }
+            }
+          },
+          "outfit": {
+            "type": "object",
+            "properties": {
+              "groom": {
+                "type": "string",
+                "pattern": "^#[0-9a-fA-F]{6}$"
+              },
+              "bride": {
+                "type": "string",
+                "pattern": "^#[0-9a-fA-F]{6}$"
               }
             }
           }

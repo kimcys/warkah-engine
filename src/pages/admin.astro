@@ -3,6 +3,8 @@
 // Shared-project cards ask the couple to sign in with Google; only emails listed as owners of the event can read RSVPs.
 import { loadEvent, safeJson } from "../lib/event";
 const card = await loadEvent();
+// Cards built in Warkah Kad keep their guests' answers in Warkah Kad, and the customer reads them in their account there.
+if (card.clientData.store.mode === "cloudflare") return Astro.redirect(`https://${card.e.hosting.domain ?? "kad.aimanhakimcy.com"}/app/cards`);
 const { e, first, second, date, base, clientData, version, themeAsset } = card;
 const city = e.venue.area.split(",")[0].trim();
 const adminData = {

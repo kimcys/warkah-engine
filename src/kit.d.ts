@@ -74,6 +74,13 @@ export const OFFERED_FEATURES: FeatureDef[];
 export const FEATURE_KEYS: string[];
 export interface Tier { id: TierId; label: string; priceRM: number; features: string[] | "all"; note: string }
 export const TIERS: Tier[];
+export interface OutfitColour { id: string; label: string; labelEn: string; hex: string | null }
+export const OUTFIT_COLOURS: OutfitColour[];
+export function parseHex(hex: unknown): [number, number, number] | null;
+export interface RecolourOptions { width: number; height: number; keepDarkHead?: number; keepDarkFeet?: number }
+/** Recolours the outfit of a model picture (RGBA bytes) in place; null/invalid colour leaves it. The same in the browser and in the build. */
+export function recolourOutfit<T extends Uint8ClampedArray | Uint8Array>(rgba: T, hex: string | null | undefined, options: RecolourOptions): T;
+export function recolourOptionsFor(modelId: string): { keepDarkHead?: number };
 export interface Addon { key: "gifts" | "duitnow"; label: string; priceRM: number; note: string }
 export const ADDONS: Addon[];
 export const ADDON_KEYS: string[];

@@ -1,5 +1,6 @@
 // Warkah card engine (shared by every card). Do not put client details here:
 // they come from events/<client>/event.json, rendered into the page as #warkah-data.
+import { createCloudflareStore } from "./cloudflare-store.js";
 const DATA = JSON.parse(document.getElementById("warkah-data").textContent);
 // Fixed wording: the Malay text is the key; an English card gets its translations in DATA.i18n (see src/lib/i18n.ts).
 const T = (ms, vars) => {
@@ -734,6 +735,7 @@ async function createFirebaseStore(config) {
 }
 
 async function createStore() {
+  if (STORE.mode === "cloudflare") return createCloudflareStore({ api: STORE.api, slug: DATA.slug, wishesPageSize: WISHES_PAGE_SIZE });
   if (STORE.mode !== "firebase" || !STORE.config || !STORE.config.apiKey) {
     return createLocalStore();
   }

@@ -5669,8 +5669,10 @@ const eventSchema = object({
 		mode: _enum([
 			"shared",
 			"legacy",
-			"demo"
+			"demo",
+			"cloudflare"
 		]).default("shared"),
+		api: string().url().optional(),
 		firebaseConfig: record(string()).optional(),
 		localKey: string().optional()
 	}).prefault({}),
@@ -5692,6 +5694,10 @@ const eventSchema = object({
 		model: object({
 			groom: _enum(modelIds("groom")).optional(),
 			bride: _enum(modelIds("bride")).optional()
+		}).optional(),
+		outfit: object({
+			groom: string().regex(/^#[0-9a-fA-F]{6}$/).optional(),
+			bride: string().regex(/^#[0-9a-fA-F]{6}$/).optional()
 		}).optional()
 	}),
 	host: object({
@@ -5988,6 +5994,20 @@ const BUILDER_STEPS = [
 				label: "Model pengantin perempuan",
 				kind: "model",
 				feature: "mempelai"
+			},
+			{
+				path: "couple.outfit.groom",
+				label: "Warna pakaian pengantin lelaki",
+				kind: "outfit",
+				feature: "mempelai",
+				help: "Pilihan. Tanpa pilihan, pakaian kekal seperti dalam gambar model."
+			},
+			{
+				path: "couple.outfit.bride",
+				label: "Warna pakaian pengantin perempuan",
+				kind: "outfit",
+				feature: "mempelai",
+				help: "Pilihan. Tanpa pilihan, pakaian kekal seperti dalam gambar model."
 			},
 			{
 				path: "music.src",
@@ -7471,6 +7491,160 @@ function mergePatch(target, patch) {
 function isNoop(draft, patch) {
 	return JSON.stringify(mergePatch(draft, patch)) === JSON.stringify(draft);
 }
+// src/lib/recolour.js
+/** Outfit colours the builder offers (the customer may also pick any colour). `null` hex = the model as it is. */
+const OUTFIT_COLOURS = [
+	{
+		id: "asal",
+		label: "Asal",
+		labelEn: "Original",
+		hex: null
+	},
+	{
+		id: "putih-gading",
+		label: "Putih gading",
+		labelEn: "Ivory",
+		hex: "#F3EAD7"
+	},
+	{
+		id: "hijau-sage",
+		label: "Hijau sage",
+		labelEn: "Sage green",
+		hex: "#9DB59A"
+	},
+	{
+		id: "hijau-zamrud",
+		label: "Hijau zamrud",
+		labelEn: "Emerald",
+		hex: "#1F6B4F"
+	},
+	{
+		id: "biru-laut",
+		label: "Biru laut",
+		labelEn: "Navy",
+		hex: "#1F2F5C"
+	},
+	{
+		id: "biru-langit",
+		label: "Biru langit",
+		labelEn: "Sky blue",
+		hex: "#8FB4D9"
+	},
+	{
+		id: "merah-hati",
+		label: "Merah hati",
+		labelEn: "Maroon",
+		hex: "#7A1F2B"
+	},
+	{
+		id: "merah-jambu",
+		label: "Merah jambu",
+		labelEn: "Dusty rose",
+		hex: "#D9A1A8"
+	},
+	{
+		id: "ungu-lavender",
+		label: "Ungu lavender",
+		labelEn: "Lavender",
+		hex: "#B8A4D6"
+	},
+	{
+		id: "emas-champagne",
+		label: "Emas champagne",
+		labelEn: "Champagne gold",
+		hex: "#D9BF8C"
+	},
+	{
+		id: "kelabu-batu",
+		label: "Kelabu batu",
+		labelEn: "Stone grey",
+		hex: "#8C8C94"
+	},
+	{
+		id: "hitam",
+		label: "Hitam",
+		labelEn: "Black",
+		hex: "#1B1B1F"
+	}
+];
+/** "#RRGGBB" to [r, g, b], or null when it is not one. */
+function parseHex(hex) {
+	const m = /^#([0-9a-f]{6})$/i.exec(typeof hex === "string" ? hex.trim() : "");
+	return m ? [
+		0,
+		2,
+		4
+	].map((i) => parseInt(m[1].slice(i, i + 2), 16)) : null;
+}
+const FLOOR = .42;
+const SKIN_NEAR = 30;
+const GOLD_SAT = .42;
+/** The model's own skin colour: the middle of the warm, bright, not-too-pale pixels in the top fifth of the picture (the face). */
+function skinColour(rgba, width, height) {
+	const rows = Math.max(1, Math.floor(height * .2));
+	const rs = [], gs = [], bs = [];
+	for (let y = 0; y < rows; y++) for (let x = 0; x < width; x++) {
+		const i = (y * width + x) * 4;
+		if (rgba[i + 3] < 250) continue;
+		const r = rgba[i], g = rgba[i + 1], b = rgba[i + 2];
+		const max = Math.max(r, g, b);
+		const sat = max ? (max - Math.min(r, g, b)) / max : 0;
+		if (r > g && g > b && sat > .12 && sat < .4 && max > 170) {
+			rs.push(r);
+			gs.push(g);
+			bs.push(b);
+		}
+	}
+	if (rs.length < Math.max(10, rows * width * .01)) return null;
+	const mid = (xs) => xs.sort((p, q) => p - q)[xs.length >> 1];
+	return [
+		mid(rs),
+		mid(gs),
+		mid(bs)
+	];
+}
+/**
+* Recolours `rgba` (Uint8ClampedArray or Uint8Array of r,g,b,a bytes, `width` x `height`) in place and returns it.
+*   hex             "#RRGGBB"; null or anything else leaves the picture untouched
+*   keepDarkHead    0..1: dark pixels in this top share of the picture stay as they are (a groom's black hair or songkok; not a bride's tudung)
+*   keepDarkFeet    the same for the bottom share: black shoes stay black
+*/
+function recolourOutfit(rgba, hex, { width, height, keepDarkHead = 0, keepDarkFeet = .06 } = {}) {
+	const target = parseHex(hex);
+	if (!target || !width || !height) return rgba;
+	const skin = skinColour(rgba, width, height);
+	const headRows = Math.floor(height * keepDarkHead);
+	const feetFrom = Math.floor(height * (1 - keepDarkFeet));
+	for (let i = 0; i < rgba.length; i += 4) {
+		if (rgba[i + 3] === 0) continue;
+		const R = rgba[i], G = rgba[i + 1], B = rgba[i + 2];
+		const r = R / 255, g = G / 255, b = B / 255;
+		const max = Math.max(r, g, b);
+		const sat = max === 0 ? 0 : (max - Math.min(r, g, b)) / max;
+		const warm = R >= G && G >= B;
+		const light = .2126 * r + .7152 * g + .0722 * b;
+		if (warm && sat > GOLD_SAT) continue;
+		const row = Math.floor(i / 4 / width);
+		if (light < .28 && (headRows && row < headRows || row >= feetFrom)) continue;
+		let outfit = 1;
+		if (skin) {
+			const d = Math.hypot(R - skin[0], G - skin[1], B - skin[2]);
+			outfit = Math.min(1, Math.max(0, (d - SKIN_NEAR) / 22));
+		}
+		if (outfit === 0) continue;
+		const k = FLOOR + .5800000000000001 * Math.min(1, light * 1.04);
+		rgba[i] = Math.round(R + (target[0] * k - R) * outfit);
+		rgba[i + 1] = Math.round(G + (target[1] * k - G) * outfit);
+		rgba[i + 2] = Math.round(B + (target[2] * k - B) * outfit);
+	}
+	return rgba;
+}
+/** Per model: where its black hair or songkok is (the top share of the picture), so it is not tinted with the outfit. The other models have none. */
+const MODEL_RECOLOUR = {
+	"groom-1": { keepDarkHead: .13 },
+	"groom-3": { keepDarkHead: .12 }
+};
+const recolourOptionsFor = (modelId) => MODEL_RECOLOUR[modelId] || {};
 // src/lib/asset-rules.ts
 const KB = 1024;
 const ASSET_RULES = [
@@ -7541,6 +7715,6 @@ const ASSET_RULES = [
 		hint: "MP3 atau M4A, kurang 6 MB (kira-kira 3 minit)."
 	}
 ];
-export { ADDONS, ADDON_KEYS, ASSET_RULES, BUILDER_STEPS, CARD_DOMAIN, DAYS, DEFAULT_TZ, FEATURES, FEATURE_KEYS, LIMITS, LINES_AS_HTML, LINES_AS_LIST, MIME, MONTHS, OFFERED_FEATURES, PERSONAL_FIELDS, RESERVED_SLUGS, THEME_KEYS, TIERS, addHours, assetSetFor, builderHosting, calendarTextFor, checkUrl, cleanLines, completeDraft, decodeEntities, draftStatus, effectiveFeatures, escapeHtml, fileKind, fillWithSample, fromIso, getPath, hasValue, htmlToLines, imageInfo, isNoop, isValidSlug, labelFor, linesToHtml, mergePatch, metaFor, partsIn, previewDraft, safeHtml, sampleEvent, sampleFor, sanitizeDraft, setPath, slugProblem, suggestSlug, time12, toIso, validateEvent };
+export { ADDONS, ADDON_KEYS, ASSET_RULES, BUILDER_STEPS, CARD_DOMAIN, DAYS, DEFAULT_TZ, FEATURES, FEATURE_KEYS, LIMITS, LINES_AS_HTML, LINES_AS_LIST, MIME, MONTHS, OFFERED_FEATURES, OUTFIT_COLOURS, PERSONAL_FIELDS, RESERVED_SLUGS, THEME_KEYS, TIERS, addHours, assetSetFor, builderHosting, calendarTextFor, checkUrl, cleanLines, completeDraft, decodeEntities, draftStatus, effectiveFeatures, escapeHtml, fileKind, fillWithSample, fromIso, getPath, hasValue, htmlToLines, imageInfo, isNoop, isValidSlug, labelFor, linesToHtml, mergePatch, metaFor, parseHex, partsIn, previewDraft, recolourOptionsFor, recolourOutfit, safeHtml, sampleEvent, sampleFor, sanitizeDraft, setPath, slugProblem, suggestSlug, time12, toIso, validateEvent };
 
-export const KIT_VERSION = "2c80cf21fd5c";
+export const KIT_VERSION = "e4062825fd03";

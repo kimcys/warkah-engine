@@ -62,6 +62,8 @@ export const BUILDER_STEPS: BuilderStep[] = [
       { path: "palette", label: "Warna", kind: "palette" },
       { path: "couple.model.groom", label: "Model pengantin lelaki", kind: "model", feature: "mempelai" },
       { path: "couple.model.bride", label: "Model pengantin perempuan", kind: "model", feature: "mempelai" },
+      { path: "couple.outfit.groom", label: "Warna pakaian pengantin lelaki", kind: "outfit", feature: "mempelai", help: "Pilihan. Tanpa pilihan, pakaian kekal seperti dalam gambar model." },
+      { path: "couple.outfit.bride", label: "Warna pakaian pengantin perempuan", kind: "outfit", feature: "mempelai", help: "Pilihan. Tanpa pilihan, pakaian kekal seperti dalam gambar model." },
       { path: "music.src", label: "Lagu latar", kind: "song", feature: "music", asset: "music" },
       { path: "music.title", label: "Tajuk lagu", kind: "text", feature: "music" },
       { path: "music.artist", label: "Artis", kind: "text", feature: "music" }

@@ -3,6 +3,7 @@
 // npm run build:all                build every client in events/
 import { join } from "node:path";
 import { copyFileSync, existsSync, mkdirSync, rmSync } from "node:fs";
+import { recolourStaged } from "./recolour-staged.mjs";
 import { ROOT, fail, listEvents, readEvent, run, sizeOf, stage } from "./lib.mjs";
 
 const [mode, ...rest] = process.argv.slice(2);
@@ -17,6 +18,7 @@ const astro = join(ROOT, "node_modules", ".bin", process.platform === "win32" ? 
 for (const slug of slugs) {
   const event = readEvent(slug);
   const publicDir = stage(slug, event);
+  await recolourStaged(event, publicDir);                // the customer's outfit colours, applied to the staged model pictures
   const outDir = join(ROOT, "dist", slug);
   const env = { EVENT: slug, WARKAH_PUBLIC: publicDir, WARKAH_OUT: outDir };
 
