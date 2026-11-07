@@ -1,4 +1,4 @@
-// The build server: asks the builder (Warkah Kenang's Worker) for preview jobs, builds each one and uploads the result.
+// The build server: asks the builder (Warkah Kenang's Worker) for jobs (a preview, or publishing the real card), builds each one and uploads the result.
 //   KENANG_URL=https://kad.example.com BUILD_SECRET=... node scripts/build-server.mjs [--once] [--interval 3000]
 // It only ever calls out (no inbound port): POST /api/build/claim → download the draft and the customer's files → scripts/build-job.mjs →
 // upload every file of the built card → POST done (or fail). One build at a time. --once handles the queue until it is empty, then exits (for tests).
@@ -39,7 +39,7 @@ async function handle({ job, draft, assets }) {
   const work = mkdtempSync(join(tmpdir(), "warkah-build-"));
   const started = Date.now();
   try {
-    writeFileSync(join(work, "job.json"), JSON.stringify({ id: job.id, token: job.token, tier: job.tier, lang: job.lang }));
+    writeFileSync(join(work, "job.json"), JSON.stringify({ id: job.id, kind: job.kind, token: job.token, slug: job.slug, tier: job.tier, lang: job.lang }));
     writeFileSync(join(work, "draft.json"), JSON.stringify(draft));
     for (const a of assets) {
       const bytes = await withRetry(`download ${a.path}`, async () => {

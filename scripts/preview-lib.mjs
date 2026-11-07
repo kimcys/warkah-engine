@@ -7,7 +7,9 @@ import { join } from "node:path";
 import { ROOT } from "./lib.mjs";
 import { fillWithSample, sampleEvent } from "../src/lib/sample-merge.js";
 import { completeDraft } from "../src/lib/system-fields.js";
+import { publishEvent, referencedFiles } from "../src/lib/publish.js";
 import { effectiveFeatures } from "../kit/index.js";
+
 
 export class DraftError extends Error {}
 
@@ -29,3 +31,15 @@ export function previewEventFor(draft, { slug, tier = "basic", base = "/" }) {
   event.hosting = { site: slug, base };
   return { event, assetSet: themeSample.assetSet, lang };
 }
+
+/** { event } for the REAL card (see src/lib/publish.js). */
+export function publishEventFor(draft, { slug, tier = "basic" }) {
+  if (!draft || typeof draft !== "object") throw new DraftError("The draft is not an object.");
+  if (!draft.theme || !/^[a-z0-9-]+$/.test(draft.theme)) throw new DraftError('The draft needs a "theme".');
+  const themeSampleFile = join(ROOT, "src", "themes", draft.theme, "sample.json");
+  if (!existsSync(themeSampleFile)) throw new DraftError(`Unknown theme "${draft.theme}".`);
+  const lang = draft.lang === "en" ? "en" : "ms";
+  const sample = sampleEvent(JSON.parse(readFileSync(join(ROOT, "samples", `base.${lang}.json`), "utf8")), JSON.parse(readFileSync(themeSampleFile, "utf8")));
+  try { return { event: publishEvent(draft, sample, { slug, features: effectiveFeatures(draft, tier) }), lang }; } catch (e) { throw new DraftError(e.message); }
+}
+export { referencedFiles };
