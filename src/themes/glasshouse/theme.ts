@@ -66,8 +66,6 @@ export default defineTheme("glasshouse", {
 
   // Scenes with no one painted in, for when a client picks a groom/bride model (otherwise the painted couple scenes show)
   modelScenes: { groom: "court", bride: "phone" },
-  // Every scene with the painted couple in it (large on stage, small and far away on the others) is swapped for one with no one in it (lamp, phone, roses, arch)
-  cleanScenes: { stage: "roses", hall: "phone", aisle: "lamp", garden: "phone", gate: "arch", court: "arch", opening: "arch" },
 
   classicSwatch: ["#6f8f62", "#3f5c3c", "#e6eedf"],
 

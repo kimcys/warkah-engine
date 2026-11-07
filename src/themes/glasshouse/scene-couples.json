@@ -1,0 +1,50 @@
+{
+  "stage": {
+    "groom": {
+      "cx": 0.343,
+      "feet": 1.259,
+      "h": 0.7
+    },
+    "bride": {
+      "cx": 0.651,
+      "feet": 1.258,
+      "h": 0.644
+    }
+  },
+  "hall": {
+    "groom": {
+      "cx": 0.438,
+      "feet": 0.598,
+      "h": 0.226
+    },
+    "bride": {
+      "cx": 0.538,
+      "feet": 0.598,
+      "h": 0.208
+    }
+  },
+  "aisle": {
+    "groom": {
+      "cx": 0.47,
+      "feet": 0.666,
+      "h": 0.246
+    },
+    "bride": {
+      "cx": 0.577,
+      "feet": 0.666,
+      "h": 0.227
+    }
+  },
+  "court": {
+    "plateOnly": true
+  },
+  "opening": {
+    "plateOnly": true
+  },
+  "garden": {
+    "plateOnly": true
+  },
+  "gate": {
+    "plateOnly": true
+  }
+}

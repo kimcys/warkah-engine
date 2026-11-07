@@ -3,6 +3,8 @@
 import { existsSync, renameSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import sharp from "sharp";
+
+sharp.cache(false);   // a picture rewritten in this process must be read afresh (the compose step reads what this step writes)
 import { modelIdsFor } from "./lib.mjs";
 import { parseHex, recolourOptionsFor, recolourOutfit } from "../src/lib/recolour.js";
 

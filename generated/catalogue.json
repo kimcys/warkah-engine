@@ -142,10 +142,7 @@
           "tintsArtwork": true
         }
       ],
-      "defaultModels": {
-        "groom": "groom-2",
-        "bride": "bride-2"
-      },
+      "defaultModels": null,
       "paintedCouple": true,
       "pages": [
         "hero",
@@ -1162,10 +1159,7 @@
           "tintsArtwork": false
         }
       ],
-      "defaultModels": {
-        "groom": "groom-3",
-        "bride": "bride-4"
-      },
+      "defaultModels": null,
       "paintedCouple": true,
       "pages": [
         "hero",

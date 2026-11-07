@@ -7,7 +7,6 @@ import { THEME_KEYS } from "../lib/theme-keys";
 import { FEATURES } from "../lib/features";
 import { ADDONS, TIERS } from "../lib/tiers";
 import { OUTFIT_COLOURS } from "../lib/recolour.js";
-import { BUILDER_MODELS } from "../lib/builder-models.js";
 import { ASSET_RULES } from "../lib/asset-rules";
 import { BUILDER_STEPS } from "../lib/builder-steps";
 import { eventSchema } from "../lib/event-schema";
@@ -42,7 +41,7 @@ export const GET: APIRoute = () => {
         layout: t.layout,
         classic: { label: { ms: "Klasik", en: "Classic" }, swatch: t.classicSwatch },
         palettes: Object.entries(t.palettes).map(([id, p]) => ({ id, label: { ms: p.label, en: p.labelEn }, swatch: p.swatch, tintsArtwork: !!p.tint })),
-        defaultModels: t.defaultModels ?? BUILDER_MODELS[key] ?? null,
+        defaultModels: t.defaultModels ?? null,
         // true = the theme paints its own couple in the scene art until a model is chosen
         paintedCouple: !t.defaultModels && !!t.modelScenes,
         pages: t.sections.map((s) => s.id),

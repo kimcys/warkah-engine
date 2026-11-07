@@ -1,5 +1,4 @@
 import { publishEvent, referencedFiles } from "../src/lib/publish.js";
-import { withBuilderModels } from "../src/lib/builder-models.js";
 import { sampleFor } from "../src/lib/sample";
 import { effectiveFeatures } from "../src/lib/draft-status";
 import { validateEvent } from "../src/lib/validate";
@@ -26,12 +25,5 @@ const noGallery = make({ ...dina, gallery: undefined });
 check("with no gallery uploaded none is invented from the sample", !noGallery.gallery || noGallery.gallery.length === 0);
 let bad = ""; try { make(dina, "full", "Bad Slug"); } catch (e: any) { bad = e.message; }
 check("a bad address is refused", /not a valid address/.test(bad));
-// the two themes with the couple painted into their art: a builder card always shows models, never the painted couple
-const rg = publishEvent({ ...dina, theme: "royal-gold" }, sampleFor("royal-gold", "ms"), { slug: "dina-farid", features: effectiveFeatures(dina, "full") });
-check("a painted theme gets its own pair of models when none is chosen", rg.couple.model.groom === "groom-2" && rg.couple.model.bride === "bride-2");
-const rgChosen = publishEvent({ ...dina, theme: "royal-gold", couple: { ...dina.couple, model: { groom: "groom-1" } } }, sampleFor("royal-gold", "ms"), { slug: "dina-farid", features: effectiveFeatures(dina, "full") });
-check("the customer's choice wins for the person they chose, the theme's pair fills the other", rgChosen.couple.model.groom === "groom-1" && rgChosen.couple.model.bride === "bride-2");
-check("a theme that already has default models is left alone", withBuilderModels({ theme: "lover", couple: {} } as any).couple.model === undefined && withBuilderModels({ theme: "enchanted-garden" } as any).couple === undefined);
-check("the painted-couple card still validates", validateEvent(rg).ok);
 console.log(fails ? `${fails} FAILED` : "all passed");
 if (fails) process.exit(1);

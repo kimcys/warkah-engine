@@ -4,6 +4,7 @@
 import { join } from "node:path";
 import { copyFileSync, existsSync, mkdirSync, rmSync } from "node:fs";
 import { recolourStaged } from "./recolour-staged.mjs";
+import { composeScenes } from "./compose-scenes.mjs";
 import { ROOT, fail, listEvents, readEvent, run, sizeOf, stage } from "./lib.mjs";
 
 const [mode, ...rest] = process.argv.slice(2);
@@ -18,7 +19,8 @@ const astro = join(ROOT, "node_modules", ".bin", process.platform === "win32" ? 
 for (const slug of slugs) {
   const event = readEvent(slug);
   const publicDir = stage(slug, event);
-  await recolourStaged(event, publicDir);                // the customer's outfit colours, applied to the staged model pictures
+  await recolourStaged(event, publicDir);
+  await composeScenes(event, publicDir);                 // chosen models on the theme's clean scene plates, where the painted couple stood (when the plates exist)                // the customer's outfit colours, applied to the staged model pictures
   const outDir = join(ROOT, "dist", slug);
   const env = { EVENT: slug, WARKAH_PUBLIC: publicDir, WARKAH_OUT: outDir };
 

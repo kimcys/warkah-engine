@@ -2,7 +2,6 @@
 // Unlike a preview it has no ribbon, keeps guests' RSVPs, wishes and gifts (in Warkah Kad's own store: mode "cloudflare"), is served at https://<card domain>/<slug>/, and never shows a
 // sample photo: the customer's photos, gifts and song are theirs alone.
 import { fillWithSample } from "./sample-merge.js";
-import { withBuilderModels } from "./builder-models.js";
 import { completeDraft } from "./system-fields.js";
 
 /** What the customer uploads: never filled from the sample on a real card. */
@@ -19,7 +18,7 @@ export function publishEvent(draft, sample, { slug, features, api }) {
   const base = structuredClone(sample);
   for (const key of ASSET_KEYS) delete base[key];
   delete base.hosting;                         // the sample's address is not theirs: completeDraft gives the card its own under the card domain
-  const filled = fillWithSample(withBuilderModels(structuredClone(draft)), base);   // the customer's models, or the theme's pair: never the sample's
+  const filled = fillWithSample(draft, base);
   filled.features = features;
   const event = completeDraft(filled, { slug, lang: draft.lang === "en" ? "en" : "ms" });
   delete event.preview;
