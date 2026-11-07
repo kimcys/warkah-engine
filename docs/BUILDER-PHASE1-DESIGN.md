@@ -91,6 +91,12 @@ Limits (like Kenang's "3 weddings per user"): 3 cards per user, **1 live card pe
 
 ## 4. API (all under `/api`, same-origin, session required, JSON unless noted)
 
+**Status: built and tested in the Kenang repo** (branch `builder-cards`): migration `0013_cards.sql`, `src/routes/cards.ts`, `src/lib/cards.ts`, `src/lib/card-assets.ts`, admin routes, the idle-draft cleanup, and `test/cards.test.ts` (40 tests; the whole suite is 39 files, 562 tests, and `wrangler deploy --dry-run` bundles it).
+Additions to the table below: `PUT /cards/:id/slug`, `GET /admin/cards?q=` and `PATCH /admin/cards/:id { tier }` (an admin sets the package). Upload errors: 413 `too_large`, 415 `unsupported_type` (wrong or renamed file, animated image), 422 `image_too_small` / `image_too_large`, 409 `too_many`.
+Only the `lang`, `theme`, `palette`, `couple`, `host`, `date`, `venue`, `aturcara`, `music`, `gallery`, `contacts`, `rsvp`, `features`, `gifts`, `duitnow`, `dressCode` and `ayat` parts of a draft can be patched; paths to uploaded files may only be the canonical ones.
+Gift photos must be WebP (the card looks for `gifts/<id>.webp`), the cover a JPEG, and the browser converts before sending.
+
+
 | Route | Purpose |
 |---|---|
 | `GET /catalogue` | The kit's catalogue (themes, palettes, models, features, tiers, steps, asset rules, samples). Public, cached for an hour, no personal data |
@@ -101,7 +107,7 @@ Limits (like Kenang's "3 weddings per user"): 3 cards per user, **1 live card pe
 | `GET /cards/:id/slug?value=` | `{ ok, problem }`: format, reserved words, taken. `PATCH` with `{ slug }` only while status is `draft` |
 | `POST /cards/:id/assets` (multipart: `kind`, `file`, and `slot` for portrait/gift) | Checks the type by content (not the name), size and dimensions against `ASSET_RULES`, stores in R2, assigns the canonical path, and adds it to the draft (gallery entry with width/height, `portraits`, `meta.ogImage`, `duitnow.image`, `music.src`, gift image). Returns the asset and the new draft version |
 | `DELETE /cards/:id/assets/:assetId` | Removes the file and its reference |
-| `GET /media/cards/:id/*` | Serves the owner's own uploads for the editor (never public; the public copy is part of the built card in Phase 2) |
+| `GET /cards/:id/files/<path>` | Serves the owner's own uploads for the editor (never public, `Cache-Control: private`; the public copy is part of the built card in Phase 2). It lives under `/api/cards` rather than `/media/cards/...` so no event slug can ever clash with it |
 | `POST /cards/:id/preview` | Phase 2. Queues a preview build of the current draft; returns `{ jobId }`. Rate limited (20 per hour) |
 | `GET /cards/:id/preview` | `{ state: none / queued / building / ready / failed, builtVersion, stale: builtVersion != draft_version, url, expiresAt, error }` |
 | `POST /cards/:id/publish` | Phase 3. **Refused (409 `preview_required`) unless `preview_version == draft_version`** and the status block is `ready`, then needs the tier paid or admin-granted |
@@ -117,6 +123,8 @@ Errors are `{ error: "<code>" }` with the codes above plus `invalid_input` and `
 Rate limits (Kenang's `allow()`): create 10 per hour, save 120 per minute per card, upload 40 per hour.
 
 Tier rule: `TIERS[tier].features` is the allowed set. The API enforces it on every patch, and the UI shows locked features with a padlock and "Naik taraf" instead of hiding them.
+
+**Found while building step 2 (all fixed in the engine):** a missing cover was reported twice by `draftStatus`; the venue's Maps / Waze QR paths defaulted to files a builder card does not have (system fields now set them to empty, meaning "no QR"; generating real QR images from the links is a nice-to-have for Phase 2).
 
 ## 5. The screens
 
@@ -201,7 +209,7 @@ instead of a tier list and takes the `assets` list to check uploaded files; `eff
 ## 10. Build order (est. about 3 weeks for Phase 1, then Phase 2 straight after)
 
 1. **Kit and engine helpers: DONE.** Section 7, `npm run kit`, `npm run previews`, the `?groom=` / `?bride=` swap.
-2. **API** (4 days): migration 0013, host-based routing for the `kad` host, routes, tests. Includes tier enforcement and uploads.
+2. **API: DONE** (migration 0013, routes, tier enforcement, uploads, admin tier, cleanup, 40 tests). **Host-based routing for the `kad` host is deferred to step 3**: it needs the DNS and Worker route, an origin chosen per host for emails and links, and it cannot be tested without a deploy; it is better done together with the screens it serves.
 3. **App shell and steps 1 to 3** (4 days): routes, autosave, text / lines / datetime / select fields, theme, palette, model pickers, instant preview.
 4. **Steps 4 and 5** (4 days): uploads, list editors (aturcara, contacts, gifts, dress code), feature toggles with tier locks.
 5. **Terbit step and completeness** (2 days): missing list, problems, address check, summary.

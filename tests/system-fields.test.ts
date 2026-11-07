@@ -25,6 +25,7 @@ check("a draft without system fields is NOT valid yet", !validateEvent(typed).ok
 const done = completeDraft(typed, { slug: "aisyah-hafiz", lang: "ms" });
 check("completed draft validates", validateEvent(done).ok, JSON.stringify((validateEvent(done) as any).problems?.slice(0, 2) ?? ""));
 check("hosting: <card domain>/<slug>/, no Firebase site", done.hosting.domain === CARD_DOMAIN && done.hosting.base === "/aisyah-hafiz/" && done.hosting.site === undefined);
+check("no venue QR images are promised (they do not exist yet)", done.venue.qrMaps === "" && done.venue.qrWaze === "" && completeDraft({ ...typed, venue: { ...typed.venue, qrMaps: "qr/x.png" } }, { slug: "a-b-c" }).venue.qrMaps === "qr/x.png");
 check("store is shared", done.store.mode === "shared");
 check("Malay meta from the names, date and venue", done.meta.title === "Majlis Perkahwinan Aisyah & Hafiz" && /Sabtu 20 Mac 2027/.test(done.meta.description) && /Dewan Seri Kenanga/.test(done.meta.ogAlt + done.meta.description));
 const en = completeDraft(typed, { slug: "aisyah-hafiz", lang: "en" });

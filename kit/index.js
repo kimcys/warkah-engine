@@ -6814,6 +6814,11 @@ function completeDraft(draft, { slug, lang, cardDomain } = {}) {
 	};
 	out.store = out.store || { mode: "shared" };
 	out.package = out.package || "signature";
+	out.venue = {
+		qrMaps: "",
+		qrWaze: "",
+		...out.venue || {}
+	};
 	out.meta = {
 		...metaFor(out, language),
 		...out.meta || {}
@@ -7187,7 +7192,7 @@ function draftStatus(input, options = {}) {
 	}
 	if (assets) {
 		const files = [];
-		files.push([draft.meta?.ogImage ?? "cover/og-preview.jpg", "Gambar pratonton (bila pautan dikongsi)"]);
+		if (typeof draft.meta?.ogImage === "string" && draft.meta.ogImage) files.push([draft.meta.ogImage, "Gambar pratonton (bila pautan dikongsi)"]);
 		if (features.portraits) files.push(["portrait/groom.webp", "Potret pengantin lelaki"], ["portrait/bride.webp", "Potret pengantin perempuan"]);
 		if (features.gallery) list(draft.gallery).forEach((g, i) => files.push([typeof g?.src === "string" ? g.src : "", `Galeri, gambar ${i + 1}`]));
 		if (features.duitnow && draft.duitnow?.image) files.push([draft.duitnow.image, "Kod QR DuitNow"]);
@@ -7491,16 +7496,12 @@ const ASSET_RULES = [
 	{
 		key: "gift",
 		label: "Gambar hadiah",
-		formats: [
-			"image/webp",
-			"image/jpeg",
-			"image/png"
-		],
+		formats: ["image/webp"],
 		maxBytes: 80 * KB,
 		maxLongEdge: 600,
 		minLongEdge: 300,
 		max: 20,
-		hint: "Persegi (kira-kira 400 x 400)."
+		hint: "Persegi (kira-kira 400 x 400). Pelayar menukarnya kepada WebP sebelum dihantar."
 	},
 	{
 		key: "qr",
@@ -7523,4 +7524,4 @@ const ASSET_RULES = [
 ];
 export { ASSET_RULES, BUILDER_STEPS, CARD_DOMAIN, DAYS, DEFAULT_TZ, FEATURES, FEATURE_KEYS, LIMITS, LINES_AS_HTML, LINES_AS_LIST, MIME, MONTHS, OFFERED_FEATURES, PERSONAL_FIELDS, RESERVED_SLUGS, THEME_KEYS, TIERS, addHours, assetSetFor, builderHosting, calendarTextFor, checkUrl, cleanLines, completeDraft, decodeEntities, draftStatus, effectiveFeatures, escapeHtml, fileKind, fillWithSample, fromIso, getPath, hasValue, htmlToLines, imageInfo, isValidSlug, labelFor, linesToHtml, metaFor, partsIn, previewDraft, safeHtml, sampleEvent, sampleFor, sanitizeDraft, setPath, slugProblem, suggestSlug, time12, toIso, validateEvent };
 
-export const KIT_VERSION = "7b2878c6d612";
+export const KIT_VERSION = "68643894469f";

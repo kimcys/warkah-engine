@@ -66,6 +66,9 @@ const kenang = clone(base); kenang.features.kenang = true;
 check("Kenang is not offered to builder customers", draftStatus(kenang, { tier: "custom", assets }).locked.some((l) => l.feature === "kenang" && l.reason === "not_offered"));
 check("a switched-off feature's bad data is ignored", (() => { const d = clone(base); d.gifts = { items: [{ id: "g1", name: "x", price: "1", url: "javascript:1" }] }; return draftStatus(d, { tier: "basic", assets }).ready; })());
 
+// --- a missing cover is reported once, not twice (as a field and as a file)
+check("a missing cover is listed once", draftStatus((() => { const d = clone(base); delete d.meta; return d; })(), { tier: "basic", assets }).missing.filter((m) => /ogImage|og-preview/.test(m.path)).length === 1);
+
 // --- files
 const noFiles = draftStatus(base, { tier: "basic", assets: ["cover/og-preview.jpg"] });
 check("files that were never uploaded are listed", noFiles.missing.filter((m) => m.reason === "asset").length === 2 + base.gallery.length);

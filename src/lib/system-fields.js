@@ -1,6 +1,7 @@
 // The fields of event.json the customer never types. The builder adds them to a draft before it is validated, previewed or built:
 //   hosting   served from <card domain>/<slug>/ (no Firebase Hosting site)
 //   store     "shared": RSVPs, wishes and gifts go to the shared Warkah project under events/<slug>
+//   venue QR  no Maps / Waze QR image unless the draft has one
 //   package   the default package id (the tier is decided by billing, not by this field)
 //   meta      title, description and the preview text, written from the names, date and venue in the card's language
 //   calendarDescription   the text of the calendar entry, from the same details
@@ -71,6 +72,8 @@ export function completeDraft(draft, { slug, lang, cardDomain } = {}) {
   out.hosting = { ...builderHosting(slug, cardDomain), ...(out.hosting || {}) };
   out.store = out.store || { mode: "shared" };
   out.package = out.package || "signature";
+  // The venue's Maps / Waze QR images are not made yet; an empty path means "no QR", so the card never points at a file that is not there.
+  out.venue = { qrMaps: "", qrWaze: "", ...(out.venue || {}) };
   out.meta = { ...metaFor(out, language), ...(out.meta || {}) };
   out.calendarDescription = out.calendarDescription || calendarTextFor(out, language);
   return out;

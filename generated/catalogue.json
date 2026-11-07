@@ -2393,15 +2393,13 @@
       "key": "gift",
       "label": "Gambar hadiah",
       "formats": [
-        "image/webp",
-        "image/jpeg",
-        "image/png"
+        "image/webp"
       ],
       "maxBytes": 81920,
       "maxLongEdge": 600,
       "minLongEdge": 300,
       "max": 20,
-      "hint": "Persegi (kira-kira 400 x 400)."
+      "hint": "Persegi (kira-kira 400 x 400). Pelayar menukarnya kepada WebP sebelum dihantar."
     },
     {
       "key": "qr",

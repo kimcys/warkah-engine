@@ -112,7 +112,7 @@ export function draftStatus(input: unknown, options: StatusOptions = {}): DraftS
   // uploaded files the card will point at
   if (assets) {
     const files: [string, string][] = [];
-    files.push([draft.meta?.ogImage ?? "cover/og-preview.jpg", "Gambar pratonton (bila pautan dikongsi)"]);
+    if (typeof draft.meta?.ogImage === "string" && draft.meta.ogImage) files.push([draft.meta.ogImage, "Gambar pratonton (bila pautan dikongsi)"]);   // an empty cover is already reported as a missing field
     if (features.portraits) files.push(["portrait/groom.webp", "Potret pengantin lelaki"], ["portrait/bride.webp", "Potret pengantin perempuan"]);
     if (features.gallery) list(draft.gallery).forEach((g: any, i: number) => files.push([typeof g?.src === "string" ? g.src : "", `Galeri, gambar ${i + 1}`]));
     if (features.duitnow && draft.duitnow?.image) files.push([draft.duitnow.image, "Kod QR DuitNow"]);
