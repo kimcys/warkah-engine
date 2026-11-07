@@ -103,7 +103,6 @@
     "wishes": false,
     "gifts": false,
     "duitnow": false,
-    "kenang": false,
     "venueSign": false,
     "countdown": false,
     "programme": false,
@@ -126,8 +125,5 @@
     "heroKicker": "Majlis Perkahwinan",
     "inviteHtml": "Dengan penuh rasa kesyukuran,<br>kami ingin menjemput",
     "rsvpDeadlineHtml": "Sila sahkan kehadiran sebelum<br><strong>01 November 2026</strong>"
-  },
-  "kenang": {
-    "slug": "demo"
   }
 }

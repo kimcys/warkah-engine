@@ -7,7 +7,7 @@
 //   ready      no problems, nothing missing, nothing locked
 import { BUILDER_STEPS, labelFor } from "./builder-steps";
 import { FEATURES, OFFERED_FEATURES } from "./features";
-import { TIERS, type Tier } from "./tiers";
+import { ADDON_KEYS, TIERS, type Tier } from "./tiers";
 import { THEME_KEYS, type ThemeKey } from "./theme-keys";
 import { validateEvent, type Problem } from "./validate";
 import { previewDraft } from "./sample";
@@ -19,7 +19,7 @@ import { checkUrl } from "./urls.js";
 import type { Lang } from "./i18n";
 
 export interface Missing { path: string; label: string; step: string; reason: "required" | "feature" | "asset" }
-export interface Locked { feature: string; label: string; reason: "tier" | "not_offered" }
+export interface Locked { feature: string; label: string; reason: "tier" | "not_offered"; addon?: boolean }   // addon: it can be bought on its own
 export interface DraftStatus {
   problems: Problem[];
   missing: Missing[];
@@ -31,6 +31,8 @@ export interface DraftStatus {
 }
 export interface StatusOptions {
   tier?: Tier["id"];
+  /** Add-ons the card has bought (keys of ADDONS), on top of its tier. */
+  addons?: string[];
   lang?: Lang;
   slug?: string;
   /** Paths of the files uploaded for this card ("gallery/1.webp", "portrait/groom.webp" ...). Leave out to skip the file checks. */
@@ -47,12 +49,12 @@ const stepOf = (path: string) => BUILDER_STEPS.find((s) => s.fields.some((f) => 
 const featureLabel = (key: string) => FEATURES.find((f) => f.key === key)?.label ?? key;
 
 /** The switches that really apply: the defaults, the customer's choices, minus anything their package does not include. */
-export function effectiveFeatures(draft: any, tier: Tier["id"] = "basic"): Record<string, boolean> {
+export function effectiveFeatures(draft: any, tier: Tier["id"] = "basic", addons: string[] = []): Record<string, boolean> {
   const allowed = TIERS.find((t) => t.id === tier)?.features ?? [];
   const out: Record<string, boolean> = {};
   for (const f of FEATURES) {
     const wanted = draft?.features && f.key in draft.features ? !!draft.features[f.key] : f.default;
-    const permitted = f.offered === false ? false : allowed === "all" || (allowed as string[]).includes(f.key);
+    const permitted = f.offered === false ? false : allowed === "all" || (allowed as string[]).includes(f.key) || addons.includes(f.key);
     out[f.key] = wanted && permitted;
   }
   return out;
@@ -69,7 +71,7 @@ export function draftStatus(input: unknown, options: StatusOptions = {}): DraftS
   if (!isObject(draft.features)) delete draft.features;                       // a customer (or a bug) may send anything
   const lang: Lang = draft.lang === "en" || options.lang === "en" ? "en" : "ms";
   const wanted: Record<string, boolean> = Object.fromEntries(FEATURES.map((f) => [f.key, draft.features && f.key in draft.features ? !!draft.features[f.key] : f.default]));
-  const features = effectiveFeatures(draft, tier);
+  const features = effectiveFeatures(draft, tier, options.addons);
   const assets = options.assets ? new Set(options.assets) : null;
 
   // --- locked: switched on by the customer but not theirs to use
@@ -77,7 +79,7 @@ export function draftStatus(input: unknown, options: StatusOptions = {}): DraftS
   for (const f of FEATURES) {
     if (!draft.features || !draft.features[f.key]) continue;                 // only what they explicitly turned on
     if (f.offered === false) locked.push({ feature: f.key, label: f.label, reason: "not_offered" });
-    else if (!features[f.key]) locked.push({ feature: f.key, label: f.label, reason: "tier" });
+    else if (!features[f.key]) locked.push({ feature: f.key, label: f.label, reason: "tier", ...(ADDON_KEYS.includes(f.key as any) ? { addon: true } : {}) });
   }
 
   // --- missing

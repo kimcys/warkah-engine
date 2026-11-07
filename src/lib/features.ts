@@ -33,7 +33,6 @@ export const FEATURES: FeatureDef[] = [
   { key: "venueSign", group: "addon", default: false, label: "Papan tanda lokasi", description: "Nama tempat di halaman sendiri." },
   { key: "gifts", group: "addon", default: false, label: "Senarai hadiah", description: "Warkah Hadiah: tetamu pilih hadiah.", needs: "gifts.items" },
   { key: "duitnow", group: "addon", default: false, label: "DuitNow QR", description: "Sumbangan melalui DuitNow.", needs: "duitnow.image" },
-  { key: "kenang", group: "addon", default: false, offered: false, label: "Warkah Kenang", description: "Butang ke photobooth dan dinding kenangan." },   // builder cards do not link to the Kenang site (yet)
   { key: "guestName", group: "addon", default: false, offered: false, label: "Nama tetamu dalam pautan", description: "?to=Nama (belum dijual)." }
 ];
 

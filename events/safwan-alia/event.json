@@ -101,7 +101,6 @@
     "maxGuests": 4
   },
   "features": {
-    "kenang": true,
     "mempelai": true,
     "portraits": true,
     "gallery": true,

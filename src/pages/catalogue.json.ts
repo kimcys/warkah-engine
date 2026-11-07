@@ -5,7 +5,7 @@ import { z } from "astro/zod";
 import { themes } from "../themes";
 import { THEME_KEYS } from "../lib/theme-keys";
 import { FEATURES } from "../lib/features";
-import { TIERS } from "../lib/tiers";
+import { ADDONS, TIERS } from "../lib/tiers";
 import { ASSET_RULES } from "../lib/asset-rules";
 import { BUILDER_STEPS } from "../lib/builder-steps";
 import { eventSchema } from "../lib/event-schema";
@@ -51,6 +51,7 @@ export const GET: APIRoute = () => {
     models: modelLibrary.models,
     features: FEATURES,
     tiers: TIERS,
+    addons: ADDONS,
     assetRules: ASSET_RULES,
     steps: BUILDER_STEPS,
     eventJsonSchema: z.toJSONSchema(eventSchema, { io: "input", unrepresentable: "any" })

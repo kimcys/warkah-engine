@@ -6,7 +6,7 @@ export type Draft = Record<string, any>;
 
 export interface Problem { path: string; field: string; message: string }
 export interface Missing { path: string; label: string; step: string; reason: "required" | "feature" | "asset" }
-export interface Locked { feature: string; label: string; reason: "tier" | "not_offered" }
+export interface Locked { feature: string; label: string; reason: "tier" | "not_offered"; addon?: boolean }
 export interface DraftStatus {
   problems: Problem[]; missing: Missing[]; locked: Locked[];
   changes: { path: string; reason: string }[];
@@ -14,11 +14,11 @@ export interface DraftStatus {
   completeness: { done: number; total: number };
   ready: boolean;
 }
-export interface StatusOptions { tier?: TierId; lang?: Lang; slug?: string; assets?: string[] }
+export interface StatusOptions { tier?: TierId; addons?: string[]; lang?: Lang; slug?: string; assets?: string[] }
 
 export function validateEvent(data: unknown): { ok: true } | { ok: false; problems: Problem[] };
 export function draftStatus(draft: unknown, options?: StatusOptions): DraftStatus;
-export function effectiveFeatures(draft: unknown, tier?: TierId): Record<string, boolean>;
+export function effectiveFeatures(draft: unknown, tier?: TierId, addons?: string[]): Record<string, boolean>;
 export const LIMITS: Record<string, number>;
 
 export function completeDraft(draft: Draft, options: { slug: string; lang?: Lang; cardDomain?: string }): Draft;
@@ -74,6 +74,9 @@ export const OFFERED_FEATURES: FeatureDef[];
 export const FEATURE_KEYS: string[];
 export interface Tier { id: TierId; label: string; priceRM: number; features: string[] | "all"; note: string }
 export const TIERS: Tier[];
+export interface Addon { key: "gifts" | "duitnow"; label: string; priceRM: number; note: string }
+export const ADDONS: Addon[];
+export const ADDON_KEYS: string[];
 export interface AssetRule { key: string; label: string; formats: string[]; maxBytes: number; maxLongEdge?: number; minLongEdge?: number; max?: number; hint: string }
 export const ASSET_RULES: AssetRule[];
 export const THEME_KEYS: readonly ThemeKey[];

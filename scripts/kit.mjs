@@ -1,4 +1,4 @@
-// npm run kit: packages the card kit into kit/ so Kenang's Worker and app can depend on it ("@warkah/card-kit": "file:../warkah-engine/kit").
+// npm run kit: packages the card kit into kit/ so Warkah Kad's Worker and app can depend on it ("@warkah/card-kit": "file:../warkah-engine/kit").
 //   kit/index.js        one ESM file (validation, draftStatus, system fields, slugs, samples, sanitiser, ...) plus KIT_VERSION
 //   kit/index.d.ts      the types (a copy of src/kit.d.ts)
 //   kit/catalogue.json  the catalogue (themes, palettes, models, features, tiers, steps, samples, thumbnails list)
@@ -27,7 +27,7 @@ writeFileSync(join(out, "package.json"), JSON.stringify({
   exports: { ".": { types: "./index.d.ts", default: "./index.js" }, "./catalogue.json": "./catalogue.json" },
   description: "What a valid Warkah card is: validation, draft status, system fields, slugs, samples, sanitiser. Built by `npm run kit` in warkah-engine; do not edit."
 }, null, 2));
-writeFileSync(join(out, "README.md"), `# @warkah/card-kit\n\nBuilt from warkah-engine by \`npm run kit\` (version ${version}). Do not edit; rebuild instead.\nPrivate: it is used by the builder (Kenang's Worker and app) and is never shared with customers.\n`);
+writeFileSync(join(out, "README.md"), `# @warkah/card-kit\n\nBuilt from warkah-engine by \`npm run kit\` (version ${version}). Do not edit; rebuild instead.\nPrivate: it is used by the builder (Warkah Kad's Worker and app) and is never shared with customers.\n`);
 
 // a smoke test of the bundle as another project would load it
 const kit = await import(pathToFileURL(join(out, "index.js")).href);

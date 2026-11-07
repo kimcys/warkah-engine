@@ -300,7 +300,6 @@
             "venueSign": true,
             "gifts": true,
             "duitnow": true,
-            "kenang": false,
             "guestName": false
           },
           "lang": "ms",
@@ -499,7 +498,6 @@
             "venueSign": true,
             "gifts": true,
             "duitnow": true,
-            "kenang": false,
             "guestName": false
           },
           "lang": "en",
@@ -812,7 +810,6 @@
             "venueSign": true,
             "gifts": true,
             "duitnow": true,
-            "kenang": false,
             "guestName": false
           },
           "lang": "ms",
@@ -1011,7 +1008,6 @@
             "venueSign": true,
             "gifts": true,
             "duitnow": true,
-            "kenang": false,
             "guestName": false
           },
           "lang": "en",
@@ -1321,7 +1317,6 @@
             "venueSign": true,
             "gifts": true,
             "duitnow": true,
-            "kenang": false,
             "guestName": false
           },
           "lang": "ms",
@@ -1520,7 +1515,6 @@
             "venueSign": true,
             "gifts": true,
             "duitnow": true,
-            "kenang": false,
             "guestName": false
           },
           "lang": "en",
@@ -1833,7 +1827,6 @@
             "venueSign": true,
             "gifts": true,
             "duitnow": true,
-            "kenang": false,
             "guestName": false
           },
           "lang": "ms",
@@ -2032,7 +2025,6 @@
             "venueSign": true,
             "gifts": true,
             "duitnow": true,
-            "kenang": false,
             "guestName": false
           },
           "lang": "en",
@@ -2299,14 +2291,6 @@
       "needs": "duitnow.image"
     },
     {
-      "key": "kenang",
-      "group": "addon",
-      "default": false,
-      "offered": false,
-      "label": "Warkah Kenang",
-      "description": "Butang ke photobooth dan dinding kenangan."
-    },
-    {
       "key": "guestName",
       "group": "addon",
       "default": false,
@@ -2324,28 +2308,39 @@
         "mempelai",
         "countdown",
         "programme",
-        "portraits",
-        "gallery",
-        "doa",
         "rsvp",
         "wishes",
         "music"
       ],
-      "note": "Halaman utama, tema, warna dan model pengantin. PROPOSED split, to confirm."
+      "note": "Kad jemputan asas: pengantin, kiraan detik, atur cara, RSVP, ucapan tetamu dan muzik."
     },
     {
       "id": "full",
       "label": "Penuh",
       "priceRM": 79,
       "features": "all",
-      "note": "Semua ciri dan tambahan: hadiah, DuitNow, ayat, papan tanda, tema pakaian."
+      "note": "Semua ciri: potret, galeri, doa, ayat, tema pakaian, papan tanda lokasi, serta senarai hadiah dan DuitNow."
     },
     {
       "id": "custom",
       "label": "Reka Khas",
       "priceRM": 99,
       "features": "all",
-      "note": "Reka bentuk tema khas untuk pasangan (dibuat oleh pasukan Warkah)."
+      "note": "Semua dalam Penuh, dengan tema reka bentuk khas untuk pasangan (dibuat oleh pasukan Warkah)."
+    }
+  ],
+  "addons": [
+    {
+      "key": "gifts",
+      "label": "Senarai hadiah",
+      "priceRM": 15,
+      "note": "Senarai hadiah dengan gambar dan pautan kedai."
+    },
+    {
+      "key": "duitnow",
+      "label": "DuitNow QR",
+      "priceRM": 15,
+      "note": "Kod QR DuitNow untuk tetamu yang mahu memberi sumbangan."
     }
   ],
   "assetRules": [
@@ -3228,22 +3223,9 @@
             "default": false,
             "type": "boolean"
           },
-          "kenang": {
-            "default": false,
-            "type": "boolean"
-          },
           "guestName": {
             "default": false,
             "type": "boolean"
-          }
-        }
-      },
-      "kenang": {
-        "default": {},
-        "type": "object",
-        "properties": {
-          "slug": {
-            "type": "string"
           }
         }
       },

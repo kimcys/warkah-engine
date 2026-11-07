@@ -1,0 +1,15 @@
+node_modules
+dist
+.stage
+.astro
+.git
+.firebase
+previews
+generated
+events
+design-export
+Logo
+docs
+tests
+*.log
+.DS_Store

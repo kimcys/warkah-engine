@@ -9,3 +9,4 @@ dist/
 events/sample-*
 events/preview-*
 previews/
+.build-server.env

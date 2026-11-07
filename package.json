@@ -19,7 +19,8 @@
     "deploy": "node scripts/deploy.mjs",
     "deploy:rules": "firebase deploy --only firestore",
     "build-job": "node scripts/build-job.mjs",
-    "build-server": "node scripts/build-server.mjs"
+    "build-server": "node scripts/build-server.mjs",
+    "build-server:live": "node --env-file=.build-server.env scripts/build-server.mjs --interval 3000"
   },
   "dependencies": {
     "astro": "^7.4.2"

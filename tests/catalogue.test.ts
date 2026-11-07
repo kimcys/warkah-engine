@@ -18,7 +18,7 @@ for (const t of catalogue.themes) {
   check(`${t.key}: every palette has an English and a Malay name`, t.palettes.every((p: any) => p.label.ms && p.label.en));
   check(`${t.key}: one thumbnail set per palette`, t.palettes.length === Object.keys(t.thumbnails.palettes).length);
 }
-check("Kenang is not offered to builder customers", catalogue.features.find((f: any) => f.key === "kenang")?.offered === false && catalogue.features.find((f: any) => f.key === "gifts")?.offered !== false);
+check("there is no Kenang feature, and gifts are offered", !catalogue.features.some((f: any) => f.key === "kenang") && catalogue.features.find((f: any) => f.key === "gifts")?.offered !== false);
 check("models have English names", catalogue.models.every((m: any) => m.labelEn));
 console.log(fails ? `${fails} FAILED` : "all passed");
 process.exit(fails ? 1 : 0);

@@ -5622,14 +5622,6 @@ const FEATURES = [
 		needs: "duitnow.image"
 	},
 	{
-		key: "kenang",
-		group: "addon",
-		default: false,
-		offered: false,
-		label: "Warkah Kenang",
-		description: "Butang ke photobooth dan dinding kenangan."
-	},
-	{
 		key: "guestName",
 		group: "addon",
 		default: false,
@@ -5759,7 +5751,6 @@ const eventSchema = object({
 	})).default([]),
 	rsvp: object({ maxGuests: number().int().min(1).max(10).default(2) }).prefault({}),
 	features: object(Object.fromEntries(FEATURES.map((f) => [f.key, boolean().default(f.default)]))).prefault({}),
-	kenang: object({ slug: string().optional() }).prefault({}),
 	gifts: object({
 		groupMinPrice: number().default(500),
 		shop: string().default("Shopee"),
@@ -6165,30 +6156,40 @@ const TIERS = [
 			"mempelai",
 			"countdown",
 			"programme",
-			"portraits",
-			"gallery",
-			"doa",
 			"rsvp",
 			"wishes",
 			"music"
 		],
-		note: "Halaman utama, tema, warna dan model pengantin. PROPOSED split, to confirm."
+		note: "Kad jemputan asas: pengantin, kiraan detik, atur cara, RSVP, ucapan tetamu dan muzik."
 	},
 	{
 		id: "full",
 		label: "Penuh",
 		priceRM: 79,
 		features: "all",
-		note: "Semua ciri dan tambahan: hadiah, DuitNow, ayat, papan tanda, tema pakaian."
+		note: "Semua ciri: potret, galeri, doa, ayat, tema pakaian, papan tanda lokasi, serta senarai hadiah dan DuitNow."
 	},
 	{
 		id: "custom",
 		label: "Reka Khas",
 		priceRM: 99,
 		features: "all",
-		note: "Reka bentuk tema khas untuk pasangan (dibuat oleh pasukan Warkah)."
+		note: "Semua dalam Penuh, dengan tema reka bentuk khas untuk pasangan (dibuat oleh pasukan Warkah)."
 	}
 ];
+/** Bought separately (or included in Penuh and Reka Khas). */
+const ADDONS = [{
+	key: "gifts",
+	label: "Senarai hadiah",
+	priceRM: 15,
+	note: "Senarai hadiah dengan gambar dan pautan kedai."
+}, {
+	key: "duitnow",
+	label: "DuitNow QR",
+	priceRM: 15,
+	note: "Kod QR DuitNow untuk tetamu yang mahu memberi sumbangan."
+}];
+const ADDON_KEYS = ADDONS.map((a) => a.key);
 // src/lib/sample-merge.js
 const KEEP_AS_DRAFT = [
 	"features",
@@ -6376,7 +6377,6 @@ var base_ms_default = {
 		"venueSign": true,
 		"gifts": true,
 		"duitnow": true,
-		"kenang": false,
 		"guestName": false
 	},
 	lang: "ms",
@@ -6556,7 +6556,6 @@ var base_en_default = {
 		"venueSign": true,
 		"gifts": true,
 		"duitnow": true,
-		"kenang": false,
 		"guestName": false
 	},
 	lang: "en",
@@ -7104,12 +7103,12 @@ const OWNED = {
 };
 const stepOf = (path) => BUILDER_STEPS.find((s) => s.fields.some((f) => f.path === path || path.startsWith(f.path + ".")))?.id ?? "tambahan";
 /** The switches that really apply: the defaults, the customer's choices, minus anything their package does not include. */
-function effectiveFeatures(draft, tier = "basic") {
+function effectiveFeatures(draft, tier = "basic", addons = []) {
 	const allowed = TIERS.find((t) => t.id === tier)?.features ?? [];
 	const out = {};
 	for (const f of FEATURES) {
 		const wanted = draft?.features && f.key in draft.features ? !!draft.features[f.key] : f.default;
-		const permitted = f.offered === false ? false : allowed === "all" || allowed.includes(f.key);
+		const permitted = f.offered === false ? false : allowed === "all" || allowed.includes(f.key) || addons.includes(f.key);
 		out[f.key] = wanted && permitted;
 	}
 	return out;
@@ -7124,7 +7123,7 @@ function draftStatus(input, options = {}) {
 	if (!isObject$1(draft.features)) delete draft.features;
 	const lang = draft.lang === "en" || options.lang === "en" ? "en" : "ms";
 	const wanted = Object.fromEntries(FEATURES.map((f) => [f.key, draft.features && f.key in draft.features ? !!draft.features[f.key] : f.default]));
-	const features = effectiveFeatures(draft, tier);
+	const features = effectiveFeatures(draft, tier, options.addons);
 	const assets = options.assets ? new Set(options.assets) : null;
 	const locked = [];
 	for (const f of FEATURES) {
@@ -7137,7 +7136,8 @@ function draftStatus(input, options = {}) {
 		else if (!features[f.key]) locked.push({
 			feature: f.key,
 			label: f.label,
-			reason: "tier"
+			reason: "tier",
+			...ADDON_KEYS.includes(f.key) ? { addon: true } : {}
 		});
 	}
 	const missing = [];
@@ -7541,6 +7541,6 @@ const ASSET_RULES = [
 		hint: "MP3 atau M4A, kurang 6 MB (kira-kira 3 minit)."
 	}
 ];
-export { ASSET_RULES, BUILDER_STEPS, CARD_DOMAIN, DAYS, DEFAULT_TZ, FEATURES, FEATURE_KEYS, LIMITS, LINES_AS_HTML, LINES_AS_LIST, MIME, MONTHS, OFFERED_FEATURES, PERSONAL_FIELDS, RESERVED_SLUGS, THEME_KEYS, TIERS, addHours, assetSetFor, builderHosting, calendarTextFor, checkUrl, cleanLines, completeDraft, decodeEntities, draftStatus, effectiveFeatures, escapeHtml, fileKind, fillWithSample, fromIso, getPath, hasValue, htmlToLines, imageInfo, isNoop, isValidSlug, labelFor, linesToHtml, mergePatch, metaFor, partsIn, previewDraft, safeHtml, sampleEvent, sampleFor, sanitizeDraft, setPath, slugProblem, suggestSlug, time12, toIso, validateEvent };
+export { ADDONS, ADDON_KEYS, ASSET_RULES, BUILDER_STEPS, CARD_DOMAIN, DAYS, DEFAULT_TZ, FEATURES, FEATURE_KEYS, LIMITS, LINES_AS_HTML, LINES_AS_LIST, MIME, MONTHS, OFFERED_FEATURES, PERSONAL_FIELDS, RESERVED_SLUGS, THEME_KEYS, TIERS, addHours, assetSetFor, builderHosting, calendarTextFor, checkUrl, cleanLines, completeDraft, decodeEntities, draftStatus, effectiveFeatures, escapeHtml, fileKind, fillWithSample, fromIso, getPath, hasValue, htmlToLines, imageInfo, isNoop, isValidSlug, labelFor, linesToHtml, mergePatch, metaFor, partsIn, previewDraft, safeHtml, sampleEvent, sampleFor, sanitizeDraft, setPath, slugProblem, suggestSlug, time12, toIso, validateEvent };
 
-export const KIT_VERSION = "3f49610d1ed6";
+export const KIT_VERSION = "2c80cf21fd5c";

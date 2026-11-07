@@ -39,7 +39,7 @@ async function handle({ job, draft, assets }) {
   const work = mkdtempSync(join(tmpdir(), "warkah-build-"));
   const started = Date.now();
   try {
-    writeFileSync(join(work, "job.json"), JSON.stringify({ id: job.id, kind: job.kind, token: job.token, slug: job.slug, tier: job.tier, lang: job.lang }));
+    writeFileSync(join(work, "job.json"), JSON.stringify({ id: job.id, kind: job.kind, token: job.token, slug: job.slug, tier: job.tier, addons: job.addons ?? [], lang: job.lang }));
     writeFileSync(join(work, "draft.json"), JSON.stringify(draft));
     for (const a of assets) {
       const bytes = await withRetry(`download ${a.path}`, async () => {

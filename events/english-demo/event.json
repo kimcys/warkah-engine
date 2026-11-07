@@ -133,7 +133,6 @@
     "wishes": true,
     "gifts": true,
     "duitnow": true,
-    "kenang": false,
     "venueSign": true,
     "music": false
   },
@@ -153,9 +152,6 @@
     "heroKicker": "Wedding Celebration",
     "inviteHtml": "With heartfelt gratitude,<br>we would like to invite",
     "rsvpDeadlineHtml": "Please confirm your attendance before<br><strong>01 November 2026</strong>"
-  },
-  "kenang": {
-    "slug": "demo"
   },
   "gifts": {
     "groupMinPrice": 500,

@@ -123,9 +123,6 @@ export const eventSchema = z.object({
       Object.fromEntries(FEATURES.map((f) => [f.key, z.boolean().default(f.default)]))
     ).prefault({}),
 
-    // Warkah Kenang link. The Kenang event defaults to this card's slug; set it only when they differ.
-    kenang: z.object({ slug: z.string().optional() }).prefault({}),
-
     gifts: z.object({
       groupMinPrice: z.number().default(500),   // gifts above this (RM) can be shared
       shop: z.string().default("Shopee"),

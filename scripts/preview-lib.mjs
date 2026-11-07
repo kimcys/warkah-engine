@@ -14,7 +14,7 @@ import { effectiveFeatures } from "../kit/index.js";
 export class DraftError extends Error {}
 
 /** { event, assetSet, theme } for a draft. `slug` names the build; `base` is where it will be served ("/" on a laptop). */
-export function previewEventFor(draft, { slug, tier = "basic", base = "/" }) {
+export function previewEventFor(draft, { slug, tier = "basic", addons = [], base = "/" }) {
   if (!draft || typeof draft !== "object") throw new DraftError("The draft is not an object.");
   if (!draft.theme) throw new DraftError('The draft needs a "theme" (royal-gold, lover, glasshouse or enchanted-garden).');
   if (!/^[a-z0-9-]+$/.test(draft.theme)) throw new DraftError(`Unknown theme "${draft.theme}".`);
@@ -24,7 +24,7 @@ export function previewEventFor(draft, { slug, tier = "basic", base = "/" }) {
   const themeSample = JSON.parse(readFileSync(themeSampleFile, "utf8"));
   const sample = sampleEvent(JSON.parse(readFileSync(join(ROOT, "samples", `base.${lang}.json`), "utf8")), themeSample);
   const filled = fillWithSample(draft, sample);
-  filled.features = effectiveFeatures(draft, tier);
+  filled.features = effectiveFeatures(draft, tier, addons);
   const event = completeDraft(filled, { slug, lang });
   event.preview = true;
   event.store = { mode: "demo" };                       // a preview never keeps a guest's RSVP, wish or gift
@@ -33,13 +33,13 @@ export function previewEventFor(draft, { slug, tier = "basic", base = "/" }) {
 }
 
 /** { event } for the REAL card (see src/lib/publish.js). */
-export function publishEventFor(draft, { slug, tier = "basic" }) {
+export function publishEventFor(draft, { slug, tier = "basic", addons = [] }) {
   if (!draft || typeof draft !== "object") throw new DraftError("The draft is not an object.");
   if (!draft.theme || !/^[a-z0-9-]+$/.test(draft.theme)) throw new DraftError('The draft needs a "theme".');
   const themeSampleFile = join(ROOT, "src", "themes", draft.theme, "sample.json");
   if (!existsSync(themeSampleFile)) throw new DraftError(`Unknown theme "${draft.theme}".`);
   const lang = draft.lang === "en" ? "en" : "ms";
   const sample = sampleEvent(JSON.parse(readFileSync(join(ROOT, "samples", `base.${lang}.json`), "utf8")), JSON.parse(readFileSync(themeSampleFile, "utf8")));
-  try { return { event: publishEvent(draft, sample, { slug, features: effectiveFeatures(draft, tier) }), lang }; } catch (e) { throw new DraftError(e.message); }
+  try { return { event: publishEvent(draft, sample, { slug, features: effectiveFeatures(draft, tier, addons) }), lang }; } catch (e) { throw new DraftError(e.message); }
 }
 export { referencedFiles };

@@ -1,4 +1,4 @@
-// The card kit: everything the builder (Kenang's Worker and app) needs to know about what a valid Warkah card is.
+// The card kit: everything the builder (Warkah Kad's Worker and app) needs to know about what a valid Warkah card is.
 // `npm run kit` bundles this file into kit/index.js. Nothing here may import Astro, Node or the DOM.
 export { validateEvent } from "./lib/validate";
 export type { Problem } from "./lib/validate";
@@ -19,8 +19,8 @@ export { BUILDER_STEPS, labelFor } from "./lib/builder-steps";
 export type { BuilderField, BuilderStep } from "./lib/builder-steps";
 export { FEATURES, OFFERED_FEATURES, FEATURE_KEYS } from "./lib/features";
 export type { FeatureDef } from "./lib/features";
-export { TIERS } from "./lib/tiers";
-export type { Tier } from "./lib/tiers";
+export { ADDONS, ADDON_KEYS, TIERS } from "./lib/tiers";
+export type { Addon, Tier } from "./lib/tiers";
 export { ASSET_RULES } from "./lib/asset-rules";
 export type { AssetRule } from "./lib/asset-rules";
 export { THEME_KEYS } from "./lib/theme-keys";
