@@ -38,7 +38,8 @@ const ogType = e.meta.ogImage.endsWith(".png") ? "image/png" : "image/jpeg";
     <meta name="twitter:title" content={e.meta.title} />
     <meta name="twitter:description" content={shareDescription} />
     {ogImage && <meta name="twitter:image" content={ogImage} />}
-    {e.hosting.base !== "/" || e.store.mode === "demo" ? <meta name="robots" content="noindex" /> : null}
+    {e.hosting.base !== "/" || e.store.mode === "demo" || e.preview ? <meta name="robots" content="noindex" /> : null}
+    {e.preview && <link rel="stylesheet" href={`${base}core/preview.css?v=${version}`} />}
 
     <meta name="theme-color" content={card.palette.themeColor} />
     <link rel="icon" href={themeAsset(`favicon.svg?v=${e.meta.version}`)} type="image/svg+xml" />
@@ -56,6 +57,7 @@ const ogType = e.meta.ogImage.endsWith(".png") ? "image/png" : "image/jpeg";
     <script is:inline type="application/json" id="warkah-data" set:html={safeJson(clientData)}></script>
   </head>
   <body class={`card-closed ${theme.bodyClass}`}>
+    {e.preview && <div class="preview-ribbon" role="note">{card.t("Pratonton")}</div>}
     <slot />
     <script is:inline type="module" src={`${base}core/card.js?v=${version}`}></script>
   </body>

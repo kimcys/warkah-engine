@@ -1,0 +1,8 @@
+/* A card built by the builder's preview job: a ribbon so nobody mistakes it for the finished invitation. */
+.preview-ribbon {
+  position: fixed; top: 24px; right: -38px; z-index: 9999;
+  width: 140px; padding: 5px 0; transform: rotate(45deg);
+  background: rgba(40, 40, 40, 0.82); color: #fff;
+  font: 700 0.62rem/1.2 system-ui, -apple-system, "Segoe UI", sans-serif; letter-spacing: 0.14em; text-transform: uppercase; text-align: center;
+  pointer-events: none; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}

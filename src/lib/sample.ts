@@ -20,7 +20,7 @@ export function sampleFor(theme: ThemeKey, lang: Lang = "ms") {
 /** Which folder of sample photos suits the theme: samples/assets/<set>/ ("modern" or "malay"). */
 export const assetSetFor = (theme: ThemeKey): string => THEME_SAMPLES[theme].assetSet;
 
-/** A customer's draft with its empty fields filled from the sample (their choices are never replaced). */
+/** A customer's draft with its empty fields filled from the sample (their choices are never replaced; personal fields are never copied). Add the system fields with completeDraft() before validating or building. */
 export function previewDraft(draft: Record<string, any>, theme: ThemeKey, lang: Lang = "ms") {
   return fillWithSample(draft, sampleFor(theme, lang)) as Record<string, any>;
 }

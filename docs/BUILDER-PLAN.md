@@ -40,7 +40,7 @@ Always on the screen: a phone-frame preview that updates, a "what is missing" li
 - Text and photo edits: a build job writes `events/<slug>/` to a temp folder, runs `build` (about 10 to 20 s measured), and the preview iframe
   reloads. A "Updating preview..." spinner is acceptable for an MVP.
 - Publish = the same job, then the finished static card is uploaded to R2 under `cards/<slug>/` and a small Worker serves
-  `kad.warkah.com.my/<slug>` from it (cached at the edge). The card is built with `hosting.base = "/<slug>/"` (the engine already supports a
+  `kad.aimanhakimcy.com/<slug>` (later `kad.warkah.com.my`) from it (cached at the edge). The card is built with `hosting.base = "/<slug>/"` (the engine already supports a
   base path, as the catalogue demos use). No Firebase Hosting site per card, and the existing Firebase deploy stays for current clients.
 - Pros: no change to the card renderer, existing live cards keep working, fastest to ship. Cons: a build server to run and secure, publish takes under a minute.
 
@@ -92,10 +92,13 @@ Manual WhatsApp activation first (as Kenang does), CHIP later. Prices stay place
 ## 6. Decisions
 
 **Confirmed**
-- **Domain:** `kad.warkah.com.my`, one card per path: `kad.warkah.com.my/<slug>`. Slugs share the reserved-word list with Kenang (`shared/slugs.ts`).
+- **Domain:** cards and the builder at `kad.aimanhakimcy.com/<slug>` for now, moving to `kad.warkah.com.my` later (one setting, `CARD_DOMAIN`; old links keep redirecting). Nothing links between this and the Kenang site. Slugs share the reserved-word list with Kenang (`shared/slugs.ts`).
 - **Build server:** a DigitalOcean droplet later, with GitHub Actions for CI/CD. Split of work: the droplet runs the build queue (previews and publishes,
   so a preview does not wait for a cold CI runner); GitHub Actions runs checks on every push (`build:all`, validation tests) and deploys engine updates to the
   droplet, then re-publishes live cards that need an engine fix (a matrix over the live card list).
+- **Preview before purchase:** the customer always sees a full preview of their own card (ribbon, not indexed, no guest data) before they can pay; publish is refused until a preview of the current draft exists. Details: `docs/BUILDER-PHASE1-DESIGN.md` section 6.
+- **Engine repository:** private, never shared with customers; the builder uses a packaged "card kit".
+- **Tier:** an admin sets it until payment exists; new drafts are Asas (`basic`). One live card per wedding.
 - **Language:** Malay now, Malay and English later. So fixed wording in the shared pages must move into a string table first (phase 0b below);
   Kenang's approach (Malay text is the key, English fills in) is the pattern to copy.
 - **Models:** more are coming, and the customer can **change the colour of the outfit later** (see section 7).

@@ -138,6 +138,9 @@ const EN: Record<string, string> = {
   "Lagu tidak dapat dimainkan. Sila tekan butang sekali lagi.": "The song could not be played. Please tap the button again.",
   "Lagu dihentikan.": "The song has stopped.",
 
+  // preview ribbon
+  "Pratonton": "Preview",
+
   // credit
   "Kad oleh": "Card by"
 };

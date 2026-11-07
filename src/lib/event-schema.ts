@@ -23,6 +23,8 @@ export const eventSchema = z.object({
     theme: z.enum(THEME_KEYS),
     palette: z.string().default("classic"),           // colour option of the theme (see Palette in src/themes/define.ts)
     package: z.enum(["signature", "custom"]).default("signature"),
+    // Set only by the builder's preview job: the card shows a "Pratonton" ribbon, is not indexed and (with store "demo") keeps no guest data.
+    preview: z.boolean().optional(),
     lang: z.enum(["ms", "en"]).default("ms"),      // language of the card's fixed wording (the couple's own text is whatever they typed)
 
     // Where the card is served. Existing cards: a Firebase Hosting `site` (<site>.web.app). Builder cards: no site; `domain` kad.warkah.com.my and

@@ -1,4 +1,4 @@
-// Card addresses: https://kad.warkah.com.my/<slug>/. A slug must never collide with something else at the top of that domain
+// Card addresses: https://<card domain>/<slug>/ (kad.aimanhakimcy.com for now, see system-fields.js). A slug must never collide with something else at the top of that domain
 // (the builder's own pages, the API, shared folders) or with Warkah Kenang's routes (same list as warkah-kenang/shared/slugs.ts, plus ours).
 // Plain JavaScript so the builder's Worker, the build scripts and tests can all use it.
 

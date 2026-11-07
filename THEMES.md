@@ -35,12 +35,15 @@ component when it wants a different design. Features switch pages off per client
 ## Where a card lives, and the fields the builder fills in
 
 - **Existing cards:** `hosting.site` is a Firebase Hosting site (`<site>.web.app`), deployed with `npm run deploy -- <client>`.
-- **Builder cards:** no site. `hosting` is `{ domain: "kad.warkah.com.my", base: "/<slug>/" }`, so the card lives at `kad.warkah.com.my/<slug>/` (canonical link, share image and asset paths
+- **Builder cards:** no site. `hosting` is `{ domain: <card domain>, base: "/<slug>/" }` (the card domain is `CARD_DOMAIN` in `src/lib/system-fields.js`: `kad.aimanhakimcy.com` now, `kad.warkah.com.my` later), so the card lives at `kad.aimanhakimcy.com/<slug>/` (canonical link, share image and asset paths
   all follow). The schema needs a `site` **or** a `domain`; neither is refused. `npm run deploy` explains this for a card without a site.
 - `src/lib/system-fields.js` → `completeDraft(draft, { slug, lang })` adds what the customer never types: `hosting`, `store` (`shared`), `package`, and `meta` (page title, description and share text
   written from the names, date and venue in Malay or English). Anything the draft already has is kept.
 - `src/lib/slug.js`: `slugProblem(slug)` (Malay messages), `isValidSlug`, `suggestSlug(first, second, taken)`. 3 to 40 characters, lowercase letters, numbers and dashes; reserved words
   (Kenang's list plus the builder's own pages and shared folders) and the `sample-` prefix are refused.
+- **Previews:** `npm run preview -- <draft.json> [--assets <folder>] [--name <slug>] [--build]` builds a real card from a customer's draft the way the build server will: empty fields get sample
+  filler (never the people-related ones in `PERSONAL_FIELDS`), the system fields are added, and `preview: true` gives the card a "Pratonton" ribbon and `noindex` with a demo store (no guest data kept).
+  Output goes to `events/preview-<name>/` (git-ignored, skipped by `build:all`).
 - Try it: `npm run sample -- lover --builder --build` builds a sample card exactly the way the builder would. Serve `dist/` to see it at `/sample-lover-ms/`.
 - Cards at a non-root base carry `noindex` (search engines are told not to list them), which suits private invitations.
 

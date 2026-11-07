@@ -13,6 +13,7 @@ export interface FeatureDef {
   label: string;          // shown to the customer (Malay)
   description: string;
   needs?: string;         // what the client must also provide (event.json data) for it to show
+  offered?: boolean;      // false = not shown to customers in the builder (default true); the engine still supports it for cards made by hand
 }
 
 export const FEATURES: FeatureDef[] = [
@@ -32,8 +33,11 @@ export const FEATURES: FeatureDef[] = [
   { key: "venueSign", group: "addon", default: false, label: "Papan tanda lokasi", description: "Nama tempat di halaman sendiri." },
   { key: "gifts", group: "addon", default: false, label: "Senarai hadiah", description: "Warkah Hadiah: tetamu pilih hadiah.", needs: "gifts.items" },
   { key: "duitnow", group: "addon", default: false, label: "DuitNow QR", description: "Sumbangan melalui DuitNow.", needs: "duitnow.image" },
-  { key: "kenang", group: "addon", default: false, label: "Warkah Kenang", description: "Butang ke photobooth dan dinding kenangan." },
-  { key: "guestName", group: "addon", default: false, label: "Nama tetamu dalam pautan", description: "?to=Nama (belum dijual)." }
+  { key: "kenang", group: "addon", default: false, offered: false, label: "Warkah Kenang", description: "Butang ke photobooth dan dinding kenangan." },   // builder cards do not link to the Kenang site (yet)
+  { key: "guestName", group: "addon", default: false, offered: false, label: "Nama tetamu dalam pautan", description: "?to=Nama (belum dijual)." }
 ];
 
 export const FEATURE_KEYS = FEATURES.map((f) => f.key);
+
+/** The switches a customer sees in the builder. */
+export const OFFERED_FEATURES = FEATURES.filter((f) => f.offered !== false);

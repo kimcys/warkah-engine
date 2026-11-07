@@ -54,7 +54,7 @@ export async function loadEvent() {
   };
 
   const base = e.hosting.base;                                  // "/", "/demo/royal-gold/" or "/<slug>/" (builder cards)
-  // Where the card lives: its own domain (builder cards: kad.warkah.com.my), else the Firebase Hosting site <site>.web.app
+  // Where the card lives: its own domain (builder cards: the card domain in system-fields.js), else the Firebase Hosting site <site>.web.app
   const host = e.hosting.domain || (e.hosting.site ? `${e.hosting.site}.web.app` : "");
   if (!host) throw new Error(`events/${slug}/event.json: hosting needs a "site" (Firebase Hosting) or a "domain".`);
   const siteUrl = `https://${host}${base}`;

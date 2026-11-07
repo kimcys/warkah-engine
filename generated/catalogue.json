@@ -1,7 +1,7 @@
 {
   "generated": "by npm run catalogue; do not edit",
   "language": "ms",
-  "cardDomain": "kad.warkah.com.my",
+  "cardDomain": "kad.aimanhakimcy.com",
   "reservedSlugs": [
     "api",
     "media",
@@ -2302,6 +2302,7 @@
       "key": "kenang",
       "group": "addon",
       "default": false,
+      "offered": false,
       "label": "Warkah Kenang",
       "description": "Butang ke photobooth dan dinding kenangan."
     },
@@ -2309,6 +2310,7 @@
       "key": "guestName",
       "group": "addon",
       "default": false,
+      "offered": false,
       "label": "Nama tetamu dalam pautan",
       "description": "?to=Nama (belum dijual)."
     }
@@ -2336,7 +2338,7 @@
       "label": "Penuh",
       "priceRM": 79,
       "features": "all",
-      "note": "Semua ciri dan tambahan: hadiah, DuitNow, ayat, papan tanda, tema pakaian, Kenang."
+      "note": "Semua ciri dan tambahan: hadiah, DuitNow, ayat, papan tanda, tema pakaian."
     },
     {
       "id": "custom",
@@ -2744,6 +2746,9 @@
           "signature",
           "custom"
         ]
+      },
+      "preview": {
+        "type": "boolean"
       },
       "lang": {
         "default": "ms",

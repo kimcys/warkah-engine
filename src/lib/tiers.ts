@@ -10,6 +10,6 @@ export interface Tier {
 
 export const TIERS: Tier[] = [
   { id: "basic", label: "Asas", priceRM: 39, features: ["mempelai", "countdown", "programme", "portraits", "gallery", "doa", "rsvp", "wishes", "music"], note: "Halaman utama, tema, warna dan model pengantin. PROPOSED split, to confirm." },
-  { id: "full", label: "Penuh", priceRM: 79, features: "all", note: "Semua ciri dan tambahan: hadiah, DuitNow, ayat, papan tanda, tema pakaian, Kenang." },
+  { id: "full", label: "Penuh", priceRM: 79, features: "all", note: "Semua ciri dan tambahan: hadiah, DuitNow, ayat, papan tanda, tema pakaian." },
   { id: "custom", label: "Reka Khas", priceRM: 99, features: "all", note: "Reka bentuk tema khas untuk pasangan (dibuat oleh pasukan Warkah)." }
 ];
