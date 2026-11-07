@@ -46,6 +46,7 @@ const gifts = e.gifts;
     <a id="googleMaps" class="primary-button" target="_blank" rel="noopener">Google Maps</a>
     <a id="waze" class="secondary-button" target="_blank" rel="noopener">Waze</a>
   </div>
+  <button class="text-button" data-panel="calendarPanel" type="button">Simpan Tarikh ke Kalendar</button>
 </section>
 
 {e.music && (
@@ -115,23 +116,34 @@ const gifts = e.gifts;
     <button class="panel-close" type="button" aria-label="Tutup">&times;</button>
     <h2>Hadiah</h2>
     <p class="panel-sub">{e.text.giftIntro}</p>
-    {e.features.gifts && (
-      <>
-        <p class="gift-note">
-          Harga adalah anggaran dari {gifts.shop} dan boleh berubah. Tekan &ldquo;Saya akan beli ini&rdquo; supaya tetamu lain tahu hadiah itu sudah dipilih. Hadiah bernilai lebih RM{gifts.groupMinPrice} boleh dikongsi beramai-ramai.
-        </p>
-        <div id="giftList" class="gift-list"></div>
-      </>
-    )}
-    {e.features.duitnow && (
-      <div id="giftDuitnow" class="gift-duitnow" hidden>
-        <p class="gift-or">{e.features.gifts ? "atau sumbangan melalui DuitNow" : "Sumbangan melalui DuitNow"}</p>
-        <figure class="qr-card gift-qr">
-          <img id="giftQr" alt="Kod QR DuitNow" width="220" height="220" decoding="async" />
-          <figcaption id="giftName">DuitNow QR</figcaption>
-        </figure>
-        <a id="giftSave" class="secondary-button" download={`duitnow-${slug}.png`}>Simpan QR</a>
-      </div>
-    )}
+    {/* Both add-ons on → a tab bar switches between them; only one on → no tab bar, just that one. */}
+    <div class="gift-tabs-wrap" data-tabs>
+      {e.features.gifts && e.features.duitnow && (
+        <div class="tab-bar" role="tablist" aria-label="Jenis hadiah">
+          <button class="is-active" type="button" role="tab" aria-selected="true" data-tab="gifts">Senarai Hadiah</button>
+          <button type="button" role="tab" aria-selected="false" data-tab="duitnow">DuitNow</button>
+        </div>
+      )}
+      {e.features.gifts && (
+        <div data-tab-pane="gifts">
+          <p class="gift-note">
+            Harga adalah anggaran dari {gifts.shop} dan boleh berubah. Tekan &ldquo;Saya akan beli ini&rdquo; supaya tetamu lain tahu hadiah itu sudah dipilih. Hadiah bernilai lebih RM{gifts.groupMinPrice} boleh dikongsi beramai-ramai.
+          </p>
+          <div id="giftList" class="gift-list"></div>
+        </div>
+      )}
+      {e.features.duitnow && (
+        <div data-tab-pane="duitnow" hidden={e.features.gifts}>
+          <div id="giftDuitnow" class="gift-duitnow" hidden>
+            <p class="gift-or">Sumbangan melalui DuitNow</p>
+            <figure class="qr-card gift-qr">
+              <img id="giftQr" alt="Kod QR DuitNow" width="220" height="220" decoding="async" />
+              <figcaption id="giftName">DuitNow QR</figcaption>
+            </figure>
+            <a id="giftSave" class="secondary-button" download={`duitnow-${slug}.png`}>Simpan QR</a>
+          </div>
+        </div>
+      )}
+    </div>
   </section>
 )}

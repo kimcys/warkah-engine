@@ -1,0 +1,31 @@
+/* Groom / bride figure pages (shared by every theme). The figure (models/*.webp, a standing full-length person) fills the page behind
+   the frosted name panel, which sits low so the head and shoulders stay clear. A theme only picks the scene behind it. */
+.section-card.has-model { position: relative; justify-content: flex-end !important; }
+
+.model-figure {
+  position: absolute;
+  inset: 0 -16px;                 /* the full phone width (the page margin is 16px each side) */
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 82%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0, #000 82%, transparent 100%);
+}
+
+.model-figure img {
+  position: absolute;
+  left: 50%;
+  top: 2%;
+  height: 108%;
+  width: auto;
+  max-width: none;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 14px 20px rgba(40, 30, 40, 0.2));
+}
+
+.section-card.has-model .page-panel { position: relative; z-index: 1; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .section-card.has-model .model-figure { opacity: 0; transform: translateY(18px); transition: opacity 0.9s ease 0.15s, transform 0.9s ease 0.15s; }
+  .section-card.has-model.is-visible .model-figure { opacity: 1; transform: none; }
+}

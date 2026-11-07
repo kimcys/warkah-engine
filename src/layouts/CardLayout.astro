@@ -47,6 +47,7 @@ const ogType = e.meta.ogImage.endsWith(".png") ? "image/png" : "image/jpeg";
     <link rel="stylesheet" href={theme.fonts} />
     {theme.preload.map((path) => <link rel="preload" as="image" href={themeAsset(path)} />)}
     <link rel="stylesheet" href={themeAsset(`${theme.stylesheet}?v=${version}`)} />
+    <link rel="stylesheet" href={`${base}core/models.css?v=${version}`} />
     <script is:inline type="application/json" id="warkah-data" set:html={safeJson(clientData)}></script>
   </head>
   <body class={`card-closed ${theme.bodyClass}`}>

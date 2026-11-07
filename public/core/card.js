@@ -64,7 +64,7 @@ function initScenes() {
   $$("#card > .section-card").forEach((section) => {
     const panel = document.createElement("div");
     panel.className = "page-panel";
-    panel.append(...section.childNodes);
+    panel.append(...Array.from(section.childNodes).filter((node) => !(node.classList && node.classList.contains("model-figure"))));
     section.append(panel);
     Array.from(panel.children).forEach((child, childIndex) => child.style.setProperty("--i", childIndex));
   });
@@ -265,6 +265,21 @@ $$("[data-panel]").forEach((button) => {
       window.setTimeout(() => openPanel(button.dataset.panel), 450);
     }
   });
+});
+
+/* ---------- Tab bars (Hadiah: Senarai Hadiah | DuitNow). Only drawn when there is more than one tab. ---------- */
+
+$$("[data-tabs]").forEach((group) => {
+  const tabs = $$("[data-tab]", group);
+  const panes = $$("[data-tab-pane]", group);
+  tabs.forEach((tab) => tab.addEventListener("click", () => {
+    tabs.forEach((other) => {
+      const on = other === tab;
+      other.classList.toggle("is-active", on);
+      other.setAttribute("aria-selected", String(on));
+    });
+    panes.forEach((pane) => { pane.hidden = pane.dataset.tabPane !== tab.dataset.tab; });
+  }));
 });
 
 $$(".panel-close, [data-close]").forEach((button) => button.addEventListener("click", closePanels));

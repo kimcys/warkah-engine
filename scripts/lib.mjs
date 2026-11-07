@@ -40,6 +40,7 @@ function copyInto(from, to) {
 //   /core, /warkah      shared files (public/)
 //   /theme              the theme's files, then the client's overrides (events/<slug>/theme/)
 //   /event              the client's photos, song, QR codes (events/<slug>/assets/)
+//   /models             the groom/bride figure library (models/), shared by every theme
 // Only this client's files are included, so no other couple's photos end up on their site.
 export function stage(slug, event) {
   const themeDir = join(ROOT, "src", "themes", event.theme, "public");
@@ -52,6 +53,7 @@ export function stage(slug, event) {
   copyInto(themeDir, join(out, "theme"));
   copyInto(join(EVENTS_DIR, slug, "theme"), join(out, "theme"));
   copyInto(join(EVENTS_DIR, slug, "assets"), join(out, "event"));
+  copyInto(join(ROOT, "models"), join(out, "models"));   // groom/bride figures (the card loads only the two it shows)
   return out;
 }
 

@@ -2,9 +2,13 @@
 // If a required field is missing or wrong, the build stops with a message naming the field.
 // Fields with .default(...) can be left out: the default text is used.
 import { defineCollection, z } from "astro:content";
+import modelLibrary from "../models/library.json";
 import { glob } from "astro/loaders";
 
 const html = z.string(); // may contain <br>, &amp;, &rsquo; ... (rendered as HTML)
+
+// The choosable bride and groom figures (models/library.json). Leave a person out to use the theme's default, or its own artwork.
+const modelIds = (who: string) => modelLibrary.models.filter((m) => m.who === who).map((m) => m.id) as [string, ...string[]];
 
 const person = z.object({
   name: z.string(),              // "Muhammad Ezzan"
@@ -57,7 +61,11 @@ const events = defineCollection({
       groom: person,
       bride: person,
       hashtag: z.string().optional(),
-      first: z.enum(["groom", "bride"]).default("groom")   // whose name comes first
+      first: z.enum(["groom", "bride"]).default("groom"),  // whose name comes first
+      model: z.object({
+        groom: z.enum(modelIds("groom")).optional(),
+        bride: z.enum(modelIds("bride")).optional()
+      }).optional()                                         // which figures stand on the groom and bride pages
     }),
 
     host: z.object({
@@ -120,6 +128,8 @@ const events = defineCollection({
       gifts: z.boolean().default(false),        // add-on: Warkah Hadiah
       duitnow: z.boolean().default(false),      // add-on: DuitNow QR
       kenang: z.boolean().default(false),       // add-on: Warkah Kenang (photobooth + memory wall), button in the bottom bar
+      ayat: z.boolean().default(false),
+      venueSign: z.boolean().default(false),    // venue name on its own page         // Quran verse page (see `ayat` below)
       guestName: z.boolean().default(false)     // ?to=Name in the link (not sold; off)
     }).prefault({}),
 
@@ -139,6 +149,13 @@ const events = defineCollection({
 
     // Optional hand-drawn lettering (images in assets/) used instead of typed names / hashtag, e.g. the Lover card.
     art: z.object({ title: z.string().optional(), hashtag: z.string().optional() }).optional(),
+
+    // Verse shown on the Ayat page (features.ayat). Defaults to Ar-Rum 30:21.
+    ayat: z.object({
+      ref: z.string().default("Surah Ar-Rum (30:21)"),
+      arabic: z.string().default("…وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا"),
+      malay: z.string().default("“Dan antara tanda tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan dari jenismu sendiri supaya kamu mendapat ketenangan daripadanya…”")
+    }).prefault({}),
 
     // Optional dress-code page (Lover theme).
     dressCode: z.object({

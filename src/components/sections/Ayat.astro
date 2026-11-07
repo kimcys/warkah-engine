@@ -1,0 +1,12 @@
+---
+// Ayat: the Quran verse page (features.ayat). The verse comes from event.json → ayat.
+import type { Card } from "../../lib/event";
+interface Props { card: Card; attrs: Record<string, string> }
+const { card, attrs } = Astro.props;
+const { ref, arabic, malay } = card.e.ayat;
+---
+<section class="section-card ayat reveal" {...attrs} id="ayat" aria-label={ref}>
+  <p class="ayat-ref">{ref}</p>
+  <p class="ayat-arabic" lang="ar" dir="rtl">{arabic}</p>
+  <p class="ayat-malay">{malay}</p>
+</section>

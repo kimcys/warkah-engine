@@ -1,6 +1,6 @@
 ---
-// Ucapan Tetamu: its own page (the guests' wishes, three at a time, turning by themselves).
-import type { Card } from "../../../lib/event";
+// Ucapan Tetamu: its own page in every theme (the guests' wishes, turning by themselves; the page size is theme.client.wishesPerPage).
+import type { Card } from "../../lib/event";
 interface Props { card: Card; attrs: Record<string, string> }
 const { card, attrs } = Astro.props;
 ---

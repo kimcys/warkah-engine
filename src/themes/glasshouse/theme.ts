@@ -4,6 +4,7 @@
 // → telephone booth → rose garden (doa) → back out to the arch.
 import Opening from "./Opening.astro";
 import Backdrop from "./Backdrop.astro";
+import { defineTheme } from "../define";
 import Hero from "./sections/Hero.astro";
 import Invitation from "./sections/Invitation.astro";
 import MempelaiFirst from "./sections/MempelaiFirst.astro";
@@ -22,11 +23,12 @@ import Doa from "./sections/Doa.astro";
 //  "free":  one continuous scroll (Blossom style): scenes blend into each other, every line zooms up as it scrolls in.
 const SCROLL: "pages" | "free" = "pages";
 
-export default {
+export default defineTheme("glasshouse", {
   name: "Glasshouse",
   Opening,
   Backdrop,
-  bodyClass: `layout-pages scroll-${SCROLL}`,
+  layout: "pages",
+  scroll: SCROLL,
   themeColor: "#e9efe6",
   fonts:
     "https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Libre+Baskerville:wght@400;700&family=Pinyon+Script&family=Jost:wght@400;500;600&display=swap",
@@ -49,16 +51,21 @@ export default {
     { id: "portraits", scene: "hall", reveal: "zoom" },
     { id: "gallery", scene: "hall", reveal: "zoom" },
     { id: "programme", scene: "phone", pos: "top" },
+    { id: "dressCode", scene: "lamp", pos: "top" },
     { id: "doa", scene: "roses" },
     { id: "rsvp", scene: "garden", pos: "top" },
+    { id: "wishes", scene: "court", pos: "top" },
+    { id: "gifts", scene: "lamp", pos: "top" },
     { id: "thanks", scene: "gate", pos: "top" }
   ],
 
+  // Scenes with no one painted in, for when a client picks a groom/bride model (otherwise the painted couple scenes show)
+  modelScenes: { groom: "court", bride: "phone" },
+
   // Read by public/core/card.js
   client: {
-    scenes: true,
     fairyLights: 10,
     petals: [],
     openingDelay: 700
   }
-} as const;
+});

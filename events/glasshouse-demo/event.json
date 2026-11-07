@@ -1,0 +1,226 @@
+{
+  "theme": "glasshouse",
+  "package": "custom",
+  "hosting": {
+    "site": "glasshousedemo",
+    "base": "/"
+  },
+  "store": {
+    "mode": "demo"
+  },
+  "meta": {
+    "title": "Majlis Perkahwinan Nadiah & Ezzan (Glasshouse demo)",
+    "description": "Undangan Majlis Perkahwinan Nur Nadiah & Muhammad Ezzan — Ahad, 22.11.2026, Grand Oasis Event Hall, Seri Kembangan.",
+    "ogWidth": 720,
+    "ogHeight": 1265,
+    "ogAlt": "Kad jemputan Nadiah & Ezzan, Ahad 22 November 2026."
+  },
+  "couple": {
+    "first": "bride",
+    "model": { "groom": "groom-3", "bride": "bride-4" },
+    "groom": {
+      "name": "Muhammad Ezzan",
+      "full": "bin Hj. Mohamed Eusop",
+      "short": "Ezzan",
+      "role": "Putera kepada",
+      "parentsHtml": "Hj. Mohamed Eusop bin Indran<br>&amp; Hjh. Norsita binti Hj. Buang"
+    },
+    "bride": {
+      "name": "Nur Nadiah",
+      "full": "binti Hj. Ahmad Shukri",
+      "short": "Nadiah",
+      "role": "Puteri kepada",
+      "parentsHtml": "Hj. Ahmad Shukri bin Hasan Basri<br>&amp; Hjh. Puteri Balkis binti Hj. Megat Husain"
+    },
+    "hashtag": "#EzzyfoundNaddy"
+  },
+  "host": {
+    "parents": [
+      "Hj. Ahmad Shukri bin Hasan Basri",
+      "Hjh. Puteri Balkis binti Hj. Megat Husain"
+    ],
+    "inviteRelation": "ke majlis perkahwinan puteri kami"
+  },
+  "date": {
+    "start": "2026-11-22T11:00:00+08:00",
+    "end": "2026-11-22T16:00:00+08:00"
+  },
+  "venue": {
+    "name": "Grand Oasis Event Hall",
+    "area": "Seri Kembangan, Selangor",
+    "address": "Grand Oasis Event Hall, Persiaran Kota Perdana, Kota Perdana, 43300 Seri Kembangan, Selangor, Malaysia",
+    "maps": "https://maps.app.goo.gl/tZyrpMvgFTEzb8Xv7",
+    "waze": "https://waze.com/ul/hw282crcby"
+  },
+  "aturcara": [
+    {
+      "icon": "jam",
+      "label": "Ketibaan Tetamu",
+      "time": "11:00 AM – 4:00 PM"
+    },
+    {
+      "icon": "pengantin",
+      "label": "Ketibaan Pengantin",
+      "time": "12:30 PM"
+    },
+    {
+      "icon": "bersurai",
+      "label": "Majlis Bersurai",
+      "time": "4:00 PM"
+    }
+  ],
+  "music": {
+    "src": "audio/song.m4a",
+    "type": "audio/mp4",
+    "title": "Nothing's Gonna Change My Love for You",
+    "artist": "George Benson",
+    "fallback": {
+      "src": "audio/song.mp3",
+      "type": "audio/mpeg"
+    }
+  },
+  "gallery": [
+    {
+      "src": "gallery/1.webp",
+      "width": 1280,
+      "height": 720,
+      "alt": "Nadiah dan Ezzan berdiri di pelamin bunga"
+    },
+    {
+      "src": "gallery/2.webp",
+      "width": 787,
+      "height": 1400,
+      "alt": "Nadiah dan Ezzan berjalan dengan payung renda di taman"
+    },
+    {
+      "src": "gallery/3.webp",
+      "width": 1400,
+      "height": 788,
+      "alt": "Nadiah dan Ezzan memegang akhbar Save The Date"
+    },
+    {
+      "src": "gallery/4.webp",
+      "width": 787,
+      "height": 1400,
+      "alt": "Pantulan Nadiah dan Ezzan pada cermin pertunangan"
+    },
+    {
+      "src": "gallery/5.webp",
+      "width": 933,
+      "height": 1400,
+      "alt": "Payung renda, jambak bunga dan kad Save The Date"
+    }
+  ],
+  "contacts": [
+    {
+      "name": "Puteri Balkis",
+      "role": "Ibu",
+      "phone": "019-346 9720"
+    },
+    {
+      "name": "Ahmad Shukri",
+      "role": "Ayah",
+      "phone": "019-281 0598"
+    },
+    {
+      "name": "Ahmad Shahmi",
+      "role": "Abang",
+      "phone": "018-355 7787"
+    },
+    {
+      "name": "Ahmad Safwan",
+      "role": "Adik",
+      "phone": "011-6939 2065"
+    }
+  ],
+  "rsvp": {
+    "maxGuests": 2
+  },
+  "features": {
+    "mempelai": true,
+    "portraits": true,
+    "gallery": true,
+    "doa": true,
+    "ayat": true,
+    "rsvp": true,
+    "wishes": true,
+    "gifts": true,
+    "duitnow": true,
+    "kenang": false,
+    "venueSign": true
+  },
+  "calendarDescription": "Majlis Perkahwinan Nur Nadiah binti Hj. Ahmad Shukri & Muhammad Ezzan bin Hj. Mohamed Eusop. Ketibaan tetamu 11:00 AM - 4:00 PM, ketibaan pengantin 12:30 PM. #EzzyfoundNaddy",
+  "defaultWishes": [
+    {
+      "name": "Tetamu",
+      "message": "Tahniah Nadiah dan Ezzan. Semoga berbahagia hingga ke Jannah."
+    },
+    {
+      "name": "Keluarga",
+      "message": "Semoga majlis dipermudahkan dan diberkati Allah SWT."
+    }
+  ],
+  "text": {
+    "openingKicker": "Undangan Perkahwinan",
+    "heroKicker": "Majlis Perkahwinan",
+    "inviteHtml": "Dengan penuh rasa kesyukuran,<br>kami ingin menjemput",
+    "rsvpDeadlineHtml": "Sila sahkan kehadiran sebelum<br><strong>01 November 2026</strong>"
+  },
+  "kenang": {
+    "slug": "demo"
+  },
+  "gifts": {
+    "groupMinPrice": 500,
+    "shop": "Shopee",
+    "items": [
+      {
+        "id": "g1",
+        "name": "Contoh Hadiah 1",
+        "note": "Butiran hadiah akan dikemas kini",
+        "price": "150.00",
+        "url": "https://shopee.com.my/"
+      },
+      {
+        "id": "g2",
+        "name": "Contoh Hadiah 2",
+        "note": "Butiran hadiah akan dikemas kini",
+        "price": "299.00",
+        "url": "https://shopee.com.my/"
+      },
+      {
+        "id": "g3",
+        "name": "Contoh Hadiah 3",
+        "note": "Butiran hadiah akan dikemas kini",
+        "price": "650.00",
+        "url": "https://shopee.com.my/"
+      },
+      {
+        "id": "g4",
+        "name": "Contoh Hadiah 4",
+        "note": "Butiran hadiah akan dikemas kini",
+        "price": "1200.00",
+        "url": "https://shopee.com.my/"
+      }
+    ]
+  },
+  "duitnow": {
+    "image": "duitnow/qr.png",
+    "accountName": "Nur Nadiah (contoh)"
+  },
+  "dressCode": {
+    "title": "Tema Warna",
+    "colors": [
+      {
+        "label": "Biru",
+        "tone": "blue",
+        "icon": "shirt"
+      },
+      {
+        "label": "Pink",
+        "tone": "pink",
+        "icon": "dress"
+      }
+    ],
+    "note": "Kod warna biru/pink."
+  }
+}

@@ -136,12 +136,17 @@
     "maxGuests": 2
   },
   "features": {
-    "mempelai": false,
-    "wishes": true,
-    "doa": true,
+    "mempelai": true,
     "portraits": true,
     "gallery": true,
-    "kenang": true
+    "doa": true,
+    "ayat": true,
+    "rsvp": true,
+    "wishes": true,
+    "gifts": true,
+    "duitnow": true,
+    "kenang": false,
+    "venueSign": true
   },
   "calendarDescription": "Majlis Perkahwinan Nur Nadiah binti Hj. Ahmad Shukri & Muhammad Ezzan bin Hj. Mohamed Eusop. Ketibaan tetamu 11:00 AM - 4:00 PM, ketibaan pengantin 12:30 PM. #EzzyfoundNaddy",
   "defaultWishes": [
@@ -162,5 +167,59 @@
   },
   "kenang": {
     "slug": "demo"
+  },
+  "gifts": {
+    "groupMinPrice": 500,
+    "shop": "Shopee",
+    "items": [
+      {
+        "id": "g1",
+        "name": "Contoh Hadiah 1",
+        "note": "Butiran hadiah akan dikemas kini",
+        "price": "150.00",
+        "url": "https://shopee.com.my/"
+      },
+      {
+        "id": "g2",
+        "name": "Contoh Hadiah 2",
+        "note": "Butiran hadiah akan dikemas kini",
+        "price": "299.00",
+        "url": "https://shopee.com.my/"
+      },
+      {
+        "id": "g3",
+        "name": "Contoh Hadiah 3",
+        "note": "Butiran hadiah akan dikemas kini",
+        "price": "650.00",
+        "url": "https://shopee.com.my/"
+      },
+      {
+        "id": "g4",
+        "name": "Contoh Hadiah 4",
+        "note": "Butiran hadiah akan dikemas kini",
+        "price": "1200.00",
+        "url": "https://shopee.com.my/"
+      }
+    ]
+  },
+  "duitnow": {
+    "image": "duitnow/qr.png",
+    "accountName": "Nur Nadiah (contoh)"
+  },
+  "dressCode": {
+    "title": "Tema Warna",
+    "colors": [
+      {
+        "label": "Biru",
+        "tone": "blue",
+        "icon": "shirt"
+      },
+      {
+        "label": "Pink",
+        "tone": "pink",
+        "icon": "dress"
+      }
+    ],
+    "note": "Kod warna biru/pink."
   }
 }

@@ -1,0 +1,14 @@
+---
+// Venue sign: "Bertempat di <venue>" on its own page (features.venueSign). Glasshouse draws it as the lamp-post board instead.
+import type { Card } from "../../lib/event";
+interface Props { card: Card; attrs: Record<string, string> }
+const { card, attrs } = Astro.props;
+const { e } = card;
+---
+<section class="section-card venue-sign reveal" {...attrs} id="venueSign" aria-label={`${e.text.venueHeading} ${e.venue.name}`}>
+  <p class="venue-sign-lead">{e.text.venueHeading}</p>
+  <div class="venue-sign-board">
+    <h2>{e.venue.name}</h2>
+    <p>{e.venue.area}</p>
+  </div>
+</section>

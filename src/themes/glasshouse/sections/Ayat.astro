@@ -3,17 +3,16 @@
 import type { Card } from "../../../lib/event";
 import { frameBox, wrap } from "../frame";
 interface Props { card: Card; attrs: Record<string, string> }
-const { attrs } = Astro.props;
-const arabic = "…وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا";
-const malay = "“Dan antara tanda tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan dari jenismu sendiri supaya kamu mendapat ketenangan daripadanya…”";
+const { card, attrs } = Astro.props;
+const { ref, arabic, malay } = card.e.ayat;   // event.json → ayat (defaults to Ar-Rum 30:21)
 const lines = wrap(malay, 50);
 ---
-<section class="frame-page ayat reveal" {...attrs} id="ayat" aria-label="Surah Ar-Rum ayat 21">
-  <p class="sr-only">Surah Ar-Rum (30:21). {malay}</p>
+<section class="frame-page ayat reveal" {...attrs} id="ayat" aria-label={ref}>
+  <p class="sr-only">{ref}. {malay}</p>
   <svg class="frame-text" {...frameBox} aria-hidden="true" focusable="false">
     <defs><radialGradient id="ayat-haze"><stop offset="0" stop-color="#fff" stop-opacity="0.94" /><stop offset="0.6" stop-color="#fff" stop-opacity="0.8" /><stop offset="1" stop-color="#fff" stop-opacity="0" /></radialGradient></defs>
     <ellipse cx="288" cy="470" rx="330" ry="190" fill="url(#ayat-haze)" />
-    <text x="288" y="392" class="ft-serif" font-size="16">Surah Ar-Rum (30:21)</text>
+    <text x="288" y="392" class="ft-serif" font-size="16">{ref}</text>
     <text x="288" y="440" class="ft-arabic" font-size="19" direction="rtl">{arabic}</text>
     {lines.map((line, i) => <text x="288" y={492 + i * 24} class="ft-serif" font-size="15">{line}</text>)}
   </svg>

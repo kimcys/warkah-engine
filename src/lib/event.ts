@@ -3,6 +3,7 @@
 import { getEntry } from "astro:content";
 import warkah from "../../warkah.config.json";
 import { themes } from "../themes";
+import modelLibrary from "../../models/library.json";
 
 const DAYS = ["Ahad", "Isnin", "Selasa", "Rabu", "Khamis", "Jumaat", "Sabtu"];
 const MONTHS = ["Januari", "Februari", "Mac", "April", "Mei", "Jun", "Julai", "Ogos", "September", "Oktober", "November", "Disember"];
@@ -51,6 +52,14 @@ export async function loadEvent() {
   const asset = (path: string) => `${base}event/${path}`;       // client files (photos, song, QR)
   const themeAsset = (path: string) => `${base}theme/${path}`;  // theme files (backgrounds, css)
 
+  // The figure on a groom/bride page: the client's choice, else the theme's default, else none (the theme's own artwork).
+  const modelOf = (who: "groom" | "bride") => {
+    const id = e.couple.model?.[who] ?? theme.defaultModels?.[who];
+    const model = id ? modelLibrary.models.find((m) => m.id === id && m.who === who) : undefined;
+    if (!model) return null;
+    return { id: model.id, label: model.label, src: `${base}models/${model.file}` };
+  };
+
   const [first, second] = e.couple.first === "groom" ? [e.couple.groom, e.couple.bride] : [e.couple.bride, e.couple.groom];
 
   const store =
@@ -87,7 +96,7 @@ export async function loadEvent() {
   };
 
   return {
-    slug, e, theme, date, base, siteUrl, asset, themeAsset, first, second, clientData,
+    slug, e, theme, date, base, siteUrl, asset, themeAsset, first, second, modelOf, clientData,
     credit: warkah.credit,
     kenangHref: warkah.kenangEnabled && e.features.kenang ? `${warkah.kenangUrl.replace(/\/$/, "")}/${e.kenang.slug ?? slug}` : null,
     version: Date.now().toString(36)   // cache-busting tag for css/js on every build

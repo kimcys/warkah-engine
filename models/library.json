@@ -1,0 +1,85 @@
+{
+  "models": [
+    {
+      "id": "groom-1",
+      "who": "groom",
+      "label": "Baju Melayu Putih",
+      "culture": "malay",
+      "hijab": false,
+      "description": "Baju melayu putih, samping putih dan songkok",
+      "file": "groom-1.webp"
+    },
+    {
+      "id": "groom-2",
+      "who": "groom",
+      "label": "Songket & Tanjak",
+      "culture": "malay",
+      "hijab": false,
+      "description": "Baju melayu songket kelabu, samping dan tanjak",
+      "file": "groom-2.webp"
+    },
+    {
+      "id": "groom-3",
+      "who": "groom",
+      "label": "Sut Hitam",
+      "culture": "modern",
+      "hijab": false,
+      "description": "Sut hitam, kemeja putih dan tali leher",
+      "file": "groom-3.webp"
+    },
+    {
+      "id": "bride-1",
+      "who": "bride",
+      "label": "Gaun Tulle Berlapis",
+      "culture": "modern",
+      "hijab": true,
+      "description": "Gaun tulle gading berlengan panjang dengan tudung dan veil panjang",
+      "file": "bride-1.webp"
+    },
+    {
+      "id": "bride-2",
+      "who": "bride",
+      "label": "Kebaya Songket",
+      "culture": "malay",
+      "hijab": true,
+      "description": "Kebaya songket krim dengan mahkota tradisional",
+      "file": "bride-2.webp"
+    },
+    {
+      "id": "bride-3",
+      "who": "bride",
+      "label": "Kebaya Renda Putih",
+      "culture": "malay",
+      "hijab": true,
+      "description": "Kebaya renda putih dengan kain renda dan tudung gading",
+      "file": "bride-3.webp"
+    },
+    {
+      "id": "bride-4",
+      "who": "bride",
+      "label": "Gaun Duyung Renda",
+      "culture": "modern",
+      "hijab": true,
+      "description": "Gaun duyung renda putih dengan veil panjang",
+      "file": "bride-4.webp"
+    },
+    {
+      "id": "bride-5",
+      "who": "bride",
+      "label": "Gaun Renda Bertudung",
+      "culture": "modern",
+      "hijab": true,
+      "description": "Gaun renda gading dengan veil bertepi renda",
+      "file": "bride-5.webp"
+    },
+    {
+      "id": "bride-6",
+      "who": "bride",
+      "label": "Gaun Puteri Bertiara",
+      "culture": "modern",
+      "hijab": true,
+      "description": "Gaun kembang putih dengan tiara dan veil",
+      "file": "bride-6.webp"
+    }
+  ]
+}

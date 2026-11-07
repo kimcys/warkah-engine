@@ -1,17 +1,23 @@
 ---
 // The card. Which client it shows comes from the EVENT env var (set by `npm run dev|build -- <client>`).
 import { loadEvent } from "../lib/event";
-import { sectionAttrs } from "../lib/sections";
+import { sectionAttrs, sectionEnabled } from "../lib/sections";
 import CardLayout from "../layouts/CardLayout.astro";
 import Hero from "../components/sections/Hero.astro";
 import Invitation from "../components/sections/Invitation.astro";
 import Mempelai from "../components/sections/Mempelai.astro";
 import Details from "../components/sections/Details.astro";
+import Countdown from "../components/sections/Countdown.astro";
 import Programme from "../components/sections/Programme.astro";
 import Portraits from "../components/sections/Portraits.astro";
 import Gallery from "../components/sections/Gallery.astro";
 import Doa from "../components/sections/Doa.astro";
 import Rsvp from "../components/sections/Rsvp.astro";
+import Wishes from "../components/sections/Wishes.astro";
+import Ayat from "../components/sections/Ayat.astro";
+import Gifts from "../components/sections/Gifts.astro";
+import VenueSign from "../components/sections/VenueSign.astro";
+import DressCode from "../components/sections/DressCode.astro";
 import Thanks from "../components/sections/Thanks.astro";
 import Panels from "../components/panels/Panels.astro";
 import BottomNav from "../components/ui/BottomNav.astro";
@@ -20,19 +26,10 @@ import Overlays from "../components/ui/Overlays.astro";
 const card = await loadEvent();
 const { e, theme, first, second } = card;
 const { Opening, Backdrop } = theme;
-const f = e.features;
 
-// Sections switched off by the client's features are skipped.
-const enabled: Record<string, boolean> = {
-  mempelaiGroom: f.mempelai,
-  mempelaiBride: f.mempelai,
-  portraits: f.portraits,
-  gallery: f.gallery && e.gallery.length > 0,
-  doa: f.doa,
-  rsvp: f.rsvp,
-  dressCode: !!e.dressCode
-};
-const layouts = theme.sections.filter((s) => enabled[s.id] !== false);
+// Standard pages: a theme draws one itself (theme.components) or the shared page below is used.
+// Pages switched off by the client's features are skipped (see sectionEnabled in lib/sections.ts).
+const layouts = theme.sections.filter((s) => sectionEnabled(s.id, e));
 
 // Mempelai pages follow couple.first (groom-side majlis shows the groom first).
 const firstWho = e.couple.first;
@@ -46,8 +43,13 @@ const secondWho = firstWho === "groom" ? "bride" : "groom";
     <article id="card" class="card is-locked" aria-label={`Kad jemputan ${first.short} dan ${second.short}`}>
       {layouts.map((layout) => {
         const attrs = sectionAttrs(layout);
+        // A groom/bride page with a chosen model uses the shared page (figure + panel); a theme whose own scene has the couple
+        // painted in swaps to a figure-free scene for it.
+        const personWho = layout.id === "mempelaiGroom" ? firstWho : layout.id === "mempelaiBride" ? secondWho : null;
+        const hasModel = personWho ? !!card.modelOf(personWho) : false;
+        if (hasModel && personWho && theme.modelScenes) attrs["data-scene"] = theme.modelScenes[personWho];
         // A theme can draw a page itself (theme.components); otherwise the shared one is used.
-        const Custom = (theme as any).components?.[layout.id];
+        const Custom = hasModel ? undefined : theme.components[layout.id];
         if (Custom) return <Custom card={card} attrs={attrs} />;
         switch (layout.id) {
           case "hero": return <Hero card={card} attrs={attrs} />;
@@ -55,13 +57,19 @@ const secondWho = firstWho === "groom" ? "bride" : "groom";
           case "mempelaiGroom": return <Mempelai card={card} attrs={attrs} who={firstWho} isFirst={true} />;
           case "mempelaiBride": return <Mempelai card={card} attrs={attrs} who={secondWho} isFirst={false} />;
           case "details": return <Details card={card} attrs={attrs} />;
+          case "countdown": return <Countdown card={card} attrs={attrs} />;
           case "programme": return <Programme card={card} attrs={attrs} />;
           case "portraits": return <Portraits card={card} attrs={attrs} />;
           case "gallery": return <Gallery card={card} attrs={attrs} />;
           case "doa": return <Doa card={card} attrs={attrs} />;
+          case "ayat": return <Ayat card={card} attrs={attrs} />;
+          case "gifts": return <Gifts card={card} attrs={attrs} />;
+          case "venueSign": return <VenueSign card={card} attrs={attrs} />;
+          case "dressCode": return <DressCode card={card} attrs={attrs} />;
           case "rsvp": return <Rsvp card={card} attrs={attrs} />;
+          case "wishes": return <Wishes card={card} attrs={attrs} />;
           case "thanks": return <Thanks card={card} attrs={attrs} />;
-          default: return null;
+          default: return null;   // pages outside the standard list exist only when the theme draws them
         }
       })}
       <section class="footer-space" aria-hidden="true"></section>
