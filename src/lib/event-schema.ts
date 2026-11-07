@@ -25,12 +25,14 @@ export const eventSchema = z.object({
     package: z.enum(["signature", "custom"]).default("signature"),
     lang: z.enum(["ms", "en"]).default("ms"),      // language of the card's fixed wording (the couple's own text is whatever they typed)
 
+    // Where the card is served. Existing cards: a Firebase Hosting `site` (<site>.web.app). Builder cards: no site; `domain` kad.warkah.com.my and
+    // `base` "/<slug>/" (src/lib/system-fields.js fills these in). One of site / domain is required.
     hosting: z.object({
-      site: z.string(),                       // Firebase Hosting site id → <site>.web.app
+      site: z.string().optional(),            // Firebase Hosting site id → <site>.web.app
       project: z.string().optional(),         // defaults to the shared Warkah project
       domain: z.string().optional(),          // custom domain (host only), e.g. "aimanalyana.com"
       base: z.string().regex(/^\/(.*\/)?$/, "base must start and end with /").default("/")  // "/demo/royal-gold/" for catalogue demos
-    }),
+    }).refine((h) => !!(h.site || h.domain), { message: 'hosting needs a "site" (Firebase Hosting) or a "domain"', path: ["site"] }),
 
     // Where RSVPs / wishes / gifts are stored.
     //  mode "shared": Warkah project, under events/<slug>/ (default for new cards)

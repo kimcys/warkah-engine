@@ -11,7 +11,11 @@ const warkah = readWarkahConfig();
 const site = event.hosting?.site;
 const project = event.hosting?.project || warkah.firebaseProject;
 
-if (!site) fail(`Set hosting.site in events/${slug}/event.json.`);
+if (!site) {
+  fail(event.hosting?.domain
+    ? `${slug} has no Firebase Hosting site: it is served from ${event.hosting.domain}${event.hosting.base || "/"} (a builder card, published by the builder).\nBuild it with  npm run build -- ${slug}`
+    : `Set hosting.site in events/${slug}/event.json.`);
+}
 if (event.hosting?.base && event.hosting.base !== "/") {
   fail(`${slug} lives under ${event.hosting.base} of another site (a catalogue demo).\nBuild it with  npm run build -- ${slug}  and copy dist/${slug}/ into that site's folder ${event.hosting.base}`);
 }

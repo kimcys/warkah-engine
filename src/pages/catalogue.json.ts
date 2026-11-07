@@ -13,6 +13,8 @@ import modelLibrary from "../../models/library.json";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { assetSetFor, sampleFor } from "../lib/sample";
+import { CARD_DOMAIN } from "../lib/system-fields.js";
+import { RESERVED_SLUGS } from "../lib/slug.js";
 
 // Thumbnails written by `npm run thumbnails` (samples/thumbnails/<theme>/<name>.webp). A missing file is listed as null so a gap is easy to see.
 const thumb = (theme: string, name: string) => (existsSync(join(process.cwd(), "samples", "thumbnails", theme, `${name}.webp`)) ? `samples/thumbnails/${theme}/${name}.webp` : null);
@@ -22,6 +24,10 @@ export const GET: APIRoute = () => {
   const catalogue = {
     generated: "by npm run catalogue; do not edit",
     language: "ms",
+    // where builder cards live (https://<cardDomain>/<slug>/), the addresses that cannot be used, and the fields the system fills in
+    cardDomain: CARD_DOMAIN,
+    reservedSlugs: RESERVED_SLUGS,
+    systemFields: ["hosting", "store", "package", "meta"],
     themes: THEME_KEYS.map((key) => {
       const t = themes[key];
       return {

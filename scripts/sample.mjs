@@ -1,12 +1,14 @@
-// npm run sample -- <theme> [--lang en] [--build]
+// npm run sample -- <theme> [--lang en] [--builder] [--build]
 // Writes events/sample-<theme>-<lang>/ (the theme's sample card, with its sample photos) so you can look at it:
 //   npm run sample -- lover                      then   npm run dev -- sample-lover-ms
 //   npm run sample -- lover --lang en --build    writes it and builds dist/sample-lover-en/
+//   --builder   give it the system fields exactly as the builder would (served from kad.warkah.com.my/<slug>/, no Firebase site)
 // Folders starting with "sample-" are ignored by `build:all` and by git.
 import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { EVENTS_DIR, ROOT, fail, run } from "./lib.mjs";
 import { sampleEvent } from "../src/lib/sample-merge.js";
+import { completeDraft } from "../src/lib/system-fields.js";
 
 const args = process.argv.slice(2);
 const langAt = args.indexOf("--lang");
@@ -17,10 +19,15 @@ if (!["ms", "en"].includes(lang)) fail('--lang must be "ms" or "en"');
 
 const read = (p) => JSON.parse(readFileSync(join(ROOT, p), "utf8"));
 const themeSample = read(`src/themes/${theme}/sample.json`);
-const event = sampleEvent(read(`samples/base.${lang}.json`), themeSample);
-event.hosting = { ...event.hosting, site: `sample-${theme}` };
-
 const slug = `sample-${theme}-${lang}`;
+let event = sampleEvent(read(`samples/base.${lang}.json`), themeSample);
+if (args.includes("--builder")) {
+  const { hosting, store, meta, package: pkg, ...customerFields } = event;     // what a customer would have typed
+  event = completeDraft(customerFields, { slug, lang });
+} else {
+  event.hosting = { ...event.hosting, site: `sample-${theme}` };
+}
+
 const dir = join(EVENTS_DIR, slug);
 rmSync(dir, { recursive: true, force: true });
 mkdirSync(dir, { recursive: true });

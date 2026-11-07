@@ -1,6 +1,60 @@
 {
   "generated": "by npm run catalogue; do not edit",
   "language": "ms",
+  "cardDomain": "kad.warkah.com.my",
+  "reservedSlugs": [
+    "api",
+    "media",
+    "site",
+    "papan",
+    "app",
+    "studio",
+    "w",
+    "join",
+    "assets",
+    "brand",
+    "admin",
+    "login",
+    "upgrade",
+    "help",
+    "terms",
+    "privacy",
+    "harga",
+    "pricing",
+    "demo",
+    "privasi",
+    "terma",
+    "kad",
+    "builder",
+    "dashboard",
+    "status",
+    "new",
+    "edit",
+    "preview",
+    "publish",
+    "catalogue",
+    "samples",
+    "sample",
+    "thumbnails",
+    "models",
+    "core",
+    "theme",
+    "event",
+    "warkah",
+    "index",
+    "favicon",
+    "robots",
+    "sitemap",
+    "static",
+    "public",
+    "dist"
+  ],
+  "systemFields": [
+    "hosting",
+    "store",
+    "package",
+    "meta"
+  ],
   "themes": [
     {
       "key": "royal-gold",
@@ -2716,10 +2770,7 @@
             "type": "string",
             "pattern": "^\\/(.*\\/)?$"
           }
-        },
-        "required": [
-          "site"
-        ]
+        }
       },
       "store": {
         "default": {},

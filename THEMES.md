@@ -32,6 +32,18 @@ component when it wants a different design. Features switch pages off per client
 - **Hadiah.** Only gifts or only DuitNow: that one, no tab bar. Both: a tab bar (`Senarai Hadiah | DuitNow`) in the sheet and on the page
   (`data-tabs` / `data-tab` / `data-tab-pane`, handled in `card.js`).
 
+## Where a card lives, and the fields the builder fills in
+
+- **Existing cards:** `hosting.site` is a Firebase Hosting site (`<site>.web.app`), deployed with `npm run deploy -- <client>`.
+- **Builder cards:** no site. `hosting` is `{ domain: "kad.warkah.com.my", base: "/<slug>/" }`, so the card lives at `kad.warkah.com.my/<slug>/` (canonical link, share image and asset paths
+  all follow). The schema needs a `site` **or** a `domain`; neither is refused. `npm run deploy` explains this for a card without a site.
+- `src/lib/system-fields.js` → `completeDraft(draft, { slug, lang })` adds what the customer never types: `hosting`, `store` (`shared`), `package`, and `meta` (page title, description and share text
+  written from the names, date and venue in Malay or English). Anything the draft already has is kept.
+- `src/lib/slug.js`: `slugProblem(slug)` (Malay messages), `isValidSlug`, `suggestSlug(first, second, taken)`. 3 to 40 characters, lowercase letters, numbers and dashes; reserved words
+  (Kenang's list plus the builder's own pages and shared folders) and the `sample-` prefix are refused.
+- Try it: `npm run sample -- lover --builder --build` builds a sample card exactly the way the builder would. Serve `dist/` to see it at `/sample-lover-ms/`.
+- Cards at a non-root base carry `noindex` (search engines are told not to list them), which suits private invitations.
+
 ## How a theme is presented (theme chooser)
 
 Each theme declares `display` in `theme.ts`: a label and a one-sentence description in Malay and English, and its `culture` (`malay` or `modern`, which decides the suggested models and sample photos).

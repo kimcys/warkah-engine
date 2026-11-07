@@ -35,11 +35,5 @@ export function browserStrings(lang: Lang, keys: string[]): Record<string, strin
   return out;
 }
 
-export const DAYS: Record<Lang, string[]> = {
-  ms: ["Ahad", "Isnin", "Selasa", "Rabu", "Khamis", "Jumaat", "Sabtu"],
-  en: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-};
-export const MONTHS: Record<Lang, string[]> = {
-  ms: ["Januari", "Februari", "Mac", "April", "Mei", "Jun", "Julai", "Ogos", "September", "Oktober", "November", "Disember"],
-  en: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-};
+// Day and month names live in dates.js (plain JS, shared with the builder).
+export { DAYS, MONTHS } from "./dates.js";

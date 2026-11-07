@@ -77,7 +77,7 @@ Slug rules, rate limits and email-code sign-in come from the existing Worker. `s
 - DONE: sample content per theme and language (`samples/`, `src/themes/*/sample.json`, `src/lib/sample.ts`): fictional couple, generated photos, `previewDraft()` fills only empty fields. `npm run sample`, `npm test`.
 - DONE: theme chooser data. Each theme has `display` (label + description in Malay and English, culture), palettes and models have English names, and `npm run thumbnails` writes 8 photos per theme to `samples/thumbnails/` (opening, plus first page and Details page for classic and each palette). The catalogue lists them.
 - DONE (0b): fixed wording is in a string table. `lang: "en"` gives an English card (122 strings, English defaults for the couple-facing text, English month and day names, browser messages), `npm run i18n` checks completeness, and `events/english-demo` shows it. Malay output is unchanged on every card.
-- TODO: system fields. The builder fills `hosting`, `store`, `meta` and `package` itself (`hosting.site` is still required today; make it optional for builder cards).
+- DONE: system fields. `hosting.site` is optional (a `site` or a `domain` is needed); `completeDraft()` fills `hosting` (kad.warkah.com.my/<slug>/), `store`, `package` and `meta`; slug rules and name-based suggestions in `src/lib/slug.js`; `npm run sample -- <theme> --builder --build` builds a card the builder's way. **Phase 0 is complete.**
 
 **Phase 1: the builder form and drafts (about 2 to 3 weeks).** Steps 1 to 6 above on top of Kenang's Studio patterns, with palette and
 model instant preview and save-as-draft.

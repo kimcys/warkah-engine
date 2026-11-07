@@ -4,24 +4,10 @@ import { getEntry } from "astro:content";
 import warkah from "../../warkah.config.json";
 import { themes } from "../themes";
 import modelLibrary from "../../models/library.json";
-import { DAYS, MONTHS, browserStrings, makeT, type Lang } from "./i18n";
+import { browserStrings, makeT, type Lang } from "./i18n";
+import { DAYS, MONTHS, partsIn, time12 } from "./dates.js";
 import { BROWSER_KEYS } from "./i18n/browser-keys";
 import { localise } from "./localise";
-
-function partsIn(iso: string, timeZone: string) {
-  const fmt = new Intl.DateTimeFormat("en-GB", {
-    timeZone, year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23", weekday: "short"
-  });
-  const p = Object.fromEntries(fmt.formatToParts(new Date(iso)).map((x) => [x.type, x.value]));
-  const weekday = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(String(p.weekday));
-  return { y: Number(p.year), m: Number(p.month), d: Number(p.day), h: Number(p.hour), min: Number(p.minute), weekday };
-}
-
-function time12(h: number, min: number) {
-  const suffix = h >= 12 ? "PM" : "AM";
-  const hour = h % 12 === 0 ? 12 : h % 12;
-  return `${hour}:${String(min).padStart(2, "0")} ${suffix}`;
-}
 
 export async function loadEvent() {
   const slug = process.env.EVENT;
@@ -67,8 +53,10 @@ export async function loadEvent() {
     timeRange: `${time12(s.h, s.min)} – ${time12(end.h, end.min)}`  // 11:00 AM – 4:00 PM
   };
 
-  const base = e.hosting.base;                                  // "/" or "/demo/royal-gold/"
-  const host = e.hosting.domain || `${e.hosting.site}.web.app`;
+  const base = e.hosting.base;                                  // "/", "/demo/royal-gold/" or "/<slug>/" (builder cards)
+  // Where the card lives: its own domain (builder cards: kad.warkah.com.my), else the Firebase Hosting site <site>.web.app
+  const host = e.hosting.domain || (e.hosting.site ? `${e.hosting.site}.web.app` : "");
+  if (!host) throw new Error(`events/${slug}/event.json: hosting needs a "site" (Firebase Hosting) or a "domain".`);
   const siteUrl = `https://${host}${base}`;
   const asset = (path: string) => `${base}event/${path}`;       // client files (photos, song, QR)
   const themeAsset = (path: string) => `${base}theme/${path}`;  // theme files (backgrounds, css)
