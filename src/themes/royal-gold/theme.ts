@@ -43,6 +43,8 @@ export default defineTheme("royal-gold", {
 
   // Scenes with no one painted in, for when a client picks a groom/bride model (otherwise the painted couple scenes show)
   modelScenes: { groom: "garden", bride: "chandelier" },
+  // The stage and the aisle have the painted couple standing in them; a card with chosen models uses these instead (garden and chandelier have no one in them)
+  cleanScenes: { stage: "chandelier", aisle: "garden", couple: "chandelier" },
 
   classicSwatch: ["#7a1424", "#c8901a", "#f7e3a1"],
 

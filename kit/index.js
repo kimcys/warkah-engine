@@ -7717,4 +7717,4 @@ const ASSET_RULES = [
 ];
 export { ADDONS, ADDON_KEYS, ASSET_RULES, BUILDER_STEPS, CARD_DOMAIN, DAYS, DEFAULT_TZ, FEATURES, FEATURE_KEYS, LIMITS, LINES_AS_HTML, LINES_AS_LIST, MIME, MONTHS, OFFERED_FEATURES, OUTFIT_COLOURS, PERSONAL_FIELDS, RESERVED_SLUGS, THEME_KEYS, TIERS, addHours, assetSetFor, builderHosting, calendarTextFor, checkUrl, cleanLines, completeDraft, decodeEntities, draftStatus, effectiveFeatures, escapeHtml, fileKind, fillWithSample, fromIso, getPath, hasValue, htmlToLines, imageInfo, isNoop, isValidSlug, labelFor, linesToHtml, mergePatch, metaFor, parseHex, partsIn, previewDraft, recolourOptionsFor, recolourOutfit, safeHtml, sampleEvent, sampleFor, sanitizeDraft, setPath, slugProblem, suggestSlug, time12, toIso, validateEvent };
 
-export const KIT_VERSION = "e4062825fd03";
+export const KIT_VERSION = "b77877fd8e65";

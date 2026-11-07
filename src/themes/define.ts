@@ -54,6 +54,9 @@ export interface ThemeInput {
   palettes?: Record<string, Palette>;
   // Figure-free scenes to show behind a chosen model, for themes whose "groom"/"bride" scenes have the couple painted in.
   modelScenes?: { groom: string; bride: string };
+  // For themes with the couple painted into some scenes: which figure-free scene to show instead of each painted one, on a card that shows chosen models
+  // (every builder card does, see src/lib/builder-models.js). Scenes not listed are used as they are.
+  cleanScenes?: Record<string, string>;
 }
 
 const CLIENT_DEFAULTS: ThemeClient = { scenes: false, fairyLights: 0, petals: [], openingDelay: 250, wishesPerPage: 2 };

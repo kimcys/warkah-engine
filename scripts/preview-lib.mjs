@@ -6,6 +6,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { ROOT } from "./lib.mjs";
 import { fillWithSample, sampleEvent } from "../src/lib/sample-merge.js";
+import { withBuilderModels } from "../src/lib/builder-models.js";
 import { completeDraft } from "../src/lib/system-fields.js";
 import { publishEvent, referencedFiles } from "../src/lib/publish.js";
 import { effectiveFeatures } from "../kit/index.js";
@@ -23,7 +24,7 @@ export function previewEventFor(draft, { slug, tier = "basic", addons = [], base
   const lang = draft.lang === "en" ? "en" : "ms";
   const themeSample = JSON.parse(readFileSync(themeSampleFile, "utf8"));
   const sample = sampleEvent(JSON.parse(readFileSync(join(ROOT, "samples", `base.${lang}.json`), "utf8")), themeSample);
-  const filled = fillWithSample(draft, sample);
+  const filled = fillWithSample(withBuilderModels(structuredClone(draft)), sample);   // the customer's models, or the theme's pair: never the sample's
   filled.features = effectiveFeatures(draft, tier, addons);
   const event = completeDraft(filled, { slug, lang });
   event.preview = true;

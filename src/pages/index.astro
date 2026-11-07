@@ -35,6 +35,7 @@ const layouts = theme.sections.filter((s) => sectionEnabled(s.id, e));
 // Mempelai pages follow couple.first (groom-side majlis shows the groom first).
 const firstWho = e.couple.first;
 const secondWho = firstWho === "groom" ? "bride" : "groom";
+const showsModels = !!(card.modelOf("groom") || card.modelOf("bride"));
 ---
 <CardLayout card={card}>
   <main class="phone-shell" aria-label={t("Kad jemputan digital")}>
@@ -49,6 +50,8 @@ const secondWho = firstWho === "groom" ? "bride" : "groom";
         const personWho = layout.id === "mempelaiGroom" ? firstWho : layout.id === "mempelaiBride" ? secondWho : null;
         const hasModel = personWho ? !!card.modelOf(personWho) : false;
         if (hasModel && personWho && theme.modelScenes) attrs["data-scene"] = theme.modelScenes[personWho];
+        // On a card with chosen models, no page shows the couple painted into the theme's own art: those scenes are swapped for figure-free ones.
+        else if (showsModels && theme.cleanScenes?.[attrs["data-scene"]]) attrs["data-scene"] = theme.cleanScenes[attrs["data-scene"]];
         // A theme can draw a page itself (theme.components); otherwise the shared one is used.
         const Custom = hasModel ? undefined : theme.components[layout.id];
         if (Custom) return <Custom card={card} attrs={attrs} />;
