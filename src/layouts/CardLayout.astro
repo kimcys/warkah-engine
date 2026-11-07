@@ -11,7 +11,7 @@ const ogImage = e.meta.ogImage ? `${siteUrl}event/${e.meta.ogImage}?v=${e.meta.v
 const ogType = e.meta.ogImage.endsWith(".png") ? "image/png" : "image/jpeg";
 ---
 <!doctype html>
-<html lang={e.lang}>
+<html lang={e.lang} data-palette={card.palette.id}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -40,7 +40,7 @@ const ogType = e.meta.ogImage.endsWith(".png") ? "image/png" : "image/jpeg";
     {ogImage && <meta name="twitter:image" content={ogImage} />}
     {e.hosting.base !== "/" || e.store.mode === "demo" ? <meta name="robots" content="noindex" /> : null}
 
-    <meta name="theme-color" content={theme.themeColor} />
+    <meta name="theme-color" content={card.palette.themeColor} />
     <link rel="icon" href={themeAsset(`favicon.svg?v=${e.meta.version}`)} type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -48,6 +48,11 @@ const ogType = e.meta.ogImage.endsWith(".png") ? "image/png" : "image/jpeg";
     {theme.preload.map((path) => <link rel="preload" as="image" href={themeAsset(path)} />)}
     <link rel="stylesheet" href={themeAsset(`${theme.stylesheet}?v=${version}`)} />
     <link rel="stylesheet" href={`${base}core/models.css?v=${version}`} />
+    {card.palette.css && <style is:inline id="palette" set:html={card.palette.css}></style>}
+    <script is:inline define:vars={{ ids: card.palette.ids }}>
+      // ?palette=<id> previews another colour option of this theme (the client's own choice is html[data-palette]).
+      try { const want = new URLSearchParams(location.search).get("palette"); if (want && (want === "classic" || ids.includes(want))) document.documentElement.dataset.palette = want; } catch (e) {}
+    </script>
     <script is:inline type="application/json" id="warkah-data" set:html={safeJson(clientData)}></script>
   </head>
   <body class={`card-closed ${theme.bodyClass}`}>

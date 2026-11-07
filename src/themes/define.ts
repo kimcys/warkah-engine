@@ -11,6 +11,17 @@ export interface ThemeClient {
   wishesPerPage: number;    // ucapan shown per page in the wishes list
 }
 
+// A colour option a client can choose (event.json "palette"). "classic" is always the theme as designed; every other id is listed in
+// the theme's `palettes`. Colours come from overriding the theme's CSS variables; `tint` shifts the artwork behind the pages.
+export interface Palette {
+  label: string;                        // shown to the customer
+  swatch: [string, string, string];     // three colours for the picker chip: main, accent, soft
+  vars: Record<string, string>;         // CSS variables to override, e.g. { "--rose": "#7a5cc4" }
+  tint?: { hue?: number; saturate?: number; brightness?: number };   // CSS filter on the scene artwork (degrees / multipliers)
+  themeColor?: string;                  // browser bar colour
+  petals?: string[];                    // falling petal colours
+}
+
 export interface ThemeInput {
   name: string;
   Opening: any;             // must contain a #openInvite button
@@ -28,6 +39,8 @@ export interface ThemeInput {
   //  - names defaultModels: every card shows a figure (the client can pick another in couple.model), or
   //  - draws the couple into its scene art (no defaultModels): that art is used until the client picks a model.
   defaultModels?: { groom: string; bride: string };
+  // Colour options besides "classic" (see Palette). Every theme should offer a few.
+  palettes?: Record<string, Palette>;
   // Figure-free scenes to show behind a chosen model, for themes whose "groom"/"bride" scenes have the couple painted in.
   modelScenes?: { groom: string; bride: string };
 }
@@ -51,12 +64,19 @@ export function defineTheme(key: string, input: ThemeInput) {
   if (!opening) fail(`src/themes/${key}/Opening.astro not found`);
   if (!opening.includes('id="openInvite"')) fail(`Opening.astro must contain a button with id="openInvite"`);
 
+  for (const [id, palette] of Object.entries(input.palettes ?? {})) {
+    if (id === "classic") fail(`palette "classic" is reserved for the theme as designed`);
+    if (!/^[a-z][a-z0-9-]*$/.test(id)) fail(`palette id "${id}" must be lowercase letters, digits and dashes`);
+    for (const name of Object.keys(palette.vars)) if (!/^--[a-z0-9-]+$/.test(name)) fail(`palette "${id}": "${name}" is not a CSS variable name`);
+  }
+
   const client: ThemeClient = { ...CLIENT_DEFAULTS, scenes: input.layout === "pages", ...input.client };
   return {
     ...input,
     stylesheet: input.stylesheet ?? "style.css",
     preload: input.preload ?? [],
     components: input.components ?? {},
+    palettes: input.palettes ?? {},
     bodyClass: `layout-${input.layout}${input.scroll ? ` scroll-${input.scroll}` : ""}`,
     client
   };

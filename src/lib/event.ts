@@ -35,6 +35,22 @@ export async function loadEvent() {
   const e = entry.data;
   const theme = themes[e.theme];
 
+  // Colour option: "classic" = the theme as designed; others override CSS variables and tint the artwork (see Palette).
+  const paletteId = e.palette;
+  const chosen = paletteId === "classic" ? undefined : theme.palettes[paletteId];
+  if (paletteId !== "classic" && !chosen) {
+    throw new Error(`events/${slug}/event.json: palette "${paletteId}" is not offered by theme "${e.theme}". Choose one of: classic, ${Object.keys(theme.palettes).join(", ") || "(none)"}`);
+  }
+  // Every palette's CSS is in the page, keyed by html[data-palette]; the chosen one is set on <html> (and ?palette=id previews any).
+  const safe = (v: string) => !/[;{}<>]/.test(v);
+  const paletteCss = Object.entries(theme.palettes).map(([id, p]) => {
+    const vars = Object.entries(p.vars).filter(([, v]) => safe(v)).map(([k, v]) => `${k}:${v}`).join(";");
+    const t = p.tint;
+    return `html[data-palette="${id}"]{${vars}}` +
+      (t ? `html[data-palette="${id}"] :is(.background-layer,.scene-layer,.opening-screen img){filter:hue-rotate(${Number(t.hue ?? 0)}deg) saturate(${Number(t.saturate ?? 1)}) brightness(${Number(t.brightness ?? 1)})}` : "");
+  }).join("\n");
+  const palette = { id: paletteId, css: paletteCss, ids: Object.keys(theme.palettes), themeColor: chosen?.themeColor ?? theme.themeColor, petals: chosen?.petals ?? theme.client.petals };
+
   const s = partsIn(e.date.start, e.date.timeZone);
   const end = partsIn(e.date.end, e.date.timeZone);
   const pad = (n: number) => String(n).padStart(2, "0");
@@ -75,7 +91,7 @@ export async function loadEvent() {
     keyPrefix: e.store.localKey ?? `warkah-${slug}`,
     assets: `${base}event/`,
     store,
-    theme: theme.client,
+    theme: { ...theme.client, petals: palette.petals },
     invitation: {
       eventTitle: e.meta.title,
       startDate: e.date.start,
@@ -96,7 +112,7 @@ export async function loadEvent() {
   };
 
   return {
-    slug, e, theme, date, base, siteUrl, asset, themeAsset, first, second, modelOf, clientData,
+    slug, e, theme, date, base, siteUrl, asset, themeAsset, first, second, modelOf, palette, clientData,
     credit: warkah.credit,
     kenangHref: warkah.kenangEnabled && e.features.kenang ? `${warkah.kenangUrl.replace(/\/$/, "")}/${e.kenang.slug ?? slug}` : null,
     version: Date.now().toString(36)   // cache-busting tag for css/js on every build

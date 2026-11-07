@@ -38,6 +38,26 @@ The two person pages use the shared figure library in `models/` (see `models/REA
 A theme sets `defaultModels` (a figure on every card) or `modelScenes` (figure-free scenes to use when a model is chosen, for
 themes with a painted couple). Nothing else is needed: the shared page and `public/core/models.css` do the rest.
 
+## Colour palettes
+
+A client picks a colour option with `"palette": "<id>"` in `event.json` (default `classic` = the theme as designed). A theme lists its
+options in `palettes` in `theme.ts` (see `Palette` in `src/themes/define.ts`): a label, a 3-colour swatch for the picker, the CSS variables
+to override (`vars`), and optionally `tint` (hue / saturate / brightness applied to the scene artwork, and the opening image),
+`themeColor` and `petals`.
+
+- Only variables the theme's CSS already uses can be recoloured (`:root` at the top of its `style.css`). Colours written literally in the CSS stay.
+- Use `tint` only when the artwork is abstract or has no people painted in (Lover, Royal Gold). Glasshouse and Enchanted Garden are colour-only,
+  because tinting turns painted skin and foliage unnatural.
+- Every palette's CSS is in the page, keyed by `html[data-palette="<id>"]`, so `?palette=<id>` in the link previews any option without a rebuild.
+- A palette id the theme does not offer stops the build and lists the valid ones.
+
+| Theme | Palettes (besides classic) | Tint |
+|---|---|---|
+| Royal Gold | rose-gold, ivory, navy | yes |
+| Lover | lilac, peach, mint | yes |
+| Glasshouse | blush, dusty-blue, champagne | no |
+| Enchanted Garden | lavender, dusty-rose, ocean | no |
+
 ## Keys
 
 - `layout`: `"pages"` (snapping pages with scenes) or `"scroll"` (one continuous scroll). Body class is derived.

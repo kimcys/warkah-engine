@@ -62,6 +62,13 @@ export default defineTheme("glasshouse", {
   // Scenes with no one painted in, for when a client picks a groom/bride model (otherwise the painted couple scenes show)
   modelScenes: { groom: "court", bride: "phone" },
 
+  // Colour options (event.json "palette"). Colours only: the artwork is white and painted with people, so it is not tinted.
+  palettes: {
+    blush: { label: "Merah Jambu", swatch: ["#c27b8c", "#9a5468", "#f6e3e8"], vars: { "--rose": "#c27b8c", "--rose-deep": "#9a5468", "--rose-soft": "#f6e3e8", "--shadow": "0 26px 86px rgba(120, 60, 80, 0.22)" }, themeColor: "#f6e3e8" },
+    "dusty-blue": { label: "Biru Kelabu", swatch: ["#5f82a8", "#3e5f86", "#e0eaf4"], vars: { "--rose": "#5f82a8", "--rose-deep": "#3e5f86", "--rose-soft": "#e0eaf4", "--shadow": "0 26px 86px rgba(50, 80, 120, 0.22)" }, themeColor: "#e0eaf4" },
+    champagne: { label: "Champagne", swatch: ["#a8875a", "#7d6238", "#f3ead9"], vars: { "--rose": "#a8875a", "--rose-deep": "#7d6238", "--rose-soft": "#f3ead9", "--shadow": "0 26px 86px rgba(110, 85, 40, 0.22)" }, themeColor: "#f3ead9" }
+  },
+
   // Read by public/core/card.js
   client: {
     fairyLights: 10,

@@ -54,10 +54,15 @@ At most **5 buttons**, in this order, a button simply disappears when its featur
 - Only gifts on **or** only DuitNow on: show that one, **no tab bar**.
 - Both on: a **tab bar** `Senarai Hadiah | DuitNow`; gifts tab has "Lihat Senarai Hadiah", DuitNow tab has the QR and "Simpan QR".
 
+## 5b. Colour options (palettes)
+Every theme offers its classic look plus **3 colour options** the customer can pick (label + 3-colour swatch each). A palette changes
+the accent, text and panel colours; for themes with abstract artwork it also tints the scenes and the opening image. It never changes
+the layout, the pages or the models.
+
 ## 6. Design rules every theme must follow
 - Phone first, 390 x 844; text readable on the panel, minimum body text about 13 px.
 - One **frosted panel** style for all pages; entrance by direction (left / right / zoom) with lines rising in one by one.
-- Palette: 1 main, 1 accent, 1 background tone, plus petal colours; fonts: a script for names, a serif for body/headings, Arabic (Noto Naskh) for the ayat.
+- Palette: 1 main, 1 accent, 1 background tone, plus petal colours (declare these as CSS variables in `:root` so palettes can override them); fonts: a script for names, a serif for body/headings, Arabic (Noto Naskh) for the ayat.
 - Respect `prefers-reduced-motion` (no entrance animation then).
 - Same controls everywhere: buttons (`primary` / `secondary` / `text`), tab bar, gift cards, form fields, lightbox, bottom sheets.
 - Every scene image: about 1440 x 2560 or tintable from one artwork, optimised WebP, under about 200 KB each.

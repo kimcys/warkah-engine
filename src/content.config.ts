@@ -26,6 +26,7 @@ const events = defineCollection({
   }),
   schema: z.object({
     theme: z.enum(["royal-gold", "lover", "glasshouse", "enchanted-garden"]),
+    palette: z.string().default("classic"),           // colour option of the theme (see Palette in src/themes/define.ts)
     package: z.enum(["signature", "custom"]).default("signature"),
     lang: z.string().default("ms"),
 

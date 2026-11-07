@@ -47,6 +47,25 @@ export default defineTheme("enchanted-garden", {
   // Groom and bride figures from models/library.json (a client can pick others in couple.model)
   defaultModels: { groom: "groom-3", bride: "bride-5" },
 
+  // Colour options (event.json "palette"). Colours only: the garden artwork is painted, so it is not tinted.
+  palettes: {
+    lavender: {
+      label: "Lavender", swatch: ["#8d7fb8", "#8566b8", "#e6e0f3"],
+      vars: { "--sage": "#8d7fb8", "--sage-deep": "#62558f", "--sage-soft": "#e6e0f3", "--gold": "#8566b8", "--gold-deep": "#5f4590", "--gold-soft": "#d6c8ee", "--rose": "#b5779e", "--rose-deep": "#8f5a7d", "--sky-deep": "#7a8fd8", "--line": "rgba(133, 102, 184, 0.3)", "--shadow": "0 26px 86px rgba(80, 60, 130, 0.28)" },
+      themeColor: "#e6e0f3", petals: ["#b79df0", "#c9b6f5", "#e5a8c9", "#f0d9f5"]
+    },
+    "dusty-rose": {
+      label: "Mawar Kelabu", swatch: ["#b57f8a", "#b0687a", "#f1dde1"],
+      vars: { "--sage": "#b57f8a", "--sage-deep": "#8a5560", "--sage-soft": "#f1dde1", "--gold": "#b0687a", "--gold-deep": "#85485a", "--gold-soft": "#edc9d2", "--line": "rgba(176, 104, 122, 0.3)", "--shadow": "0 26px 86px rgba(120, 60, 75, 0.26)" },
+      themeColor: "#f1dde1"
+    },
+    ocean: {
+      label: "Lautan", swatch: ["#5b8fa6", "#3f7f98", "#dcebf2"],
+      vars: { "--sage": "#5b8fa6", "--sage-deep": "#3a6578", "--sage-soft": "#dcebf2", "--gold": "#3f7f98", "--gold-deep": "#2b5d73", "--gold-soft": "#bfdde9", "--line": "rgba(63, 127, 152, 0.3)", "--shadow": "0 26px 86px rgba(40, 90, 110, 0.26)" },
+      themeColor: "#dcebf2", petals: ["#8fc6ec", "#b9dcf2", "#f2c9d3", "#e8f4fa"]
+    }
+  },
+
   // Read by public/core/card.js
   client: {
     fairyLights: 22,
