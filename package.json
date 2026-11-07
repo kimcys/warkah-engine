@@ -8,6 +8,7 @@
     "dev": "node scripts/run.mjs dev",
     "build": "node scripts/run.mjs build",
     "test": "node scripts/test.mjs",
+    "thumbnails": "node scripts/thumbnails.mjs",
     "sample": "node scripts/sample.mjs",
     "i18n": "node scripts/i18n-check.mjs",
     "catalogue": "node scripts/run.mjs build minimal-demo --catalogue",

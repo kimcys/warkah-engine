@@ -14,7 +14,8 @@ export interface ThemeClient {
 // A colour option a client can choose (event.json "palette"). "classic" is always the theme as designed; every other id is listed in
 // the theme's `palettes`. Colours come from overriding the theme's CSS variables; `tint` shifts the artwork behind the pages.
 export interface Palette {
-  label: string;                        // shown to the customer
+  label: string;                        // shown to the customer (Malay)
+  labelEn: string;                      // the same in English
   swatch: [string, string, string];     // three colours for the picker chip: main, accent, soft
   vars: Record<string, string>;         // CSS variables to override, e.g. { "--rose": "#7a5cc4" }
   tint?: { hue?: number; saturate?: number; brightness?: number };   // CSS filter on the scene artwork (degrees / multipliers)
@@ -22,8 +23,16 @@ export interface Palette {
   petals?: string[];                    // falling petal colours
 }
 
+// How the theme is presented in the builder's theme chooser (next to its thumbnails in samples/thumbnails/<theme>/).
+export interface ThemeDisplay {
+  label: { ms: string; en: string };
+  description: { ms: string; en: string };      // one sentence: the look, and who it suits
+  culture: "malay" | "modern";                  // decides which models and sample photos are suggested
+}
+
 export interface ThemeInput {
   name: string;
+  display: ThemeDisplay;
   Opening: any;             // must contain a #openInvite button
   Backdrop: any;            // scene layers + .fairy-lights + .petal-field
   layout: "pages" | "scroll";   // "pages" = one snapping page per screen; "scroll" = one continuous scroll
@@ -66,7 +75,11 @@ export function defineTheme(key: string, input: ThemeInput) {
   if (!opening) fail(`src/themes/${key}/Opening.astro not found`);
   if (!opening.includes('id="openInvite"')) fail(`Opening.astro must contain a button with id="openInvite"`);
 
+  for (const lang of ["ms", "en"] as const) {
+    if (!input.display?.label?.[lang] || !input.display?.description?.[lang]) fail(`display needs a label and a description in "${lang}"`);
+  }
   for (const [id, palette] of Object.entries(input.palettes ?? {})) {
+    if (!palette.labelEn) fail(`palette "${id}" needs labelEn (its English name)`);
     if (id === "classic") fail(`palette "classic" is reserved for the theme as designed`);
     if (!/^[a-z][a-z0-9-]*$/.test(id)) fail(`palette id "${id}" must be lowercase letters, digits and dashes`);
     for (const name of Object.keys(palette.vars)) if (!/^--[a-z0-9-]+$/.test(name)) fail(`palette "${id}": "${name}" is not a CSS variable name`);

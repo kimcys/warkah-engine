@@ -5,9 +5,42 @@
     {
       "key": "royal-gold",
       "name": "Royal Gold",
+      "label": {
+        "ms": "Emas Diraja",
+        "en": "Royal Gold"
+      },
+      "description": {
+        "ms": "Pelamin diraja berwarna emas dan merah marun, sesuai untuk majlis bersongket dan beradat Melayu.",
+        "en": "A royal dais in gold and maroon, made for a Malay songket wedding."
+      },
+      "culture": "malay",
+      "thumbnails": {
+        "opening": "samples/thumbnails/royal-gold/opening.webp",
+        "classic": {
+          "home": "samples/thumbnails/royal-gold/classic.webp",
+          "details": "samples/thumbnails/royal-gold/classic-details.webp"
+        },
+        "palettes": {
+          "rose-gold": {
+            "home": "samples/thumbnails/royal-gold/rose-gold.webp",
+            "details": "samples/thumbnails/royal-gold/rose-gold-details.webp"
+          },
+          "ivory": {
+            "home": "samples/thumbnails/royal-gold/ivory.webp",
+            "details": "samples/thumbnails/royal-gold/ivory-details.webp"
+          },
+          "navy": {
+            "home": "samples/thumbnails/royal-gold/navy.webp",
+            "details": "samples/thumbnails/royal-gold/navy-details.webp"
+          }
+        }
+      },
       "layout": "pages",
       "classic": {
-        "label": "Klasik",
+        "label": {
+          "ms": "Klasik",
+          "en": "Classic"
+        },
         "swatch": [
           "#7a1424",
           "#c8901a",
@@ -17,7 +50,10 @@
       "palettes": [
         {
           "id": "rose-gold",
-          "label": "Emas Jambu",
+          "label": {
+            "ms": "Emas Jambu",
+            "en": "Rose Gold"
+          },
           "swatch": [
             "#8a3b4f",
             "#b9794f",
@@ -27,7 +63,10 @@
         },
         {
           "id": "ivory",
-          "label": "Gading",
+          "label": {
+            "ms": "Gading",
+            "en": "Ivory"
+          },
           "swatch": [
             "#5a4636",
             "#a88b5a",
@@ -37,7 +76,10 @@
         },
         {
           "id": "navy",
-          "label": "Biru Diraja",
+          "label": {
+            "ms": "Biru Diraja",
+            "en": "Royal Blue"
+          },
           "swatch": [
             "#1c3a78",
             "#c8901a",
@@ -472,9 +514,42 @@
     {
       "key": "lover",
       "name": "Lover",
+      "label": {
+        "ms": "Kasih",
+        "en": "Lover"
+      },
+      "description": {
+        "ms": "Pastel merah jambu, biru dan kuning yang lembut dan romantik, sesuai untuk majlis moden yang ringkas.",
+        "en": "Soft pink, sky-blue and butter-yellow pastels: romantic, light and modern."
+      },
+      "culture": "modern",
+      "thumbnails": {
+        "opening": "samples/thumbnails/lover/opening.webp",
+        "classic": {
+          "home": "samples/thumbnails/lover/classic.webp",
+          "details": "samples/thumbnails/lover/classic-details.webp"
+        },
+        "palettes": {
+          "lilac": {
+            "home": "samples/thumbnails/lover/lilac.webp",
+            "details": "samples/thumbnails/lover/lilac-details.webp"
+          },
+          "peach": {
+            "home": "samples/thumbnails/lover/peach.webp",
+            "details": "samples/thumbnails/lover/peach-details.webp"
+          },
+          "mint": {
+            "home": "samples/thumbnails/lover/mint.webp",
+            "details": "samples/thumbnails/lover/mint-details.webp"
+          }
+        }
+      },
       "layout": "pages",
       "classic": {
-        "label": "Klasik",
+        "label": {
+          "ms": "Klasik",
+          "en": "Classic"
+        },
         "swatch": [
           "#df6093",
           "#bfe8f5",
@@ -484,7 +559,10 @@
       "palettes": [
         {
           "id": "lilac",
-          "label": "Ungu Lembut",
+          "label": {
+            "ms": "Ungu Lembut",
+            "en": "Soft Lilac"
+          },
           "swatch": [
             "#8f6cd6",
             "#cfe3f7",
@@ -494,7 +572,10 @@
         },
         {
           "id": "peach",
-          "label": "Pic Manis",
+          "label": {
+            "ms": "Pic Manis",
+            "en": "Peach"
+          },
           "swatch": [
             "#e0875a",
             "#ffe0cf",
@@ -504,7 +585,10 @@
         },
         {
           "id": "mint",
-          "label": "Pudina",
+          "label": {
+            "ms": "Pudina",
+            "en": "Mint"
+          },
           "swatch": [
             "#3fa38a",
             "#d3f2e8",
@@ -942,9 +1026,42 @@
     {
       "key": "glasshouse",
       "name": "Glasshouse",
+      "label": {
+        "ms": "Rumah Kaca",
+        "en": "Glasshouse"
+      },
+      "description": {
+        "ms": "Dewan kaca putih dengan bunga segar, tirai dan lampu: mewah dan lapang untuk majlis moden.",
+        "en": "A white glasshouse hall with fresh flowers, drapes and lamps: elegant and airy."
+      },
+      "culture": "modern",
+      "thumbnails": {
+        "opening": "samples/thumbnails/glasshouse/opening.webp",
+        "classic": {
+          "home": "samples/thumbnails/glasshouse/classic.webp",
+          "details": "samples/thumbnails/glasshouse/classic-details.webp"
+        },
+        "palettes": {
+          "blush": {
+            "home": "samples/thumbnails/glasshouse/blush.webp",
+            "details": "samples/thumbnails/glasshouse/blush-details.webp"
+          },
+          "dusty-blue": {
+            "home": "samples/thumbnails/glasshouse/dusty-blue.webp",
+            "details": "samples/thumbnails/glasshouse/dusty-blue-details.webp"
+          },
+          "champagne": {
+            "home": "samples/thumbnails/glasshouse/champagne.webp",
+            "details": "samples/thumbnails/glasshouse/champagne-details.webp"
+          }
+        }
+      },
       "layout": "pages",
       "classic": {
-        "label": "Klasik",
+        "label": {
+          "ms": "Klasik",
+          "en": "Classic"
+        },
         "swatch": [
           "#6f8f62",
           "#3f5c3c",
@@ -954,7 +1071,10 @@
       "palettes": [
         {
           "id": "blush",
-          "label": "Merah Jambu",
+          "label": {
+            "ms": "Merah Jambu",
+            "en": "Blush"
+          },
           "swatch": [
             "#c27b8c",
             "#9a5468",
@@ -964,7 +1084,10 @@
         },
         {
           "id": "dusty-blue",
-          "label": "Biru Kelabu",
+          "label": {
+            "ms": "Biru Kelabu",
+            "en": "Dusty Blue"
+          },
           "swatch": [
             "#5f82a8",
             "#3e5f86",
@@ -974,7 +1097,10 @@
         },
         {
           "id": "champagne",
-          "label": "Champagne",
+          "label": {
+            "ms": "Champagne",
+            "en": "Champagne"
+          },
           "swatch": [
             "#a8875a",
             "#7d6238",
@@ -1409,9 +1535,42 @@
     {
       "key": "enchanted-garden",
       "name": "Enchanted Garden",
+      "label": {
+        "ms": "Taman Permai",
+        "en": "Enchanted Garden"
+      },
+      "description": {
+        "ms": "Taman rendang dengan cermin emas, lampu berkelip dan bunga merah jambu: dongeng yang tenang.",
+        "en": "A leafy garden with a gold mirror, fairy lights and pink blooms: a gentle fairy tale."
+      },
+      "culture": "modern",
+      "thumbnails": {
+        "opening": "samples/thumbnails/enchanted-garden/opening.webp",
+        "classic": {
+          "home": "samples/thumbnails/enchanted-garden/classic.webp",
+          "details": "samples/thumbnails/enchanted-garden/classic-details.webp"
+        },
+        "palettes": {
+          "lavender": {
+            "home": "samples/thumbnails/enchanted-garden/lavender.webp",
+            "details": "samples/thumbnails/enchanted-garden/lavender-details.webp"
+          },
+          "dusty-rose": {
+            "home": "samples/thumbnails/enchanted-garden/dusty-rose.webp",
+            "details": "samples/thumbnails/enchanted-garden/dusty-rose-details.webp"
+          },
+          "ocean": {
+            "home": "samples/thumbnails/enchanted-garden/ocean.webp",
+            "details": "samples/thumbnails/enchanted-garden/ocean-details.webp"
+          }
+        }
+      },
       "layout": "pages",
       "classic": {
-        "label": "Klasik",
+        "label": {
+          "ms": "Klasik",
+          "en": "Classic"
+        },
         "swatch": [
           "#7f9470",
           "#a8773f",
@@ -1421,7 +1580,10 @@
       "palettes": [
         {
           "id": "lavender",
-          "label": "Lavender",
+          "label": {
+            "ms": "Lavender",
+            "en": "Lavender"
+          },
           "swatch": [
             "#8d7fb8",
             "#8566b8",
@@ -1431,7 +1593,10 @@
         },
         {
           "id": "dusty-rose",
-          "label": "Mawar Kelabu",
+          "label": {
+            "ms": "Mawar Kelabu",
+            "en": "Dusty Rose"
+          },
           "swatch": [
             "#b57f8a",
             "#b0687a",
@@ -1441,7 +1606,10 @@
         },
         {
           "id": "ocean",
-          "label": "Lautan",
+          "label": {
+            "ms": "Lautan",
+            "en": "Ocean"
+          },
           "swatch": [
             "#5b8fa6",
             "#3f7f98",
@@ -1885,7 +2053,8 @@
       "culture": "malay",
       "hijab": false,
       "description": "Baju melayu putih, samping putih dan songkok",
-      "file": "groom-1.webp"
+      "file": "groom-1.webp",
+      "labelEn": "White Baju Melayu"
     },
     {
       "id": "groom-2",
@@ -1894,7 +2063,8 @@
       "culture": "malay",
       "hijab": false,
       "description": "Baju melayu songket kelabu, samping dan tanjak",
-      "file": "groom-2.webp"
+      "file": "groom-2.webp",
+      "labelEn": "Songket & Tanjak"
     },
     {
       "id": "groom-3",
@@ -1903,7 +2073,8 @@
       "culture": "modern",
       "hijab": false,
       "description": "Sut hitam, kemeja putih dan tali leher",
-      "file": "groom-3.webp"
+      "file": "groom-3.webp",
+      "labelEn": "Black Suit"
     },
     {
       "id": "bride-1",
@@ -1912,7 +2083,8 @@
       "culture": "modern",
       "hijab": true,
       "description": "Gaun tulle gading berlengan panjang dengan tudung dan veil panjang",
-      "file": "bride-1.webp"
+      "file": "bride-1.webp",
+      "labelEn": "Layered Tulle Gown"
     },
     {
       "id": "bride-2",
@@ -1921,7 +2093,8 @@
       "culture": "malay",
       "hijab": true,
       "description": "Kebaya songket krim dengan mahkota tradisional",
-      "file": "bride-2.webp"
+      "file": "bride-2.webp",
+      "labelEn": "Songket Kebaya"
     },
     {
       "id": "bride-3",
@@ -1930,7 +2103,8 @@
       "culture": "malay",
       "hijab": true,
       "description": "Kebaya renda putih dengan kain renda dan tudung gading",
-      "file": "bride-3.webp"
+      "file": "bride-3.webp",
+      "labelEn": "White Lace Kebaya"
     },
     {
       "id": "bride-4",
@@ -1939,7 +2113,8 @@
       "culture": "modern",
       "hijab": true,
       "description": "Gaun duyung renda putih dengan veil panjang",
-      "file": "bride-4.webp"
+      "file": "bride-4.webp",
+      "labelEn": "Lace Mermaid Gown"
     },
     {
       "id": "bride-5",
@@ -1948,7 +2123,8 @@
       "culture": "modern",
       "hijab": true,
       "description": "Gaun renda gading dengan veil bertepi renda",
-      "file": "bride-5.webp"
+      "file": "bride-5.webp",
+      "labelEn": "Lace Gown with Hijab"
     },
     {
       "id": "bride-6",
@@ -1957,7 +2133,8 @@
       "culture": "modern",
       "hijab": true,
       "description": "Gaun kembang putih dengan tiara dan veil",
-      "file": "bride-6.webp"
+      "file": "bride-6.webp",
+      "labelEn": "Princess Gown with Tiara"
     }
   ],
   "features": [
@@ -3078,6 +3255,9 @@
           },
           "hashtag": {
             "type": "string"
+          },
+          "bakedHero": {
+            "type": "boolean"
           }
         }
       },

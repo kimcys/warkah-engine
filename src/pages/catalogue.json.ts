@@ -10,7 +10,13 @@ import { ASSET_RULES } from "../lib/asset-rules";
 import { BUILDER_STEPS } from "../lib/builder-steps";
 import { eventSchema } from "../lib/event-schema";
 import modelLibrary from "../../models/library.json";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { assetSetFor, sampleFor } from "../lib/sample";
+
+// Thumbnails written by `npm run thumbnails` (samples/thumbnails/<theme>/<name>.webp). A missing file is listed as null so a gap is easy to see.
+const thumb = (theme: string, name: string) => (existsSync(join(process.cwd(), "samples", "thumbnails", theme, `${name}.webp`)) ? `samples/thumbnails/${theme}/${name}.webp` : null);
+const thumbs = (theme: string, name: string) => ({ home: thumb(theme, name), details: thumb(theme, `${name}-details`) });
 
 export const GET: APIRoute = () => {
   const catalogue = {
@@ -21,9 +27,13 @@ export const GET: APIRoute = () => {
       return {
         key,
         name: t.name,
+        label: t.display.label,
+        description: t.display.description,
+        culture: t.display.culture,
+        thumbnails: { opening: thumb(key, "opening"), classic: thumbs(key, "classic"), palettes: Object.fromEntries(Object.keys(t.palettes).map((id) => [id, thumbs(key, id)])) },
         layout: t.layout,
-        classic: { label: "Klasik", swatch: t.classicSwatch },
-        palettes: Object.entries(t.palettes).map(([id, p]) => ({ id, label: p.label, swatch: p.swatch, tintsArtwork: !!p.tint })),
+        classic: { label: { ms: "Klasik", en: "Classic" }, swatch: t.classicSwatch },
+        palettes: Object.entries(t.palettes).map(([id, p]) => ({ id, label: { ms: p.label, en: p.labelEn }, swatch: p.swatch, tintsArtwork: !!p.tint })),
         defaultModels: t.defaultModels ?? null,
         // true = the theme paints its own couple in the scene art until a model is chosen
         paintedCouple: !t.defaultModels && !!t.modelScenes,

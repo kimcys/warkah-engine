@@ -7,7 +7,8 @@
       "culture": "malay",
       "hijab": false,
       "description": "Baju melayu putih, samping putih dan songkok",
-      "file": "groom-1.webp"
+      "file": "groom-1.webp",
+      "labelEn": "White Baju Melayu"
     },
     {
       "id": "groom-2",
@@ -16,7 +17,8 @@
       "culture": "malay",
       "hijab": false,
       "description": "Baju melayu songket kelabu, samping dan tanjak",
-      "file": "groom-2.webp"
+      "file": "groom-2.webp",
+      "labelEn": "Songket & Tanjak"
     },
     {
       "id": "groom-3",
@@ -25,7 +27,8 @@
       "culture": "modern",
       "hijab": false,
       "description": "Sut hitam, kemeja putih dan tali leher",
-      "file": "groom-3.webp"
+      "file": "groom-3.webp",
+      "labelEn": "Black Suit"
     },
     {
       "id": "bride-1",
@@ -34,7 +37,8 @@
       "culture": "modern",
       "hijab": true,
       "description": "Gaun tulle gading berlengan panjang dengan tudung dan veil panjang",
-      "file": "bride-1.webp"
+      "file": "bride-1.webp",
+      "labelEn": "Layered Tulle Gown"
     },
     {
       "id": "bride-2",
@@ -43,7 +47,8 @@
       "culture": "malay",
       "hijab": true,
       "description": "Kebaya songket krim dengan mahkota tradisional",
-      "file": "bride-2.webp"
+      "file": "bride-2.webp",
+      "labelEn": "Songket Kebaya"
     },
     {
       "id": "bride-3",
@@ -52,7 +57,8 @@
       "culture": "malay",
       "hijab": true,
       "description": "Kebaya renda putih dengan kain renda dan tudung gading",
-      "file": "bride-3.webp"
+      "file": "bride-3.webp",
+      "labelEn": "White Lace Kebaya"
     },
     {
       "id": "bride-4",
@@ -61,7 +67,8 @@
       "culture": "modern",
       "hijab": true,
       "description": "Gaun duyung renda putih dengan veil panjang",
-      "file": "bride-4.webp"
+      "file": "bride-4.webp",
+      "labelEn": "Lace Mermaid Gown"
     },
     {
       "id": "bride-5",
@@ -70,7 +77,8 @@
       "culture": "modern",
       "hijab": true,
       "description": "Gaun renda gading dengan veil bertepi renda",
-      "file": "bride-5.webp"
+      "file": "bride-5.webp",
+      "labelEn": "Lace Gown with Hijab"
     },
     {
       "id": "bride-6",
@@ -79,7 +87,8 @@
       "culture": "modern",
       "hijab": true,
       "description": "Gaun kembang putih dengan tiara dan veil",
-      "file": "bride-6.webp"
+      "file": "bride-6.webp",
+      "labelEn": "Princess Gown with Tiara"
     }
   ]
 }

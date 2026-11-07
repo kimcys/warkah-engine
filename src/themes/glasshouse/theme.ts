@@ -25,6 +25,11 @@ const SCROLL: "pages" | "free" = "pages";
 
 export default defineTheme("glasshouse", {
   name: "Glasshouse",
+  display: {
+    label: { ms: "Rumah Kaca", en: "Glasshouse" },
+    description: { ms: "Dewan kaca putih dengan bunga segar, tirai dan lampu: mewah dan lapang untuk majlis moden.", en: "A white glasshouse hall with fresh flowers, drapes and lamps: elegant and airy." },
+    culture: "modern"
+  },
   Opening,
   Backdrop,
   layout: "pages",
@@ -66,9 +71,9 @@ export default defineTheme("glasshouse", {
 
   // Colour options (event.json "palette"). Colours only: the artwork is white and painted with people, so it is not tinted.
   palettes: {
-    blush: { label: "Merah Jambu", swatch: ["#c27b8c", "#9a5468", "#f6e3e8"], vars: { "--rose": "#c27b8c", "--rose-deep": "#9a5468", "--rose-soft": "#f6e3e8", "--shadow": "0 26px 86px rgba(120, 60, 80, 0.22)" }, themeColor: "#f6e3e8" },
-    "dusty-blue": { label: "Biru Kelabu", swatch: ["#5f82a8", "#3e5f86", "#e0eaf4"], vars: { "--rose": "#5f82a8", "--rose-deep": "#3e5f86", "--rose-soft": "#e0eaf4", "--shadow": "0 26px 86px rgba(50, 80, 120, 0.22)" }, themeColor: "#e0eaf4" },
-    champagne: { label: "Champagne", swatch: ["#a8875a", "#7d6238", "#f3ead9"], vars: { "--rose": "#a8875a", "--rose-deep": "#7d6238", "--rose-soft": "#f3ead9", "--shadow": "0 26px 86px rgba(110, 85, 40, 0.22)" }, themeColor: "#f3ead9" }
+    blush: { label: "Merah Jambu", labelEn: "Blush", swatch: ["#c27b8c", "#9a5468", "#f6e3e8"], vars: { "--rose": "#c27b8c", "--rose-deep": "#9a5468", "--rose-soft": "#f6e3e8", "--ft-ink": "#4a2a35", "--shadow": "0 26px 86px rgba(120, 60, 80, 0.22)" }, themeColor: "#f6e3e8" },
+    "dusty-blue": { label: "Biru Kelabu", labelEn: "Dusty Blue", swatch: ["#5f82a8", "#3e5f86", "#e0eaf4"], vars: { "--rose": "#5f82a8", "--rose-deep": "#3e5f86", "--rose-soft": "#e0eaf4", "--ft-ink": "#26384f", "--shadow": "0 26px 86px rgba(50, 80, 120, 0.22)" }, themeColor: "#e0eaf4" },
+    champagne: { label: "Champagne", labelEn: "Champagne", swatch: ["#a8875a", "#7d6238", "#f3ead9"], vars: { "--rose": "#a8875a", "--rose-deep": "#7d6238", "--rose-soft": "#f3ead9", "--ft-ink": "#4a3a20", "--shadow": "0 26px 86px rgba(110, 85, 40, 0.22)" }, themeColor: "#f3ead9" }
   },
 
   // Read by public/core/card.js

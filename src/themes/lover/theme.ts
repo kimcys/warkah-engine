@@ -11,6 +11,11 @@ import Programme from "./sections/Programme.astro";
 
 export default defineTheme("lover", {
   name: "Lover",
+  display: {
+    label: { ms: "Kasih", en: "Lover" },
+    description: { ms: "Pastel merah jambu, biru dan kuning yang lembut dan romantik, sesuai untuk majlis moden yang ringkas.", en: "Soft pink, sky-blue and butter-yellow pastels: romantic, light and modern." },
+    culture: "modern"
+  },
   Opening,
   Backdrop,
   layout: "pages",
@@ -53,17 +58,17 @@ export default defineTheme("lover", {
   // Colour options (event.json "palette"). The pastel artwork is hue-shifted with the colours.
   palettes: {
     lilac: {
-      label: "Ungu Lembut", swatch: ["#8f6cd6", "#cfe3f7", "#e6dcfb"],
+      label: "Ungu Lembut", labelEn: "Soft Lilac", swatch: ["#8f6cd6", "#cfe3f7", "#e6dcfb"],
       vars: { "--rose": "#8f6cd6", "--rose-deep": "#6e4bb8", "--rose-soft": "#e6dcfb", "--sky": "#cfe3f7", "--butter": "#f8eeb8", "--line": "rgba(110, 75, 184, 0.34)", "--shadow": "0 26px 86px rgba(110, 75, 184, 0.22)" },
       tint: { hue: -60 }, themeColor: "#e6dcfb", petals: ["#8f6cd6", "#b79df0", "#9fd0e8", "#f2e08a"]
     },
     peach: {
-      label: "Pic Manis", swatch: ["#e0875a", "#ffe0cf", "#ffd0a8"],
+      label: "Pic Manis", labelEn: "Peach", swatch: ["#e0875a", "#ffe0cf", "#ffd0a8"],
       vars: { "--rose": "#e0875a", "--rose-deep": "#c2663a", "--rose-soft": "#ffe0cf", "--line": "rgba(194, 102, 58, 0.34)", "--shadow": "0 26px 86px rgba(194, 102, 58, 0.22)" },
       tint: { hue: 35, brightness: 1.02 }, themeColor: "#ffe0cf", petals: ["#e0875a", "#f0a77f", "#f6c9a3", "#f2cf63"]
     },
     mint: {
-      label: "Pudina", swatch: ["#3fa38a", "#d3f2e8", "#bfe8d8"],
+      label: "Pudina", labelEn: "Mint", swatch: ["#3fa38a", "#d3f2e8", "#bfe8d8"],
       vars: { "--rose": "#3fa38a", "--rose-deep": "#2a8470", "--rose-soft": "#d3f2e8", "--line": "rgba(42, 132, 112, 0.34)", "--shadow": "0 26px 86px rgba(42, 132, 112, 0.22)" },
       tint: { hue: 150, saturate: 0.9, brightness: 1.02 }, themeColor: "#d3f2e8", petals: ["#3fa38a", "#7fcab4", "#f0b6cc", "#f2e08a"]
     }

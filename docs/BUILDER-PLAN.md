@@ -75,7 +75,7 @@ Slug rules, rate limits and email-code sign-in come from the existing Worker. `s
   `features.ts`, `tiers.ts`, `asset-rules.ts`, `builder-steps.ts`, `theme-keys.ts`.
 - DONE: friendly validation in Malay (`src/lib/validate.ts`): each problem names the field and says what to fix. It is plain TypeScript, so the API Worker can import it.
 - DONE: sample content per theme and language (`samples/`, `src/themes/*/sample.json`, `src/lib/sample.ts`): fictional couple, generated photos, `previewDraft()` fills only empty fields. `npm run sample`, `npm test`.
-- TODO: theme thumbnails and one-line descriptions (screenshots are already generated into `design-export/`).
+- DONE: theme chooser data. Each theme has `display` (label + description in Malay and English, culture), palettes and models have English names, and `npm run thumbnails` writes 8 photos per theme to `samples/thumbnails/` (opening, plus first page and Details page for classic and each palette). The catalogue lists them.
 - DONE (0b): fixed wording is in a string table. `lang: "en"` gives an English card (122 strings, English defaults for the couple-facing text, English month and day names, browser messages), `npm run i18n` checks completeness, and `events/english-demo` shows it. Malay output is unchanged on every card.
 - TODO: system fields. The builder fills `hosting`, `store`, `meta` and `package` itself (`hosting.site` is still required today; make it optional for builder cards).
 

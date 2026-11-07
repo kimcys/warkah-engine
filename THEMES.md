@@ -32,6 +32,15 @@ component when it wants a different design. Features switch pages off per client
 - **Hadiah.** Only gifts or only DuitNow: that one, no tab bar. Both: a tab bar (`Senarai Hadiah | DuitNow`) in the sheet and on the page
   (`data-tabs` / `data-tab` / `data-tab-pane`, handled in `card.js`).
 
+## How a theme is presented (theme chooser)
+
+Each theme declares `display` in `theme.ts`: a label and a one-sentence description in Malay and English, and its `culture` (`malay` or `modern`, which decides the suggested models and sample photos).
+Each palette has a Malay name (`label`) and an English one (`labelEn`); each model in `models/library.json` has `label` and `labelEn`. `defineTheme()` refuses a theme without them.
+
+`npm run thumbnails` photographs every theme (it builds the sample cards and drives headless Chrome; set `CHROME_PATH` if Chrome is not the macOS default) into `samples/thumbnails/<theme>/`:
+`opening.webp`, and for the classic look and every palette `<id>.webp` (first page) and `<id>-details.webp` (Details page, where accent colours show even when the artwork is not recoloured).
+The catalogue lists them. **Run it again after changing a theme's look or palettes**; `npm test` fails if a palette has no thumbnail.
+
 ## Sample content (what a preview shows before anyone types)
 
 `samples/base.ms.json` and `base.en.json` are a complete, valid card with **fictional** people (Aisyah and Hafiz, Dewan Seri Kenanga, Shah Alam), every
