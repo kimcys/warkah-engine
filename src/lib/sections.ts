@@ -27,6 +27,8 @@ export function sectionEnabled(id: SectionId, e: { features: Record<string, bool
     case "mempelaiBride": return f.mempelai;
     case "portraits": return f.portraits;
     case "gallery": return f.gallery && e.gallery.length > 0;
+    case "countdown": return f.countdown;
+    case "programme": return f.programme;
     case "doa": return f.doa;
     case "rsvp": return f.rsvp;
     case "wishes": return f.wishes;

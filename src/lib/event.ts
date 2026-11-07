@@ -32,7 +32,9 @@ export async function loadEvent() {
   if (!entry) {
     throw new Error(`events/${slug}/event.json was not found.`);
   }
-  const e = entry.data;
+  // A switched-off feature hides its data from every component (music, dressCode); the page switches are in sections.ts.
+  const f = entry.data.features;
+  const e = { ...entry.data, music: f.music ? entry.data.music : undefined, dressCode: f.dressCode ? entry.data.dressCode : undefined };
   const theme = themes[e.theme];
 
   // Colour option: "classic" = the theme as designed; others override CSS variables and tint the artwork (see Palette).
@@ -92,6 +94,8 @@ export async function loadEvent() {
     assets: `${base}event/`,
     store,
     theme: { ...theme.client, petals: palette.petals },
+    // false = nothing on the card reads or writes guest data (no RSVP, wishes or gifts), so the guestbook code is not started
+    needsStore: e.features.rsvp || e.features.wishes || (e.features.gifts && e.gifts.items.length > 0),
     invitation: {
       eventTitle: e.meta.title,
       startDate: e.date.start,

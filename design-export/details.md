@@ -21,18 +21,18 @@ Use this when designing a new theme (or restyling one). Every theme is a **mobil
 | 5 | Groom | Name, full name, "Putera kepada", parents | `features.mempelai` |
 | 6 | Bride | Name, full name, "Puteri kepada", parents | `features.mempelai` |
 | 7 | Details | Date, time, venue, address, map and calendar buttons | always |
-| 8 | Countdown | Days / hours / minutes / seconds to the event | always |
+| 8 | Countdown | Days / hours / minutes / seconds to the event | `features.countdown` |
 | 9 | Portraits | Couple portrait photo(s) | `features.portraits` |
 | 10 | Gallery | Photo grid, tap for lightbox | `features.gallery` and photos exist |
-| 11 | Programme | Timeline of the event | always |
-| 12 | Dress code | Colour palette and note | event has `dressCode` |
+| 11 | Programme | Timeline of the event | `features.programme` |
+| 12 | Dress code | Colour palette and note | `features.dressCode` and the event has `dressCode` |
 | 13 | Doa | Prayer for the couple | `features.doa` |
 | 14 | RSVP | Summary and a button that opens the RSVP sheet | `features.rsvp` |
 | 15 | Wishes (Ucapan) | Guests' messages, paged | `features.wishes` |
 | 16 | Gifts (Hadiah) | Gift list and/or DuitNow QR | `features.gifts` or `features.duitnow` |
 | 17 | Thanks | Closing thank-you | always |
 
-A theme must **style all 17**, even though a client may switch some off. A page that is off simply isn't shown.
+A theme must **style all 17**, even though a client may switch some off. A page that is off simply isn't shown. Only hero, invitation, details and thanks are always on. Music (and its button) is also switchable (`features.music`).
 
 ## 3. Groom and bride models
 - Each person gets their **own page and their own scene**: the figure stands full-height behind a frosted name panel that sits low,

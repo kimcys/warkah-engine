@@ -40,7 +40,7 @@ function copyInto(from, to) {
 //   /core, /warkah      shared files (public/)
 //   /theme              the theme's files, then the client's overrides (events/<slug>/theme/)
 //   /event              the client's photos, song, QR codes (events/<slug>/assets/)
-//   /models             the groom/bride figure library (models/), shared by every theme
+//   /models             only the groom/bride figures this card shows (from models/)
 // Only this client's files are included, so no other couple's photos end up on their site.
 export function stage(slug, event) {
   const themeDir = join(ROOT, "src", "themes", event.theme, "public");
@@ -53,8 +53,26 @@ export function stage(slug, event) {
   copyInto(themeDir, join(out, "theme"));
   copyInto(join(EVENTS_DIR, slug, "theme"), join(out, "theme"));
   copyInto(join(EVENTS_DIR, slug, "assets"), join(out, "event"));
-  copyInto(join(ROOT, "models"), join(out, "models"));   // groom/bride figures (the card loads only the two it shows)
+  stageModels(event, out);
   return out;
+}
+
+// Ships only the groom/bride figures this card can show: the client's choice (couple.model), else the theme's defaultModels.
+// A theme with neither (it paints its own couple) ships none. If the theme's defaults cannot be read, ship the whole library.
+function stageModels(event, out) {
+  const dir = join(ROOT, "models");
+  if (!existsSync(dir) || event.features?.mempelai === false) return;   // no groom/bride pages, no figures
+  const themeSource = readFileSync(join(ROOT, "src", "themes", event.theme, "theme.ts"), "utf8");
+  const wantsDefaults = themeSource.includes("defaultModels");
+  const defaults = themeSource.match(/defaultModels:\s*\{\s*groom:\s*"([^"]+)"\s*,\s*bride:\s*"([^"]+)"/);
+  if (wantsDefaults && !defaults) return copyInto(dir, join(out, "models"));
+  const chosen = event.couple?.model ?? {};
+  const ids = new Set([chosen.groom ?? defaults?.[1], chosen.bride ?? defaults?.[2]].filter(Boolean));
+  if (!ids.size) return;
+  mkdirSync(join(out, "models"), { recursive: true });
+  for (const id of ids) {
+    if (existsSync(join(dir, `${id}.webp`))) cpSync(join(dir, `${id}.webp`), join(out, "models", `${id}.webp`));
+  }
 }
 
 export function sizeOf(dir) {

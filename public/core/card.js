@@ -1167,7 +1167,7 @@ function loadCardAssets() {
   if (cardAssetsRequested) return;
   cardAssetsRequested = true;
   body.classList.add("assets-ready");
-  void initGuestbook();
+  if (DATA.needsStore !== false) void initGuestbook();
 }
 
 if (document.readyState === "complete") {

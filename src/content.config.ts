@@ -3,6 +3,7 @@
 // Fields with .default(...) can be left out: the default text is used.
 import { defineCollection, z } from "astro:content";
 import modelLibrary from "../models/library.json";
+import { FEATURES } from "./lib/features";
 import { glob } from "astro/loaders";
 
 const html = z.string(); // may contain <br>, &amp;, &rsquo; ... (rendered as HTML)
@@ -119,20 +120,10 @@ const events = defineCollection({
       maxGuests: z.number().int().min(1).max(10).default(2)
     }).prefault({}),
 
-    features: z.object({
-      mempelai: z.boolean().default(true),     // groom + bride pages
-      portraits: z.boolean().default(true),
-      gallery: z.boolean().default(true),
-      doa: z.boolean().default(true),
-      rsvp: z.boolean().default(true),
-      wishes: z.boolean().default(true),
-      gifts: z.boolean().default(false),        // add-on: Warkah Hadiah
-      duitnow: z.boolean().default(false),      // add-on: DuitNow QR
-      kenang: z.boolean().default(false),       // add-on: Warkah Kenang (photobooth + memory wall), button in the bottom bar
-      ayat: z.boolean().default(false),
-      venueSign: z.boolean().default(false),    // venue name on its own page         // Quran verse page (see `ayat` below)
-      guestName: z.boolean().default(false)     // ?to=Name in the link (not sold; off)
-    }).prefault({}),
+    // Every switch lives in src/lib/features.ts (page / add-on, default, label). A key left out takes its default.
+    features: z.object(
+      Object.fromEntries(FEATURES.map((f) => [f.key, z.boolean().default(f.default)]))
+    ).prefault({}),
 
     // Warkah Kenang link. The Kenang event defaults to this card's slug; set it only when they differ.
     kenang: z.object({ slug: z.string().optional() }).prefault({}),

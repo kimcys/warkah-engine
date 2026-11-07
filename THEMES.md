@@ -32,6 +32,19 @@ component when it wants a different design. Features switch pages off per client
 - **Hadiah.** Only gifts or only DuitNow: that one, no tab bar. Both: a tab bar (`Senarai Hadiah | DuitNow`) in the sheet and on the page
   (`data-tabs` / `data-tab` / `data-tab-pane`, handled in `card.js`).
 
+## Features (what a client can switch on or off)
+
+`event.json` `"features"` holds the switches; the catalogue is `src/lib/features.ts` (label, default, what data it needs), and the schema,
+`sectionEnabled()` and the future builder all read from it. To add a switch, add one line there.
+
+- **Pages** (default on): mempelai, countdown, programme, portraits, gallery, dressCode, doa, rsvp, wishes, music.
+- **Add-ons** (default off): ayat, venueSign, gifts, duitnow, kenang, guestName.
+- **Always there** (no switch): hero, invitation, details, thanks, and the Lokasi / Hubungi buttons.
+- A switched-off page is not in the card; with music off there is no player; with RSVP, wishes and gifts all off the guestbook code (Firebase) never
+  starts (`needsStore`); with mempelai off no model files ship. `events/minimal-demo` has everything off (about 0.4 MB, 4 pages, 2 buttons).
+- A switch also needs its data: gallery needs photos, gifts needs items, duitnow needs an image, dressCode needs its block, music needs a song.
+  Without the data the page is simply not shown. Wishes are written through the RSVP form, so wishes without RSVP only shows the couple's own `defaultWishes`.
+
 ## Groom and bride models
 
 The two person pages use the shared figure library in `models/` (see `models/README.md`). A client chooses with `couple.model`.
