@@ -80,6 +80,6 @@ to override (`vars`), and optionally `tint` (hue / saturate / brightness applied
 ## Adding a theme
 
 1. Copy `royal-gold/`, rename, restyle.
-2. Register it in `src/themes/index.ts` and add the name to the `theme` enum in `src/content.config.ts`.
+2. Register it in `src/themes/index.ts` and add the name to `THEME_KEYS` in `src/lib/theme-keys.ts`.
 3. `npm run build -- <a client using it>`: any contract problem is reported by name.
 4. Style every standard page, including countdown and wishes.

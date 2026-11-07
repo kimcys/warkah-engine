@@ -47,6 +47,8 @@ export default defineTheme("enchanted-garden", {
   // Groom and bride figures from models/library.json (a client can pick others in couple.model)
   defaultModels: { groom: "groom-3", bride: "bride-5" },
 
+  classicSwatch: ["#7f9470", "#a8773f", "#dfe8d6"],
+
   // Colour options (event.json "palette"). Colours only: the garden artwork is painted, so it is not tinted.
   palettes: {
     lavender: {

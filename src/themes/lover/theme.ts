@@ -48,6 +48,8 @@ export default defineTheme("lover", {
   // Groom and bride figures from models/library.json (a client can pick others in couple.model)
   defaultModels: { groom: "groom-3", bride: "bride-4" },
 
+  classicSwatch: ["#df6093", "#bfe8f5", "#ffd8e9"],
+
   // Colour options (event.json "palette"). The pastel artwork is hue-shifted with the colours.
   palettes: {
     lilac: {

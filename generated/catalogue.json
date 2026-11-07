@@ -1,0 +1,1665 @@
+{
+  "generated": "by npm run catalogue; do not edit",
+  "language": "ms",
+  "themes": [
+    {
+      "key": "royal-gold",
+      "name": "Royal Gold",
+      "layout": "pages",
+      "classic": {
+        "label": "Klasik",
+        "swatch": [
+          "#7a1424",
+          "#c8901a",
+          "#f7e3a1"
+        ]
+      },
+      "palettes": [
+        {
+          "id": "rose-gold",
+          "label": "Emas Jambu",
+          "swatch": [
+            "#8a3b4f",
+            "#b9794f",
+            "#f3d8c4"
+          ],
+          "tintsArtwork": true
+        },
+        {
+          "id": "ivory",
+          "label": "Gading",
+          "swatch": [
+            "#5a4636",
+            "#a88b5a",
+            "#f2e6c8"
+          ],
+          "tintsArtwork": true
+        },
+        {
+          "id": "navy",
+          "label": "Biru Diraja",
+          "swatch": [
+            "#1c3a78",
+            "#c8901a",
+            "#cfdcf3"
+          ],
+          "tintsArtwork": true
+        }
+      ],
+      "defaultModels": null,
+      "paintedCouple": true,
+      "pages": [
+        "hero",
+        "invitation",
+        "venueSign",
+        "ayat",
+        "mempelaiGroom",
+        "mempelaiBride",
+        "details",
+        "countdown",
+        "programme",
+        "dressCode",
+        "portraits",
+        "gallery",
+        "doa",
+        "rsvp",
+        "wishes",
+        "gifts",
+        "thanks"
+      ]
+    },
+    {
+      "key": "lover",
+      "name": "Lover",
+      "layout": "pages",
+      "classic": {
+        "label": "Klasik",
+        "swatch": [
+          "#df6093",
+          "#bfe8f5",
+          "#ffd8e9"
+        ]
+      },
+      "palettes": [
+        {
+          "id": "lilac",
+          "label": "Ungu Lembut",
+          "swatch": [
+            "#8f6cd6",
+            "#cfe3f7",
+            "#e6dcfb"
+          ],
+          "tintsArtwork": true
+        },
+        {
+          "id": "peach",
+          "label": "Pic Manis",
+          "swatch": [
+            "#e0875a",
+            "#ffe0cf",
+            "#ffd0a8"
+          ],
+          "tintsArtwork": true
+        },
+        {
+          "id": "mint",
+          "label": "Pudina",
+          "swatch": [
+            "#3fa38a",
+            "#d3f2e8",
+            "#bfe8d8"
+          ],
+          "tintsArtwork": true
+        }
+      ],
+      "defaultModels": {
+        "groom": "groom-3",
+        "bride": "bride-4"
+      },
+      "paintedCouple": false,
+      "pages": [
+        "hero",
+        "invitation",
+        "venueSign",
+        "ayat",
+        "mempelaiGroom",
+        "mempelaiBride",
+        "details",
+        "countdown",
+        "portraits",
+        "gallery",
+        "programme",
+        "dressCode",
+        "doa",
+        "rsvp",
+        "wishes",
+        "gifts",
+        "thanks"
+      ]
+    },
+    {
+      "key": "glasshouse",
+      "name": "Glasshouse",
+      "layout": "pages",
+      "classic": {
+        "label": "Klasik",
+        "swatch": [
+          "#6f8f62",
+          "#3f5c3c",
+          "#e6eedf"
+        ]
+      },
+      "palettes": [
+        {
+          "id": "blush",
+          "label": "Merah Jambu",
+          "swatch": [
+            "#c27b8c",
+            "#9a5468",
+            "#f6e3e8"
+          ],
+          "tintsArtwork": false
+        },
+        {
+          "id": "dusty-blue",
+          "label": "Biru Kelabu",
+          "swatch": [
+            "#5f82a8",
+            "#3e5f86",
+            "#e0eaf4"
+          ],
+          "tintsArtwork": false
+        },
+        {
+          "id": "champagne",
+          "label": "Champagne",
+          "swatch": [
+            "#a8875a",
+            "#7d6238",
+            "#f3ead9"
+          ],
+          "tintsArtwork": false
+        }
+      ],
+      "defaultModels": null,
+      "paintedCouple": true,
+      "pages": [
+        "hero",
+        "invitation",
+        "venueSign",
+        "ayat",
+        "mempelaiGroom",
+        "mempelaiBride",
+        "details",
+        "countdown",
+        "portraits",
+        "gallery",
+        "programme",
+        "dressCode",
+        "doa",
+        "rsvp",
+        "wishes",
+        "gifts",
+        "thanks"
+      ]
+    },
+    {
+      "key": "enchanted-garden",
+      "name": "Enchanted Garden",
+      "layout": "pages",
+      "classic": {
+        "label": "Klasik",
+        "swatch": [
+          "#7f9470",
+          "#a8773f",
+          "#dfe8d6"
+        ]
+      },
+      "palettes": [
+        {
+          "id": "lavender",
+          "label": "Lavender",
+          "swatch": [
+            "#8d7fb8",
+            "#8566b8",
+            "#e6e0f3"
+          ],
+          "tintsArtwork": false
+        },
+        {
+          "id": "dusty-rose",
+          "label": "Mawar Kelabu",
+          "swatch": [
+            "#b57f8a",
+            "#b0687a",
+            "#f1dde1"
+          ],
+          "tintsArtwork": false
+        },
+        {
+          "id": "ocean",
+          "label": "Lautan",
+          "swatch": [
+            "#5b8fa6",
+            "#3f7f98",
+            "#dcebf2"
+          ],
+          "tintsArtwork": false
+        }
+      ],
+      "defaultModels": {
+        "groom": "groom-3",
+        "bride": "bride-5"
+      },
+      "paintedCouple": false,
+      "pages": [
+        "hero",
+        "invitation",
+        "venueSign",
+        "ayat",
+        "mempelaiGroom",
+        "mempelaiBride",
+        "details",
+        "programme",
+        "countdown",
+        "dressCode",
+        "portraits",
+        "gallery",
+        "doa",
+        "rsvp",
+        "wishes",
+        "gifts",
+        "thanks"
+      ]
+    }
+  ],
+  "models": [
+    {
+      "id": "groom-1",
+      "who": "groom",
+      "label": "Baju Melayu Putih",
+      "culture": "malay",
+      "hijab": false,
+      "description": "Baju melayu putih, samping putih dan songkok",
+      "file": "groom-1.webp"
+    },
+    {
+      "id": "groom-2",
+      "who": "groom",
+      "label": "Songket & Tanjak",
+      "culture": "malay",
+      "hijab": false,
+      "description": "Baju melayu songket kelabu, samping dan tanjak",
+      "file": "groom-2.webp"
+    },
+    {
+      "id": "groom-3",
+      "who": "groom",
+      "label": "Sut Hitam",
+      "culture": "modern",
+      "hijab": false,
+      "description": "Sut hitam, kemeja putih dan tali leher",
+      "file": "groom-3.webp"
+    },
+    {
+      "id": "bride-1",
+      "who": "bride",
+      "label": "Gaun Tulle Berlapis",
+      "culture": "modern",
+      "hijab": true,
+      "description": "Gaun tulle gading berlengan panjang dengan tudung dan veil panjang",
+      "file": "bride-1.webp"
+    },
+    {
+      "id": "bride-2",
+      "who": "bride",
+      "label": "Kebaya Songket",
+      "culture": "malay",
+      "hijab": true,
+      "description": "Kebaya songket krim dengan mahkota tradisional",
+      "file": "bride-2.webp"
+    },
+    {
+      "id": "bride-3",
+      "who": "bride",
+      "label": "Kebaya Renda Putih",
+      "culture": "malay",
+      "hijab": true,
+      "description": "Kebaya renda putih dengan kain renda dan tudung gading",
+      "file": "bride-3.webp"
+    },
+    {
+      "id": "bride-4",
+      "who": "bride",
+      "label": "Gaun Duyung Renda",
+      "culture": "modern",
+      "hijab": true,
+      "description": "Gaun duyung renda putih dengan veil panjang",
+      "file": "bride-4.webp"
+    },
+    {
+      "id": "bride-5",
+      "who": "bride",
+      "label": "Gaun Renda Bertudung",
+      "culture": "modern",
+      "hijab": true,
+      "description": "Gaun renda gading dengan veil bertepi renda",
+      "file": "bride-5.webp"
+    },
+    {
+      "id": "bride-6",
+      "who": "bride",
+      "label": "Gaun Puteri Bertiara",
+      "culture": "modern",
+      "hijab": true,
+      "description": "Gaun kembang putih dengan tiara dan veil",
+      "file": "bride-6.webp"
+    }
+  ],
+  "features": [
+    {
+      "key": "mempelai",
+      "group": "page",
+      "default": true,
+      "label": "Pengantin lelaki & perempuan",
+      "description": "Satu halaman setiap pengantin, dengan model pilihan.",
+      "needs": "couple.model (pilihan)"
+    },
+    {
+      "key": "countdown",
+      "group": "page",
+      "default": true,
+      "label": "Kiraan detik",
+      "description": "Hari, jam, minit dan saat ke majlis."
+    },
+    {
+      "key": "programme",
+      "group": "page",
+      "default": true,
+      "label": "Atur cara majlis",
+      "description": "Jadual majlis.",
+      "needs": "aturcara"
+    },
+    {
+      "key": "portraits",
+      "group": "page",
+      "default": true,
+      "label": "Potret pengantin",
+      "description": "Gambar pengantin."
+    },
+    {
+      "key": "gallery",
+      "group": "page",
+      "default": true,
+      "label": "Galeri",
+      "description": "Galeri gambar.",
+      "needs": "gallery (sekurang-kurangnya satu gambar)"
+    },
+    {
+      "key": "dressCode",
+      "group": "page",
+      "default": true,
+      "label": "Tema warna / pakaian",
+      "description": "Warna pakaian yang dicadangkan.",
+      "needs": "dressCode"
+    },
+    {
+      "key": "doa",
+      "group": "page",
+      "default": true,
+      "label": "Doa untuk pengantin",
+      "description": "Halaman doa."
+    },
+    {
+      "key": "rsvp",
+      "group": "page",
+      "default": true,
+      "label": "RSVP",
+      "description": "Pengesahan kehadiran (halaman dan butang RSVP)."
+    },
+    {
+      "key": "wishes",
+      "group": "page",
+      "default": true,
+      "label": "Ucapan tetamu",
+      "description": "Ucapan daripada tetamu (dihantar melalui RSVP)."
+    },
+    {
+      "key": "music",
+      "group": "page",
+      "default": true,
+      "label": "Muzik latar",
+      "description": "Lagu dan butang Muzik.",
+      "needs": "music"
+    },
+    {
+      "key": "ayat",
+      "group": "addon",
+      "default": false,
+      "label": "Ayat Al-Quran",
+      "description": "Halaman ayat (Ar-Rum 30:21 atau ayat pilihan).",
+      "needs": "ayat (pilihan)"
+    },
+    {
+      "key": "venueSign",
+      "group": "addon",
+      "default": false,
+      "label": "Papan tanda lokasi",
+      "description": "Nama tempat di halaman sendiri."
+    },
+    {
+      "key": "gifts",
+      "group": "addon",
+      "default": false,
+      "label": "Senarai hadiah",
+      "description": "Warkah Hadiah: tetamu pilih hadiah.",
+      "needs": "gifts.items"
+    },
+    {
+      "key": "duitnow",
+      "group": "addon",
+      "default": false,
+      "label": "DuitNow QR",
+      "description": "Sumbangan melalui DuitNow.",
+      "needs": "duitnow.image"
+    },
+    {
+      "key": "kenang",
+      "group": "addon",
+      "default": false,
+      "label": "Warkah Kenang",
+      "description": "Butang ke photobooth dan dinding kenangan."
+    },
+    {
+      "key": "guestName",
+      "group": "addon",
+      "default": false,
+      "label": "Nama tetamu dalam pautan",
+      "description": "?to=Nama (belum dijual)."
+    }
+  ],
+  "tiers": [
+    {
+      "id": "basic",
+      "label": "Asas",
+      "priceRM": 39,
+      "features": [
+        "mempelai",
+        "countdown",
+        "programme",
+        "portraits",
+        "gallery",
+        "doa",
+        "rsvp",
+        "wishes",
+        "music"
+      ],
+      "note": "Halaman utama, tema, warna dan model pengantin. PROPOSED split, to confirm."
+    },
+    {
+      "id": "full",
+      "label": "Penuh",
+      "priceRM": 79,
+      "features": "all",
+      "note": "Semua ciri dan tambahan: hadiah, DuitNow, ayat, papan tanda, tema pakaian, Kenang."
+    },
+    {
+      "id": "custom",
+      "label": "Reka Khas",
+      "priceRM": 99,
+      "features": "all",
+      "note": "Reka bentuk tema khas untuk pasangan (dibuat oleh pasukan Warkah)."
+    }
+  ],
+  "assetRules": [
+    {
+      "key": "cover",
+      "label": "Gambar pratonton (WhatsApp)",
+      "formats": [
+        "image/jpeg"
+      ],
+      "maxBytes": 307200,
+      "maxLongEdge": 1280,
+      "minLongEdge": 720,
+      "max": 1,
+      "hint": "720 x 1280 (menegak). Ini yang muncul bila pautan dikongsi."
+    },
+    {
+      "key": "portrait",
+      "label": "Potret pengantin",
+      "formats": [
+        "image/webp",
+        "image/jpeg",
+        "image/png"
+      ],
+      "maxBytes": 204800,
+      "maxLongEdge": 1400,
+      "minLongEdge": 800,
+      "max": 2,
+      "hint": "Satu untuk setiap pengantin, menegak (kira-kira 4:5)."
+    },
+    {
+      "key": "gallery",
+      "label": "Galeri",
+      "formats": [
+        "image/webp",
+        "image/jpeg",
+        "image/png"
+      ],
+      "maxBytes": 307200,
+      "maxLongEdge": 1400,
+      "minLongEdge": 700,
+      "max": 12,
+      "hint": "Sehingga 12 gambar. Menegak atau melintang."
+    },
+    {
+      "key": "gift",
+      "label": "Gambar hadiah",
+      "formats": [
+        "image/webp",
+        "image/jpeg",
+        "image/png"
+      ],
+      "maxBytes": 81920,
+      "maxLongEdge": 600,
+      "minLongEdge": 300,
+      "max": 20,
+      "hint": "Persegi (kira-kira 400 x 400)."
+    },
+    {
+      "key": "qr",
+      "label": "Kod QR (DuitNow / peta)",
+      "formats": [
+        "image/png",
+        "image/webp"
+      ],
+      "maxBytes": 153600,
+      "maxLongEdge": 800,
+      "minLongEdge": 300,
+      "max": 1,
+      "hint": "Persegi, latar putih, jelas untuk diimbas."
+    },
+    {
+      "key": "music",
+      "label": "Lagu latar",
+      "formats": [
+        "audio/mpeg",
+        "audio/mp4"
+      ],
+      "maxBytes": 6291456,
+      "max": 1,
+      "hint": "MP3 atau M4A, kurang 6 MB (kira-kira 3 minit)."
+    }
+  ],
+  "steps": [
+    {
+      "id": "pasangan",
+      "title": "Pasangan",
+      "fields": [
+        {
+          "path": "couple.groom.name",
+          "label": "Nama panggilan pengantin lelaki",
+          "kind": "text",
+          "required": true,
+          "help": "Seperti dalam kad, contoh: Muhammad Ezzan"
+        },
+        {
+          "path": "couple.groom.full",
+          "label": "Nama penuh pengantin lelaki (bin / binti)",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "path": "couple.groom.short",
+          "label": "Nama pendek pengantin lelaki",
+          "kind": "text",
+          "required": true,
+          "help": "Dipaparkan di halaman utama, contoh: Ezzan"
+        },
+        {
+          "path": "couple.groom.parentsHtml",
+          "label": "Ibu bapa pengantin lelaki",
+          "kind": "lines",
+          "required": true,
+          "help": "Satu baris untuk setiap ibu atau bapa"
+        },
+        {
+          "path": "couple.bride.name",
+          "label": "Nama panggilan pengantin perempuan",
+          "kind": "text",
+          "required": true,
+          "help": "Seperti dalam kad, contoh: Muhammad Ezzan"
+        },
+        {
+          "path": "couple.bride.full",
+          "label": "Nama penuh pengantin perempuan (bin / binti)",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "path": "couple.bride.short",
+          "label": "Nama pendek pengantin perempuan",
+          "kind": "text",
+          "required": true,
+          "help": "Dipaparkan di halaman utama, contoh: Ezzan"
+        },
+        {
+          "path": "couple.bride.parentsHtml",
+          "label": "Ibu bapa pengantin perempuan",
+          "kind": "lines",
+          "required": true,
+          "help": "Satu baris untuk setiap ibu atau bapa"
+        },
+        {
+          "path": "couple.first",
+          "label": "Nama siapa dahulu",
+          "kind": "select",
+          "options": [
+            {
+              "value": "groom",
+              "label": "Pengantin lelaki"
+            },
+            {
+              "value": "bride",
+              "label": "Pengantin perempuan"
+            }
+          ]
+        },
+        {
+          "path": "couple.hashtag",
+          "label": "Hashtag (pilihan)",
+          "kind": "text"
+        },
+        {
+          "path": "host.parents",
+          "label": "Yang menjemput",
+          "kind": "lines",
+          "required": true,
+          "help": "Satu atau dua baris, contoh: Hj. Ahmad bin Hasan"
+        }
+      ]
+    },
+    {
+      "id": "majlis",
+      "title": "Majlis",
+      "fields": [
+        {
+          "path": "date.start",
+          "label": "Mula",
+          "kind": "datetime",
+          "required": true
+        },
+        {
+          "path": "date.end",
+          "label": "Tamat",
+          "kind": "datetime",
+          "required": true
+        },
+        {
+          "path": "venue.name",
+          "label": "Nama tempat",
+          "kind": "text",
+          "required": true
+        },
+        {
+          "path": "venue.area",
+          "label": "Kawasan",
+          "kind": "text",
+          "required": true,
+          "help": "Contoh: Seri Kembangan, Selangor"
+        },
+        {
+          "path": "venue.address",
+          "label": "Alamat penuh",
+          "kind": "longtext",
+          "required": true
+        },
+        {
+          "path": "venue.maps",
+          "label": "Pautan Google Maps",
+          "kind": "url",
+          "required": true
+        },
+        {
+          "path": "venue.waze",
+          "label": "Pautan Waze",
+          "kind": "url",
+          "required": true
+        },
+        {
+          "path": "aturcara",
+          "label": "Atur cara majlis",
+          "kind": "list",
+          "required": true,
+          "feature": "programme",
+          "help": "Ikon, nama acara dan masa"
+        },
+        {
+          "path": "contacts",
+          "label": "Untuk dihubungi",
+          "kind": "list",
+          "help": "Nama, hubungan dan nombor telefon"
+        },
+        {
+          "path": "rsvp.maxGuests",
+          "label": "Bilangan tetamu maksimum bagi satu RSVP",
+          "kind": "number",
+          "feature": "rsvp"
+        }
+      ]
+    },
+    {
+      "id": "gaya",
+      "title": "Gaya",
+      "fields": [
+        {
+          "path": "theme",
+          "label": "Tema",
+          "kind": "theme",
+          "required": true
+        },
+        {
+          "path": "palette",
+          "label": "Warna",
+          "kind": "palette"
+        },
+        {
+          "path": "couple.model.groom",
+          "label": "Model pengantin lelaki",
+          "kind": "model",
+          "feature": "mempelai"
+        },
+        {
+          "path": "couple.model.bride",
+          "label": "Model pengantin perempuan",
+          "kind": "model",
+          "feature": "mempelai"
+        },
+        {
+          "path": "music.src",
+          "label": "Lagu latar",
+          "kind": "song",
+          "feature": "music",
+          "asset": "music"
+        },
+        {
+          "path": "music.title",
+          "label": "Tajuk lagu",
+          "kind": "text",
+          "feature": "music"
+        },
+        {
+          "path": "music.artist",
+          "label": "Artis",
+          "kind": "text",
+          "feature": "music"
+        }
+      ]
+    },
+    {
+      "id": "gambar",
+      "title": "Gambar",
+      "fields": [
+        {
+          "path": "meta.ogImage",
+          "label": "Gambar pratonton (bila pautan dikongsi)",
+          "kind": "image",
+          "asset": "cover"
+        },
+        {
+          "path": "portraits",
+          "label": "Potret pengantin",
+          "kind": "images",
+          "feature": "portraits",
+          "asset": "portrait"
+        },
+        {
+          "path": "gallery",
+          "label": "Galeri",
+          "kind": "images",
+          "feature": "gallery",
+          "asset": "gallery"
+        }
+      ]
+    },
+    {
+      "id": "tambahan",
+      "title": "Tambahan",
+      "fields": [
+        {
+          "path": "features",
+          "label": "Pilih ciri yang anda mahu",
+          "kind": "toggle",
+          "help": "Ciri yang tidak dipilih tidak akan ada dalam kad."
+        },
+        {
+          "path": "ayat.ref",
+          "label": "Rujukan ayat",
+          "kind": "text",
+          "feature": "ayat"
+        },
+        {
+          "path": "ayat.arabic",
+          "label": "Ayat (Arab)",
+          "kind": "longtext",
+          "feature": "ayat"
+        },
+        {
+          "path": "ayat.malay",
+          "label": "Terjemahan",
+          "kind": "longtext",
+          "feature": "ayat"
+        },
+        {
+          "path": "gifts.items",
+          "label": "Senarai hadiah",
+          "kind": "list",
+          "feature": "gifts",
+          "asset": "gift",
+          "help": "Nama, harga anggaran, gambar dan pautan kedai"
+        },
+        {
+          "path": "duitnow.image",
+          "label": "Kod QR DuitNow",
+          "kind": "image",
+          "feature": "duitnow",
+          "asset": "qr"
+        },
+        {
+          "path": "duitnow.accountName",
+          "label": "Nama akaun DuitNow",
+          "kind": "text",
+          "feature": "duitnow"
+        },
+        {
+          "path": "dressCode",
+          "label": "Tema warna / pakaian",
+          "kind": "list",
+          "feature": "dressCode"
+        }
+      ]
+    },
+    {
+      "id": "terbit",
+      "title": "Semak & terbit",
+      "fields": []
+    }
+  ],
+  "eventJsonSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "theme": {
+        "type": "string",
+        "enum": [
+          "royal-gold",
+          "lover",
+          "glasshouse",
+          "enchanted-garden"
+        ]
+      },
+      "palette": {
+        "default": "classic",
+        "type": "string"
+      },
+      "package": {
+        "default": "signature",
+        "type": "string",
+        "enum": [
+          "signature",
+          "custom"
+        ]
+      },
+      "lang": {
+        "default": "ms",
+        "type": "string"
+      },
+      "hosting": {
+        "type": "object",
+        "properties": {
+          "site": {
+            "type": "string"
+          },
+          "project": {
+            "type": "string"
+          },
+          "domain": {
+            "type": "string"
+          },
+          "base": {
+            "default": "/",
+            "type": "string",
+            "pattern": "^\\/(.*\\/)?$"
+          }
+        },
+        "required": [
+          "site"
+        ]
+      },
+      "store": {
+        "default": {},
+        "type": "object",
+        "properties": {
+          "mode": {
+            "default": "shared",
+            "type": "string",
+            "enum": [
+              "shared",
+              "legacy",
+              "demo"
+            ]
+          },
+          "firebaseConfig": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "localKey": {
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "shareDescription": {
+            "type": "string"
+          },
+          "ogImage": {
+            "default": "cover/og-preview.jpg",
+            "type": "string"
+          },
+          "ogWidth": {
+            "default": 720,
+            "type": "number"
+          },
+          "ogHeight": {
+            "default": 1560,
+            "type": "number"
+          },
+          "ogAlt": {
+            "type": "string"
+          },
+          "version": {
+            "default": 1,
+            "type": "number"
+          }
+        },
+        "required": [
+          "title",
+          "description",
+          "ogAlt"
+        ]
+      },
+      "couple": {
+        "type": "object",
+        "properties": {
+          "groom": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "full": {
+                "type": "string"
+              },
+              "short": {
+                "type": "string"
+              },
+              "parentsHtml": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "full",
+              "short",
+              "parentsHtml"
+            ]
+          },
+          "bride": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "full": {
+                "type": "string"
+              },
+              "short": {
+                "type": "string"
+              },
+              "parentsHtml": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "full",
+              "short",
+              "parentsHtml"
+            ]
+          },
+          "hashtag": {
+            "type": "string"
+          },
+          "first": {
+            "default": "groom",
+            "type": "string",
+            "enum": [
+              "groom",
+              "bride"
+            ]
+          },
+          "model": {
+            "type": "object",
+            "properties": {
+              "groom": {
+                "type": "string",
+                "enum": [
+                  "groom-1",
+                  "groom-2",
+                  "groom-3"
+                ]
+              },
+              "bride": {
+                "type": "string",
+                "enum": [
+                  "bride-1",
+                  "bride-2",
+                  "bride-3",
+                  "bride-4",
+                  "bride-5",
+                  "bride-6"
+                ]
+              }
+            }
+          }
+        },
+        "required": [
+          "groom",
+          "bride"
+        ]
+      },
+      "host": {
+        "type": "object",
+        "properties": {
+          "parents": {
+            "minItems": 1,
+            "maxItems": 2,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "inviteRelation": {
+            "default": "ke majlis perkahwinan putera kami",
+            "type": "string"
+          }
+        },
+        "required": [
+          "parents"
+        ]
+      },
+      "date": {
+        "type": "object",
+        "properties": {
+          "start": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+          },
+          "end": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+          },
+          "timeZone": {
+            "default": "Asia/Kuala_Lumpur",
+            "type": "string"
+          }
+        },
+        "required": [
+          "start",
+          "end"
+        ]
+      },
+      "venue": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "area": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "maps": {
+            "type": "string",
+            "format": "uri"
+          },
+          "waze": {
+            "type": "string",
+            "format": "uri"
+          },
+          "qrMaps": {
+            "default": "qr/google-maps.png",
+            "type": "string"
+          },
+          "qrWaze": {
+            "default": "qr/waze.png",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "area",
+          "address",
+          "maps",
+          "waze"
+        ]
+      },
+      "aturcara": {
+        "minItems": 1,
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "icon": {
+              "default": "jam",
+              "type": "string",
+              "enum": [
+                "makan",
+                "pengantin",
+                "bersurai",
+                "akad",
+                "doa",
+                "jam"
+              ]
+            },
+            "label": {
+              "type": "string"
+            },
+            "time": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "label",
+            "time"
+          ]
+        }
+      },
+      "music": {
+        "type": "object",
+        "properties": {
+          "src": {
+            "default": "audio/song.m4a",
+            "type": "string"
+          },
+          "type": {
+            "default": "audio/mp4",
+            "type": "string"
+          },
+          "fallback": {
+            "type": "object",
+            "properties": {
+              "src": {
+                "type": "string"
+              },
+              "type": {
+                "default": "audio/mpeg",
+                "type": "string"
+              }
+            },
+            "required": [
+              "src"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "artist": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "title",
+          "artist"
+        ]
+      },
+      "portraits": {
+        "default": {},
+        "type": "object",
+        "properties": {
+          "groom": {
+            "default": "portrait/groom.webp",
+            "type": "string"
+          },
+          "bride": {
+            "default": "portrait/bride.webp",
+            "type": "string"
+          }
+        }
+      },
+      "gallery": {
+        "default": [],
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "src": {
+              "type": "string"
+            },
+            "width": {
+              "type": "number"
+            },
+            "height": {
+              "type": "number"
+            },
+            "alt": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "src",
+            "width",
+            "height",
+            "alt"
+          ]
+        }
+      },
+      "contacts": {
+        "default": [],
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "role": {
+              "type": "string"
+            },
+            "phone": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "role",
+            "phone"
+          ]
+        }
+      },
+      "rsvp": {
+        "default": {},
+        "type": "object",
+        "properties": {
+          "maxGuests": {
+            "default": 2,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10
+          }
+        }
+      },
+      "features": {
+        "default": {},
+        "type": "object",
+        "properties": {
+          "mempelai": {
+            "default": true,
+            "type": "boolean"
+          },
+          "countdown": {
+            "default": true,
+            "type": "boolean"
+          },
+          "programme": {
+            "default": true,
+            "type": "boolean"
+          },
+          "portraits": {
+            "default": true,
+            "type": "boolean"
+          },
+          "gallery": {
+            "default": true,
+            "type": "boolean"
+          },
+          "dressCode": {
+            "default": true,
+            "type": "boolean"
+          },
+          "doa": {
+            "default": true,
+            "type": "boolean"
+          },
+          "rsvp": {
+            "default": true,
+            "type": "boolean"
+          },
+          "wishes": {
+            "default": true,
+            "type": "boolean"
+          },
+          "music": {
+            "default": true,
+            "type": "boolean"
+          },
+          "ayat": {
+            "default": false,
+            "type": "boolean"
+          },
+          "venueSign": {
+            "default": false,
+            "type": "boolean"
+          },
+          "gifts": {
+            "default": false,
+            "type": "boolean"
+          },
+          "duitnow": {
+            "default": false,
+            "type": "boolean"
+          },
+          "kenang": {
+            "default": false,
+            "type": "boolean"
+          },
+          "guestName": {
+            "default": false,
+            "type": "boolean"
+          }
+        }
+      },
+      "kenang": {
+        "default": {},
+        "type": "object",
+        "properties": {
+          "slug": {
+            "type": "string"
+          }
+        }
+      },
+      "gifts": {
+        "default": {},
+        "type": "object",
+        "properties": {
+          "groupMinPrice": {
+            "default": 500,
+            "type": "number"
+          },
+          "shop": {
+            "default": "Shopee",
+            "type": "string"
+          },
+          "items": {
+            "default": [],
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^g\\d+$"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "note": {
+                  "type": "string"
+                },
+                "price": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "note",
+                "price",
+                "url"
+              ]
+            }
+          }
+        }
+      },
+      "duitnow": {
+        "default": {},
+        "type": "object",
+        "properties": {
+          "image": {
+            "default": "",
+            "type": "string"
+          },
+          "accountName": {
+            "default": "",
+            "type": "string"
+          }
+        }
+      },
+      "art": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "hashtag": {
+            "type": "string"
+          }
+        }
+      },
+      "ayat": {
+        "default": {},
+        "type": "object",
+        "properties": {
+          "ref": {
+            "default": "Surah Ar-Rum (30:21)",
+            "type": "string"
+          },
+          "arabic": {
+            "default": "…وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا",
+            "type": "string"
+          },
+          "malay": {
+            "default": "“Dan antara tanda tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan dari jenismu sendiri supaya kamu mendapat ketenangan daripadanya…”",
+            "type": "string"
+          }
+        }
+      },
+      "dressCode": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "default": "Tema Warna",
+            "type": "string"
+          },
+          "colors": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "tone": {
+                  "default": "pink",
+                  "type": "string",
+                  "enum": [
+                    "blue",
+                    "pink"
+                  ]
+                },
+                "icon": {
+                  "default": "shirt",
+                  "type": "string",
+                  "enum": [
+                    "shirt",
+                    "dress"
+                  ]
+                }
+              },
+              "required": [
+                "label"
+              ]
+            }
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "colors"
+        ]
+      },
+      "calendarDescription": {
+        "type": "string"
+      },
+      "defaultWishes": {
+        "default": [
+          {
+            "name": "Tetamu",
+            "message": "Tahniah. Semoga berbahagia hingga ke Jannah."
+          },
+          {
+            "name": "Keluarga",
+            "message": "Semoga majlis dipermudahkan dan diberkati Allah SWT."
+          }
+        ],
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "message"
+          ]
+        }
+      },
+      "text": {
+        "default": {},
+        "type": "object",
+        "properties": {
+          "openingKicker": {
+            "default": "Walimatul Urus",
+            "type": "string"
+          },
+          "ribbonSmall": {
+            "default": "RAJA SEHARI",
+            "type": "string"
+          },
+          "heroKicker": {
+            "default": "Majlis Perkahwinan",
+            "type": "string"
+          },
+          "bismillah": {
+            "default": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ",
+            "type": "string"
+          },
+          "salam": {
+            "default": "Assalamualaikum WBT & Salam Sejahtera",
+            "type": "string"
+          },
+          "inviteHtml": {
+            "default": "Dengan penuh rasa kesyukuran ke hadrat Ilahi,<br>kami menjemput",
+            "type": "string"
+          },
+          "honorificsHtml": {
+            "default": "Dato&rsquo; Seri | Dato&rsquo; | Datin | Tuan | Puan | Encik | Cik",
+            "type": "string"
+          },
+          "venueHeading": {
+            "default": "Bertempat di",
+            "type": "string"
+          },
+          "qrLeadHtml": {
+            "default": "Sila imbas kod QR<br>untuk ke lokasi majlis",
+            "type": "string"
+          },
+          "doaLeadHtml": {
+            "default": "&ldquo;Ya Allah Ya Tuhan Kami.<br>Engkau berkatilah majlis ini dan satukanlah hati",
+            "type": "string"
+          },
+          "doaHtml": {
+            "default": [
+              "Seperti Engkau satukan Adam dan Hawa, Yusof dan Zulaikha dan seperti Engkau satukan hati Muhammad S.A.W dan Siti Khadijah.",
+              "Satukanlah hati kedua mempelai ini dengan iman keyakinan dan tawakal kepadaMu.",
+              "Semoga kehidupan mereka dipenuhi Al-Mawaddah dan Al-Rahmah di dunia dan di akhirat&rdquo;"
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "rsvpDeadlineHtml": {
+            "default": "Kehadiran anda amat kami hargai.<br><strong>Sila sahkan kehadiran</strong>",
+            "type": "string"
+          },
+          "poem": {
+            "default": [
+              "Pelamin indah berseri cahaya,",
+              "Busana raja sehari tersarung kemas,",
+              "Doakan kami hidup bahagia,",
+              "Dalam rahmat kasih yang ikhlas."
+            ],
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "thanks": {
+            "default": "Semoga dengan kehadiran dan doa daripada para undangan yang dihormati akan menyerikan lagi majlis kami serta diberkati Allah S.W.T.",
+            "type": "string"
+          },
+          "giftIntro": {
+            "default": "Doa dan kehadiran anda sudah cukup bermakna. Jika ingin memberi hadiah, berikut senarai yang kami perlukan.",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "required": [
+      "theme",
+      "hosting",
+      "meta",
+      "couple",
+      "host",
+      "date",
+      "venue",
+      "aturcara",
+      "calendarDescription"
+    ]
+  }
+}

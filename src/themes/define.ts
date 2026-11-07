@@ -39,6 +39,8 @@ export interface ThemeInput {
   //  - names defaultModels: every card shows a figure (the client can pick another in couple.model), or
   //  - draws the couple into its scene art (no defaultModels): that art is used until the client picks a model.
   defaultModels?: { groom: string; bride: string };
+  // The theme as designed (palette "classic"): three colours for the picker chip.
+  classicSwatch: [string, string, string];
   // Colour options besides "classic" (see Palette). Every theme should offer a few.
   palettes?: Record<string, Palette>;
   // Figure-free scenes to show behind a chosen model, for themes whose "groom"/"bride" scenes have the couple painted in.

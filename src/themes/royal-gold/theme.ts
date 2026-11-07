@@ -39,6 +39,8 @@ export default defineTheme("royal-gold", {
   // Scenes with no one painted in, for when a client picks a groom/bride model (otherwise the painted couple scenes show)
   modelScenes: { groom: "garden", bride: "chandelier" },
 
+  classicSwatch: ["#7a1424", "#c8901a", "#f7e3a1"],
+
   // Colour options (event.json "palette"). The artwork is hue-shifted, so these change the whole card, opening included.
   palettes: {
     "rose-gold": {

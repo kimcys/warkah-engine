@@ -62,6 +62,8 @@ export default defineTheme("glasshouse", {
   // Scenes with no one painted in, for when a client picks a groom/bride model (otherwise the painted couple scenes show)
   modelScenes: { groom: "court", bride: "phone" },
 
+  classicSwatch: ["#6f8f62", "#3f5c3c", "#e6eedf"],
+
   // Colour options (event.json "palette"). Colours only: the artwork is white and painted with people, so it is not tinted.
   palettes: {
     blush: { label: "Merah Jambu", swatch: ["#c27b8c", "#9a5468", "#f6e3e8"], vars: { "--rose": "#c27b8c", "--rose-deep": "#9a5468", "--rose-soft": "#f6e3e8", "--shadow": "0 26px 86px rgba(120, 60, 80, 0.22)" }, themeColor: "#f6e3e8" },
