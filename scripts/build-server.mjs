@@ -1,5 +1,5 @@
-// The build server: asks the builder (Warkah Kenang's Worker) for jobs (a preview, or publishing the real card), builds each one and uploads the result.
-//   KENANG_URL=https://kad.example.com BUILD_SECRET=... node scripts/build-server.mjs [--once] [--interval 3000]
+// The build server: asks the builder (Warkah Kad's Worker) for jobs (a preview, or publishing the real card), builds each one and uploads the result.
+//   KAD_URL=https://kad.example.com BUILD_SECRET=... node scripts/build-server.mjs [--once] [--interval 3000]
 // It only ever calls out (no inbound port): POST /api/build/claim → download the draft and the customer's files → scripts/build-job.mjs →
 // upload every file of the built card → POST done (or fail). One build at a time. --once handles the queue until it is empty, then exits (for tests).
 import { mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
@@ -9,11 +9,11 @@ import { buildJob } from "./build-job.mjs";
 
 const args = process.argv.slice(2);
 const flag = (n, d) => (args.includes(n) ? args[args.indexOf(n) + 1] : d);
-const BASE = (process.env.KENANG_URL || "").replace(/\/$/, "");
+const BASE = (process.env.KAD_URL || "").replace(/\/$/, "");
 const SECRET = process.env.BUILD_SECRET || "";
 const ONCE = args.includes("--once");
 const INTERVAL = Number(flag("--interval", 3000));
-if (!BASE || !SECRET) { console.error("Set KENANG_URL and BUILD_SECRET."); process.exit(2); }
+if (!BASE || !SECRET) { console.error("Set KAD_URL and BUILD_SECRET."); process.exit(2); }
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const call = (method, path, body, headers = {}) => fetch(`${BASE}/api/build${path}`, {

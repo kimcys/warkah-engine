@@ -1,6 +1,6 @@
 # Builder, Phase 1: the form and the drafts (design)
 
-Status: **decisions confirmed** (section 11). Builds on `docs/BUILDER-PLAN.md` (Phase 0 is done: catalogue, form steps, Malay validation, samples, thumbnails, system fields, slugs).
+Status: **decisions confirmed** (section 11). **Revised 7 Nov 2026: the builder is its own product, Warkah Kad (`warkah-kad`), not part of Warkah Kenang.** Sections 2 and 11 say where it lives now; where the text below still says "Kenang's Worker/app", read "Warkah Kad's" (same design, same code, moved). Kenang's branch `builder-cards` is not merged and is kept only as history. Builds on `docs/BUILDER-PLAN.md` (Phase 0 is done: catalogue, form steps, Malay validation, samples, thumbnails, system fields, slugs).
 Rough estimates are marked "(est.)".
 
 ## 1. What Phase 1 delivers
@@ -16,7 +16,7 @@ In scope:
 - instant preview of theme, colour and models (prebuilt sample cards, switched with query parameters)
 
 Out of scope (later phases): building a card from the draft, the publish step and the `kad` host serving (Phase 2); payment and tier activation (Phase 3, until then an
-admin sets the tier like Kenang's manual activation); editing a live card; English UI; recolouring models; "Reka Khas" requests.
+admin sets the tier by hand); editing a live card; English UI; recolouring models; "Reka Khas" requests.
 
 **Preview before purchase (a rule, not a nice-to-have).** The customer must see their *own* card, with their words, photos, colours and models, before they pay. So:
 - Phase 1 shows what switches instantly: the theme, the palette and the models on a prebuilt sample card in their language (section 6A).
@@ -28,21 +28,18 @@ admin sets the tier like Kenang's manual activation); editing a live card; Engli
 
 | Piece | Where | Why |
 |---|---|---|
-| API (cards, assets, catalogue) | **Kenang's Worker** (`warkah-kenang/api`), new `routes/cards.ts` | Same login, sessions, D1, R2, rate limits, billing and admin; the API only accepts same-origin writes, so the screens must be served by the same Worker |
-| Screens | **Kenang's Vite app**, new `src/screens/card-*.js` under `/app/cards` | Same `h()` DOM helper, Malay `t()` strings, styles and router; one app for the couple |
+| API (cards, assets, catalogue, build jobs) | **Warkah Kad's Worker** (`warkah-kad/api`) | Its own sign-in (emailed code), D1 and R2. The API only accepts same-origin writes, so the screens are served by the same Worker |
+| Screens | **Warkah Kad's Vite app** (`warkah-kad/src`): the landing page at `/`, sign-in and the builder under `/app/cards` | Plain JS with the `h()` DOM helper and Malay `t()` strings |
 | Shared rules (schema, validation, system fields, slugs, samples, catalogue) | **`warkah-engine`**, packaged as a "card kit" | One definition of "a valid card" for the engine, the Worker and the browser |
 
-**Addresses.** The builder and the finished cards are served from **`kad.aimanhakimcy.com`** (it becomes `kad.warkah.com.my` later). `kenang.aimanhakimcy.com` stays exactly as it is:
-nothing there links to the builder, and nothing on `kad...` links to Kenang (the "Kenangan" add-on is not offered to builder customers). It is one Worker with two custom domains and
-**routing by hostname**: on the Kenang host the app is Kenang's; on the `kad` host `/app/...` is the builder, `/api/...` the API, `/preview/<token>/...` a preview and `/<slug>/...` a published card (static files from R2).
-Sessions are per host (the cookie is `__Host-`), so a customer signs in once on each; `PUBLIC_ORIGIN` for emails and links is chosen from the request host (an allow-list of the two), not one global value.
-The card domain is a single setting in the engine (`CARD_DOMAIN` in `src/lib/system-fields.js`); moving to `warkah.com.my` means changing that line and the route, re-publishing live cards (a matrix job,
+**Addresses.** One Worker serves the landing page, the builder, the API, previews (`/p/<token>/`) and the finished cards (`/<slug>/`, static files from R2). Two settings: `PUBLIC_ORIGIN` (the site) and `CARD_HOST` (where cards are served; may be the same host, or a separate one, which keeps customers' cards off the builder's origin). Warkah Kad shares **nothing** with Warkah Kenang: no code, database, bucket, login or links. Today `kad.aimanhakimcy.com`, later `kad.warkah.com.my`.
+The card domain is also a single setting in the engine (`CARD_DOMAIN` in `src/lib/system-fields.js`); moving to `warkah.com.my` means changing that line, `CARD_HOST` and the route, re-publishing live cards (a matrix job,
 because their pages carry the old address) and **keeping the old domain redirecting**, since invitations already sent to guests contain the old links.
 
 **The card kit.** `npm run kit` in the engine bundles the plain-TypeScript/JS modules into `kit/` (one ESM file, types, and `catalogue.json`):
 `validateEvent`, `completeDraft`, `metaFor`, `calendarTextFor`, `slugProblem`, `suggestSlug`, `sampleFor`, `previewDraft`, `BUILDER_STEPS`, `TIERS`, `ASSET_RULES`, plus new helpers (section 7).
-Kenang depends on it with `"@warkah/card-kit": "file:../warkah-engine/kit"` while both repos sit side by side. **The engine repository stays private and is never shared with customers or published**:
-Kenang's build bundles only the kit's modules (schema, validation, catalogue, samples: nothing secret), the built cards contain no source, and CI (GitHub Actions) reads the engine through a private deploy key.
+Warkah Kad depends on it with `"@warkah/card-kit": "file:../warkah-engine/kit"` while both repos sit side by side. **The engine repository stays private and is never shared with customers or published**:
+Warkah Kad's build bundles only the kit's modules (schema, validation, catalogue, samples: nothing secret), the built cards contain no source, and CI (GitHub Actions) reads the engine through a private deploy key.
 The kit has a version; the API stores it with every draft so an old draft is validated by the rules it was written under.
 
 ## 3. Data (D1 migration 0013)
@@ -51,7 +48,6 @@ The kit has a version; the API stores it with every draft so an old draft is val
 CREATE TABLE cards (
   id              TEXT PRIMARY KEY,
   owner_user_id   TEXT NOT NULL REFERENCES users(id),
-  wedding_id      TEXT REFERENCES weddings(id),     -- linked or created at publish (Phase 2), so Kenang gets a wedding for free
   slug            TEXT NOT NULL UNIQUE,             -- the card's address: <card domain>/<slug>/
   lang            TEXT NOT NULL DEFAULT 'ms' CHECK (lang IN ('ms','en')),
   tier            TEXT NOT NULL DEFAULT 'basic' CHECK (tier IN ('basic','full','custom')),   -- written only by billing / admin, never from a client request
@@ -68,7 +64,6 @@ CREATE TABLE cards (
   updated_at      INTEGER NOT NULL
 );
 CREATE INDEX cards_owner ON cards(owner_user_id);
-CREATE UNIQUE INDEX cards_one_live_per_wedding ON cards(wedding_id) WHERE status = 'live';   -- one live card per wedding
 
 CREATE TABLE card_assets (
   id           TEXT PRIMARY KEY,
@@ -87,11 +82,11 @@ CREATE TABLE card_assets (
 Only `draft_json` holds customer words. Everything else (hosting, store, meta, sample filler) is added at preview/build time by `completeDraft` and `previewDraft`, so a draft never contains
 data the customer did not write, and an engine change to the defaults needs no data migration.
 
-Limits (like Kenang's "3 weddings per user"): 3 cards per user, **1 live card per wedding** (enforced by the index above), assets per card capped by `ASSET_RULES` (gallery 12, gifts 20 ...).
+Limits: 3 cards per user, assets per card capped by `ASSET_RULES` (gallery 12, gifts 20 ...).
 
 ## 4. API (all under `/api`, same-origin, session required, JSON unless noted)
 
-**Status: built and tested in the Kenang repo** (branch `builder-cards`): migration `0013_cards.sql`, `src/routes/cards.ts`, `src/lib/cards.ts`, `src/lib/card-assets.ts`, admin routes, the idle-draft cleanup, and `test/cards.test.ts` (40 tests; the whole suite is 39 files, 562 tests, and `wrangler deploy --dry-run` bundles it).
+**Status: built and tested in `warkah-kad`** (first built in Kenang's branch `builder-cards`, then moved): migration `0013_cards.sql`, `src/routes/cards.ts`, `src/lib/cards.ts`, `src/lib/card-assets.ts`, admin routes, the idle-draft cleanup, and `test/cards.test.ts` (40 tests; the whole suite is 39 files, 562 tests, and `wrangler deploy --dry-run` bundles it).
 Additions to the table below: `PUT /cards/:id/slug`, `GET /admin/cards?q=` and `PATCH /admin/cards/:id { tier }` (an admin sets the package). Upload errors: 413 `too_large`, 415 `unsupported_type` (wrong or renamed file, animated image), 422 `image_too_small` / `image_too_large`, 409 `too_many`.
 Only the `lang`, `theme`, `palette`, `couple`, `host`, `date`, `venue`, `aturcara`, `music`, `gallery`, `contacts`, `rsvp`, `features`, `gifts`, `duitnow`, `dressCode` and `ayat` parts of a draft can be patched; paths to uploaded files may only be the canonical ones.
 Gift photos must be WebP (the card looks for `gifts/<id>.webp`), the cover a JPEG, and the browser converts before sending.
@@ -118,9 +113,9 @@ Status block, computed by the kit (so the browser and the API agree): `problems`
 `missing` = required fields still empty, in step order, with the step id so the UI can jump to it; `ready` = no problems and nothing missing.
 It works on `previewDraft(completeDraft(draft))` so the schema can be reused unchanged: errors on sample-filled fields are dropped, and a missing required field is read from `BUILDER_STEPS`.
 
-Errors are `{ error: "<code>" }` with the codes above plus `invalid_input` and `rate_limited`, like Kenang's routes.
+Errors are `{ error: "<code>" }` with the codes above plus `invalid_input` and `rate_limited`, like the other routes.
 
-Rate limits (Kenang's `allow()`): create 10 per hour, save 120 per minute per card, upload 40 per hour.
+Rate limits (`allow()`): create 10 per hour, save 120 per minute per card, upload 40 per hour.
 
 Tier rule: `TIERS[tier].features` is the allowed set. The API enforces it on every patch, and the UI shows locked features with a padlock and "Naik taraf" instead of hiding them.
 
@@ -154,7 +149,7 @@ Behaviour:
 - **Features (Tambahan)**: the `FEATURES` list as switches with the label and description. Ticking one reveals only its own fields (the `feature` flag on each builder field); a switched-off feature's fields are removed from the form and flagged "tidak disertakan" in the summary. Locked ones show a padlock.
 - **Uploads**: the browser shrinks and converts to WebP first (canvas, `maxLongEdge` and quality from `ASSET_RULES`), shows a progress bar and the final size, then sends it; the server re-checks everything. Gallery images are reorderable. QR images are not recompressed (kept PNG).
 - **Terbit (Semak & terbit)**: the `missing` list with "Pergi ke" links, the problems, a summary of what is switched on, the tier and price (placeholder text until pricing is confirmed), and the address with its availability check. The Publish button is disabled in Phase 1 with "Akan dibuka tidak lama lagi".
-- **Language**: Malay strings through Kenang's `t()` (the Malay text is the key), so English later is a dictionary, as in the engine.
+- **Language**: Malay strings through `t()` (the Malay text is the key), so English later is a dictionary, as in the engine.
 - **Accessibility**: real labels and `aria-live` for save state and errors, 44 px targets, visible focus, keyboard-operable list editors, respects reduced motion.
 
 ## 6. Previews
@@ -170,9 +165,9 @@ Behaviour:
 - A preview is only built when the required fields are complete, so it never needs sample words for anything identifying. It may still use the sample **photos** as placeholders for a feature ticked without uploads; **publishing never fills anything from the sample** (the status block requires the data of every ticked feature: photos for the gallery, items for gifts, an image for DuitNow ...).
 - **Already built and tested in the engine:** `npm run preview -- <draft.json> [--assets <folder>] [--name <slug>] [--build]` does exactly this on a laptop, `preview: true` gives the ribbon and `noindex`, and sample people, hashtags, phone numbers, RSVP dates and the page title can never leak into a customer's card (a test checks it). Phase 2 wraps this in the queue.
 
-**6B status: built and tested end to end on a laptop.** The build server is a pull worker, `scripts/build-server.mjs` (`KENANG_URL`, `BUILD_SECRET`, `npm run build-server`): it claims a job from Kenang's `/api/build/claim`, downloads the draft and files, runs `scripts/build-job.mjs` (a card takes about 1.5 seconds to build), uploads the result and reports done or failed. Nothing connects in to it. Differences from the sketch above: previews are served at `/p/<token>/` (not `/preview/<token>/`, which holds the instant samples), the token is created at the first request and **stays the same across rebuilds** (the old preview keeps working until the new one is ready), the preview is only built from a complete card (409 `not_ready`), a build that goes quiet for 5 minutes is retried up to 3 times, and the served page carries `noindex`, no referrer and a CSP `sandbox` so it cannot reach the app's cookies or API.
+**6B status: built and tested end to end on a laptop.** The build server is a pull worker, `scripts/build-server.mjs` (`KAD_URL`, `BUILD_SECRET`, `npm run build-server`): it claims a job from Warkah Kad's `/api/build/claim`, downloads the draft and files, runs `scripts/build-job.mjs` (a card takes about 1.5 seconds to build), uploads the result and reports done or failed. Nothing connects in to it. Differences from the sketch above: previews are served at `/p/<token>/` (not `/preview/<token>/`, which holds the instant samples), the token is created at the first request and **stays the same across rebuilds** (the old preview keeps working until the new one is ready), the preview is only built from a complete card (409 `not_ready`), a build that goes quiet for 5 minutes is retried up to 3 times, and the served page carries `noindex`, no referrer and a CSP `sandbox` so it cannot reach the app's cookies or API.
 
-**Publish: built and tested end to end on a laptop** (the same queue as previews, `kind = 'publish'`). `POST /cards/:id/publish` is refused with 402 `payment_required` until an admin marks the card paid (`PATCH /admin/cards/:id {paid: true}`; online payment will do this later), 409 `not_ready` unless the status block is ready, and 409 `preview_required` unless the preview was built from the card as it is now. The job remembers the version the customer previewed; if the card was edited before the build server claimed it the job fails with `changed` and nothing is built from unseen content. The build (`scripts/build-job.mjs`, `src/lib/publish.js`) makes the real card: no ribbon, shared store, base `/<slug>/`, **no sample photos at all**, and it fails with the list of any file the card refers to that is missing. The files go to `live/<slug>/<job>/` in R2 and the card becomes `live`; publishing again replaces them under the same address and deletes the old ones, a failed build changes nothing. A live card can be edited (the live version stays until it is published again, and the screen says "changed"); its address is locked once live. On the card host (`CARD_HOST`) `/<slug>/` is served from R2; the Worker now answers first for every path except the static folders and hands the rest to `ASSETS`. Published cards carry `<meta robots noindex>` (the engine does that for any card under a path): wedding invitations are private, so this is kept. **Wedding link (built):** `POST /cards/:id/publish` first links or creates the card's Kenang wedding (before anything is queued): the card's own wedding if set; else the one named in `{weddingId}` (must be the owner's); else the owner's wedding with the same address; else a new one from the card's names, date and venue at the card's address, with the free `preview` package (a card payment is not a Kenang package). Refused with 403 `wedding_limit` (3 per user) or 409 `wedding_has_live_card`. **Not built yet:** a picker for `weddingId` in the screen, unpublish, payment.
+**Publish: built and tested end to end on a laptop** (the same queue as previews, `kind = 'publish'`). `POST /cards/:id/publish` is refused with 402 `payment_required` until an admin marks the card paid (`PATCH /admin/cards/:id {paid: true}`; online payment will do this later), 409 `not_ready` unless the status block is ready, and 409 `preview_required` unless the preview was built from the card as it is now. The job remembers the version the customer previewed; if the card was edited before the build server claimed it the job fails with `changed` and nothing is built from unseen content. The build (`scripts/build-job.mjs`, `src/lib/publish.js`) makes the real card: no ribbon, shared store, base `/<slug>/`, **no sample photos at all**, and it fails with the list of any file the card refers to that is missing. The files go to `live/<slug>/<job>/` in R2 and the card becomes `live`; publishing again replaces them under the same address and deletes the old ones, a failed build changes nothing. A live card can be edited (the live version stays until it is published again, and the screen says "changed"); its address is locked once live. On the card host (`CARD_HOST`) `/<slug>/` is served from R2; the Worker now answers first for every path except the static folders and hands the rest to `ASSETS`. Published cards carry `<meta robots noindex>` (the engine does that for any card under a path): wedding invitations are private, so this is kept. **No link to Kenang** (decision 2 was dropped on 7 Nov 2026): publishing does not create or link anything outside Warkah Kad. **Unpublish (built):** `POST /cards/:id/unpublish` takes a live card down at once (the address answers not found, the files are deleted), cancels any publish still waiting, and leaves the card `paid`, so it can be edited and published again; its address can change again. **Not built yet:** payment.
 
 ## 7. New helpers needed in the engine / kit
 
@@ -200,13 +195,13 @@ instead of a tier list and takes the `assets` list to check uploaded files; `eff
 - Uploads are sniffed by content, size-capped by `ASSET_RULES`, stored under server-assigned paths (never the customer's filename), SVG and anything not in the rules is refused.
 - All customer HTML is built from plain lines on the server (`sanitizeDraft`), so no script or markup can reach `set:html` in a card.
 - URLs are checked (`checkUrl`); the card already renders them as links with `rel="noopener"`.
-- Rate limits as above; 3 cards per user; drafts untouched for 90 days are archived and their files deleted (a daily job, like Kenang's cleanup).
+- Rate limits as above; 3 cards per user; drafts untouched for 90 days are archived and their files deleted (a daily job).
 - Personal data: drafts hold names, parents, phone numbers and photos, so access is owner-only, deletion is a real delete (rows and R2 objects), and the privacy text must say what is stored. Guests' RSVPs and wishes are separate and unchanged.
 
 ## 9. Testing
 
 - Kit: unit tests (existing `npm test`) for the new helpers, plus a test that every `BUILDER_STEPS` field path exists in the schema.
-- API: Vitest in the Workers runtime like Kenang's: ownership, limits, optimistic locking, tier enforcement, upload rejection (wrong type, too large, wrong dimensions), slug rules, sanitising.
+- API: Vitest in the Workers runtime: ownership, limits, optimistic locking, tier enforcement, upload rejection (wrong type, too large, wrong dimensions), slug rules, sanitising.
 - Screens: a scripted headless-Chrome walk (the approach used for the theme screenshots) filling a whole draft at 390 px and checking the status block and no console errors;
   a real-phone checklist (Safari and Chrome): typing, photo picker from the camera roll, keyboard covering fields, the bottom-sheet preview.
 
@@ -224,14 +219,10 @@ instead of a tier list and takes the `assets` list to check uploaded files; `eff
 
 | # | Decision |
 |---|---|
-| 1 | The builder lives **inside Kenang's app and Worker** (shared login, D1, R2, billing, admin) |
-| 2 | A card gets (or creates) a Kenang wedding **when it is published**, using the card's slug |
-| 3 | **One live card per wedding**; up to 3 drafts per user |
+| 1 | The builder is its own product, **Warkah Kad** (`warkah-kad`): its own Worker, D1, R2, sign-in and landing page. It does not live in Kenang (revised 7 Nov 2026) |
+| 2 | ~~A card gets a Kenang wedding when published~~ **Dropped** (7 Nov 2026): the two products share nothing |
+| 3 | Up to 3 drafts per user (the "one live card per wedding" rule went with the wedding link) |
 | 4 | Best possible preview, and **always a full preview of the customer's own card before they can buy** (section 6, the purchase gate) |
-| 5 | **The engine repository is never shared with customers.** Kenang consumes the kit as a local `file:` dependency; only the kit's modules are bundled |
-| 6 | Cards and the builder are served from **`kad.aimanhakimcy.com`**, later **`kad.warkah.com.my`** (one setting); nothing on `kenang.aimanhakimcy.com` links to them and they do not link to Kenang |
-| 7 | Until payment exists an **admin sets the tier** (like Kenang's manual activation); every new draft starts as **Asas** (`basic`) |
-
-**One reading to confirm (decision 6):** I took "don't link anything in kenang..." to mean the two sites stay separate (the builder is *code* inside the Kenang project, but it is served on
-its own `kad` host, with no links either way). If you meant the builder should not share Kenang's Worker or database at all, decision 1 and sections 2 to 4 would change to a separate Worker
-(still copying Kenang's auth and billing code); say so and I will redraw them.
+| 5 | **The engine repository is never shared with customers.** Warkah Kad consumes the kit as a local `file:` dependency; only the kit's modules are bundled |
+| 6 | Cards and the builder are served from **`kad.aimanhakimcy.com`**, later **`kad.warkah.com.my`** (settings `PUBLIC_ORIGIN` and `CARD_HOST`); Warkah Kad does not link to Kenang and Kenang does not link to it |
+| 7 | Until payment exists an **admin sets the tier** (by hand); every new draft starts as **Asas** (`basic`) |
