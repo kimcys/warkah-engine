@@ -85,7 +85,8 @@ export const BUILDER_STEPS: BuilderStep[] = [
       { path: "gifts.items", label: "Senarai hadiah", kind: "list", feature: "gifts", asset: "gift", help: "Nama, harga anggaran, gambar dan pautan kedai" },
       { path: "duitnow.image", label: "Kod QR DuitNow", kind: "image", feature: "duitnow", asset: "qr" },
       { path: "duitnow.accountName", label: "Nama akaun DuitNow", kind: "text", feature: "duitnow" },
-      { path: "dressCode", label: "Tema warna / pakaian", kind: "list", feature: "dressCode" }
+      { path: "dressCode.colors", label: "Tema warna / pakaian", kind: "list", feature: "dressCode" },
+      { path: "dressCode.note", label: "Catatan (pilihan)", kind: "text", feature: "dressCode" }
     ]
   },
   {

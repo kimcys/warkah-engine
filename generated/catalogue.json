@@ -2708,9 +2708,15 @@
           "feature": "duitnow"
         },
         {
-          "path": "dressCode",
+          "path": "dressCode.colors",
           "label": "Tema warna / pakaian",
           "kind": "list",
+          "feature": "dressCode"
+        },
+        {
+          "path": "dressCode.note",
+          "label": "Catatan (pilihan)",
+          "kind": "text",
           "feature": "dressCode"
         }
       ]
