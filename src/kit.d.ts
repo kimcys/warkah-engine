@@ -61,6 +61,8 @@ export const MIME: Record<string, string>;
 export function getPath(obj: unknown, path: string): any;
 export function setPath<T extends object>(obj: T, path: string, value: unknown): T;
 export function hasValue(value: unknown): boolean;
+export function mergePatch(target: unknown, patch: unknown): any;
+export function isNoop(draft: unknown, patch: unknown): boolean;
 
 export interface BuilderField { path: string; label: string; kind: string; required?: boolean; help?: string; feature?: string; options?: { value: string; label: string }[]; asset?: string }
 export interface BuilderStep { id: string; title: string; fields: BuilderField[] }

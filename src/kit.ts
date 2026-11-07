@@ -14,6 +14,7 @@ export { sanitizeDraft, safeHtml } from "./lib/sanitize.js";
 export { checkUrl } from "./lib/urls.js";
 export { imageInfo, fileKind, MIME } from "./lib/images.js";
 export { getPath, setPath, hasValue } from "./lib/paths.js";
+export { mergePatch, isNoop } from "./lib/merge-patch.js";
 export { BUILDER_STEPS, labelFor } from "./lib/builder-steps";
 export type { BuilderField, BuilderStep } from "./lib/builder-steps";
 export { FEATURES, OFFERED_FEATURES, FEATURE_KEYS } from "./lib/features";

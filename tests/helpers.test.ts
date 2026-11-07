@@ -6,6 +6,7 @@ import { sanitizeDraft, safeHtml } from "../src/lib/sanitize.js";
 import { checkUrl } from "../src/lib/urls.js";
 import { imageInfo, fileKind } from "../src/lib/images.js";
 import { getPath, setPath, hasValue } from "../src/lib/paths.js";
+import { mergePatch, isNoop } from "../src/lib/merge-patch.js";
 
 let fails = 0;
 const check = (name: string, ok: boolean, extra = "") => { if (!ok) fails++; console.log(ok ? "PASS" : "FAIL", name, extra); };
@@ -26,6 +27,13 @@ const o: any = {};
 setPath(o, "couple.groom.name", "Ali"); setPath(o, "gallery.1.alt", "x");
 check("setPath / getPath", getPath(o, "couple.groom.name") === "Ali" && Array.isArray(o.gallery) && getPath(o, "gallery.1.alt") === "x" && getPath(o, "a.b.c") === undefined);
 check("hasValue", !hasValue("") && !hasValue("  ") && !hasValue([]) && !hasValue({}) && !hasValue(undefined) && hasValue("a") && hasValue(0) && hasValue(false) && hasValue([1]));
+
+// ---------- merge patch
+check("mergePatch merges objects and keeps siblings", same(mergePatch({ a: { b: 1, c: 2 }, d: 3 }, { a: { b: 9 } }), { a: { b: 9, c: 2 }, d: 3 }));
+check("mergePatch: null removes, a list replaces, a new key is added", same(mergePatch({ a: 1, l: [1, 2, 3] }, { a: null, l: [9], n: { x: 1 } }), { l: [9], n: { x: 1 } }));
+check("mergePatch does not change its inputs", (() => { const t = { a: { b: 1 } }; mergePatch(t, { a: { b: 2 } }); return t.a.b === 1; })());
+check("mergePatch on non-objects", mergePatch(5, { a: 1 }).a === 1 && mergePatch({ a: 1 }, "x") === "x");
+check("isNoop", isNoop({ a: { b: 1 } }, { a: { b: 1 } }) && !isNoop({ a: { b: 1 } }, { a: { b: 2 } }) && isNoop({ a: 1 }, { z: null }));
 
 // ---------- date and time
 check("toIso Malaysia", toIso("2027-03-20", "11:00") === "2027-03-20T11:00:00+08:00");

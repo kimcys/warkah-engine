@@ -117,7 +117,7 @@ function slugify(input) {
 	return input.toLowerCase().trim().replace(/[^\w\s-]/g, "").replace(/[\s_-]+/g, "-").replace(/^-+|-+$/g, "");
 }
 const captureStackTrace = "captureStackTrace" in Error ? Error.captureStackTrace : (..._args) => {};
-function isObject$2(data) {
+function isObject$3(data) {
 	return typeof data === "object" && data !== null && !Array.isArray(data);
 }
 const allowsEval = /* @__PURE__*/ cached(() => {
@@ -131,12 +131,12 @@ const allowsEval = /* @__PURE__*/ cached(() => {
 	}
 });
 function isPlainObject(o) {
-	if (isObject$2(o) === false) return false;
+	if (isObject$3(o) === false) return false;
 	const ctor = o.constructor;
 	if (ctor === void 0) return true;
 	if (typeof ctor !== "function") return true;
 	const prot = ctor.prototype;
-	if (isObject$2(prot) === false) return false;
+	if (isObject$3(prot) === false) return false;
 	if (Object.prototype.hasOwnProperty.call(prot, "isPrototypeOf") === false) return false;
 	return true;
 }
@@ -2022,7 +2022,7 @@ const $ZodObject = /*@__PURE__*/ $constructor("$ZodObject", (inst, def) => {
 		}
 		return propValues;
 	});
-	const isObject = isObject$2;
+	const isObject = isObject$3;
 	const catchall = def.catchall;
 	let value;
 	const memo = globalConfig.memoizer;
@@ -2160,7 +2160,7 @@ const $ZodObjectJIT = /*@__PURE__*/ $constructor("$ZodObjectJIT", (inst, def) =>
 		return doc.compile();
 	};
 	let fastpass;
-	const isObject = isObject$2;
+	const isObject = isObject$3;
 	const jit = !globalConfig.jitless;
 	const fastEnabled = jit && allowsEval.value;
 	const catchall = def.catchall;
@@ -6202,12 +6202,12 @@ const PERSONAL_FIELDS = [
 	"text",
 	"defaultWishes"
 ];
-const isObject$1 = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
+const isObject$2 = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
 const isEmpty = (v) => v === void 0 || v === null || v === "" || Array.isArray(v) && v.length === 0;
 function sampleEvent(base, themeSample) {
 	const { _comment, assetSet, ...theme } = themeSample;
 	const out = structuredClone(base);
-	for (const [key, value] of Object.entries(theme)) out[key] = isObject$1(value) && isObject$1(out[key]) ? {
+	for (const [key, value] of Object.entries(theme)) out[key] = isObject$2(value) && isObject$2(out[key]) ? {
 		...out[key],
 		...value
 	} : value;
@@ -6216,7 +6216,7 @@ function sampleEvent(base, themeSample) {
 function withoutPersonal(value, path) {
 	if (PERSONAL_FIELDS.includes(path)) return void 0;
 	if (Array.isArray(value)) return structuredClone(value);
-	if (!isObject$1(value)) return value;
+	if (!isObject$2(value)) return value;
 	const out = {};
 	for (const [key, inner] of Object.entries(value)) {
 		const kept = withoutPersonal(inner, path ? `${path}.${key}` : key);
@@ -6227,7 +6227,7 @@ function withoutPersonal(value, path) {
 function fillWithSample(draft, sample, path = "") {
 	if (PERSONAL_FIELDS.includes(path)) return isEmpty(draft) ? void 0 : draft;
 	if (isEmpty(draft)) return withoutPersonal(sample, path);
-	if (!isObject$1(draft) || !isObject$1(sample)) return draft;
+	if (!isObject$2(draft) || !isObject$2(sample)) return draft;
 	const out = {};
 	for (const key of /* @__PURE__ */ new Set([...Object.keys(sample), ...Object.keys(draft)])) {
 		const here = path ? `${path}.${key}` : key;
@@ -7108,14 +7108,14 @@ function effectiveFeatures(draft, tier = "basic") {
 	}
 	return out;
 }
-const isObject = (v) => !!v && typeof v === "object" && !Array.isArray(v);
+const isObject$1 = (v) => !!v && typeof v === "object" && !Array.isArray(v);
 const list = (v) => Array.isArray(v) ? v : [];
 function draftStatus(input, options = {}) {
 	const tier = options.tier ?? "basic";
-	const cleaned = sanitizeDraft(isObject(input) ? input : {});
+	const cleaned = sanitizeDraft(isObject$1(input) ? input : {});
 	const { changes } = cleaned;
 	const draft = cleaned.draft;
-	if (!isObject(draft.features)) delete draft.features;
+	if (!isObject$1(draft.features)) delete draft.features;
 	const lang = draft.lang === "en" || options.lang === "en" ? "en" : "ms";
 	const wanted = Object.fromEntries(FEATURES.map((f) => [f.key, draft.features && f.key in draft.features ? !!draft.features[f.key] : f.default]));
 	const features = effectiveFeatures(draft, tier);
@@ -7452,6 +7452,19 @@ const MIME = {
 	mp3: "audio/mpeg",
 	m4a: "audio/mp4"
 };
+// src/lib/merge-patch.js
+const isObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
+function mergePatch(target, patch) {
+	if (!isObject(patch)) return patch;
+	const out = isObject(target) ? { ...target } : {};
+	for (const [key, value] of Object.entries(patch)) if (value === null) delete out[key];
+	else out[key] = mergePatch(out[key], value);
+	return out;
+}
+/** A patch that changes nothing in a draft? (used to skip saving an edit that was typed and then undone) */
+function isNoop(draft, patch) {
+	return JSON.stringify(mergePatch(draft, patch)) === JSON.stringify(draft);
+}
 // src/lib/asset-rules.ts
 const KB = 1024;
 const ASSET_RULES = [
@@ -7522,6 +7535,6 @@ const ASSET_RULES = [
 		hint: "MP3 atau M4A, kurang 6 MB (kira-kira 3 minit)."
 	}
 ];
-export { ASSET_RULES, BUILDER_STEPS, CARD_DOMAIN, DAYS, DEFAULT_TZ, FEATURES, FEATURE_KEYS, LIMITS, LINES_AS_HTML, LINES_AS_LIST, MIME, MONTHS, OFFERED_FEATURES, PERSONAL_FIELDS, RESERVED_SLUGS, THEME_KEYS, TIERS, addHours, assetSetFor, builderHosting, calendarTextFor, checkUrl, cleanLines, completeDraft, decodeEntities, draftStatus, effectiveFeatures, escapeHtml, fileKind, fillWithSample, fromIso, getPath, hasValue, htmlToLines, imageInfo, isValidSlug, labelFor, linesToHtml, metaFor, partsIn, previewDraft, safeHtml, sampleEvent, sampleFor, sanitizeDraft, setPath, slugProblem, suggestSlug, time12, toIso, validateEvent };
+export { ASSET_RULES, BUILDER_STEPS, CARD_DOMAIN, DAYS, DEFAULT_TZ, FEATURES, FEATURE_KEYS, LIMITS, LINES_AS_HTML, LINES_AS_LIST, MIME, MONTHS, OFFERED_FEATURES, PERSONAL_FIELDS, RESERVED_SLUGS, THEME_KEYS, TIERS, addHours, assetSetFor, builderHosting, calendarTextFor, checkUrl, cleanLines, completeDraft, decodeEntities, draftStatus, effectiveFeatures, escapeHtml, fileKind, fillWithSample, fromIso, getPath, hasValue, htmlToLines, imageInfo, isNoop, isValidSlug, labelFor, linesToHtml, mergePatch, metaFor, partsIn, previewDraft, safeHtml, sampleEvent, sampleFor, sanitizeDraft, setPath, slugProblem, suggestSlug, time12, toIso, validateEvent };
 
-export const KIT_VERSION = "68643894469f";
+export const KIT_VERSION = "3ac9891fe1e4";

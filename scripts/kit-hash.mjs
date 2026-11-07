@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
-const LIB = ["validate.ts", "draft-status.ts", "system-fields.js", "sample.ts", "sample-merge.js", "slug.js", "lines.js", "datetime.js", "sanitize.js", "urls.js", "images.js", "paths.js",
+const LIB = ["validate.ts", "draft-status.ts", "system-fields.js", "sample.ts", "sample-merge.js", "slug.js", "lines.js", "datetime.js", "sanitize.js", "urls.js", "images.js", "paths.js", "merge-patch.js",
   "builder-steps.ts", "features.ts", "tiers.ts", "asset-rules.ts", "theme-keys.ts", "dates.js", "event-schema.ts"];
 
 export function kitFiles(root) {
