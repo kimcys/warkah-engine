@@ -10,6 +10,7 @@ import { ASSET_RULES } from "../lib/asset-rules";
 import { BUILDER_STEPS } from "../lib/builder-steps";
 import { eventSchema } from "../lib/event-schema";
 import modelLibrary from "../../models/library.json";
+import { assetSetFor, sampleFor } from "../lib/sample";
 
 export const GET: APIRoute = () => {
   const catalogue = {
@@ -26,7 +27,9 @@ export const GET: APIRoute = () => {
         defaultModels: t.defaultModels ?? null,
         // true = the theme paints its own couple in the scene art until a model is chosen
         paintedCouple: !t.defaultModels && !!t.modelScenes,
-        pages: t.sections.map((s) => s.id)
+        pages: t.sections.map((s) => s.id),
+        // sample content for the preview before the customer types anything (photos: samples/assets/<assetSet>/)
+        sample: { assetSet: assetSetFor(key), ms: sampleFor(key, "ms"), en: sampleFor(key, "en") }
       };
     }),
     models: modelLibrary.models,

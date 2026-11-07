@@ -74,7 +74,7 @@ Slug rules, rate limits and email-code sign-in come from the existing Worker. `s
   tiers, asset rules, the six form steps and the full JSON schema of `event.json`. Source files: `src/lib/event-schema.ts` (the schema, now separate from Astro),
   `features.ts`, `tiers.ts`, `asset-rules.ts`, `builder-steps.ts`, `theme-keys.ts`.
 - DONE: friendly validation in Malay (`src/lib/validate.ts`): each problem names the field and says what to fix. It is plain TypeScript, so the API Worker can import it.
-- TODO: a `sample.json` per theme so the preview is full of believable content before the customer types anything.
+- DONE: sample content per theme and language (`samples/`, `src/themes/*/sample.json`, `src/lib/sample.ts`): fictional couple, generated photos, `previewDraft()` fills only empty fields. `npm run sample`, `npm test`.
 - TODO: theme thumbnails and one-line descriptions (screenshots are already generated into `design-export/`).
 - DONE (0b): fixed wording is in a string table. `lang: "en"` gives an English card (122 strings, English defaults for the couple-facing text, English month and day names, browser messages), `npm run i18n` checks completeness, and `events/english-demo` shows it. Malay output is unchanged on every card.
 - TODO: system fields. The builder fills `hosting`, `store`, `meta` and `package` itself (`hosting.site` is still required today; make it optional for builder cards).
@@ -122,6 +122,14 @@ The library figures are white or ivory outfits, which makes recolouring feasible
   prototype on two models before committing to it.
 
 ## 8. Risks and gaps to settle early
+
+- **Real names baked into theme artwork (blocks selling the themes).** Found while building the samples:
+  - Enchanted Garden's hero is a painted poster (`public/cover/cover.webp`) with "Nadiah & Ezzan", the date and the hashtag **inside the image**, so every card on that theme shows
+    them whatever the data says. It needs a text-free poster with the names drawn as live text, as the other themes do.
+  - Royal Gold's crest carries an "EN" monogram in several scenes (and the bride and groom scenes have a letter on the crest). It needs a neutral crest or a live monogram.
+  - Check the other artwork the same way (opening images, `og-preview`, Glasshouse boards) before launch.
+- **Existing demo events contain a real client's data** (`events/lover-demo`, `royal-gold-demo`, `glasshouse-demo`, `enchanted-demo`, `english-demo` reuse the Nadiah and Ezzan photos
+  and the DuitNow QR). Fine privately, but switch them to the sample content before showing them to anyone.
 
 - **Customer-uploaded content:** photos and text are shown to guests. Need size and type limits, and a way to take a card down (admin).
 - **Gaps in the cards themselves** (found while standardising): the shared pages' wording is fixed Malay; the Malay white-attire models for

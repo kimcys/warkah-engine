@@ -1,0 +1,194 @@
+{
+  "package": "signature",
+  "hosting": {
+    "site": "sample",
+    "base": "/"
+  },
+  "store": {
+    "mode": "demo"
+  },
+  "couple": {
+    "first": "bride",
+    "groom": {
+      "name": "Muhammad Hafiz",
+      "full": "bin Hj. Rahman",
+      "short": "Hafiz",
+      "parentsHtml": "Hj. Rahman bin Ismail<br>&amp; Hjh. Zainab binti Omar"
+    },
+    "bride": {
+      "name": "Nur Aisyah",
+      "full": "binti Hj. Kamal",
+      "short": "Aisyah",
+      "parentsHtml": "Hj. Kamal bin Yusof<br>&amp; Hjh. Rohani binti Hassan"
+    },
+    "hashtag": "#AisyahHafiz2027"
+  },
+  "host": {
+    "parents": [
+      "Hj. Kamal bin Yusof",
+      "Hjh. Rohani binti Hassan"
+    ],
+    "inviteRelation": "ke majlis perkahwinan puteri kami"
+  },
+  "date": {
+    "start": "2027-03-20T11:00:00+08:00",
+    "end": "2027-03-20T16:00:00+08:00"
+  },
+  "venue": {
+    "name": "Dewan Seri Kenanga",
+    "area": "Shah Alam, Selangor",
+    "address": "Dewan Seri Kenanga, Persiaran Contoh, Seksyen 7, 40000 Shah Alam, Selangor",
+    "maps": "https://maps.google.com/?q=Dewan+Seri+Kenanga+Shah+Alam",
+    "waze": "https://waze.com/ul?q=Dewan%20Seri%20Kenanga%20Shah%20Alam"
+  },
+  "gallery": [
+    {
+      "src": "gallery/1.webp",
+      "width": 1200,
+      "height": 675,
+      "alt": "Gambar contoh 1"
+    },
+    {
+      "src": "gallery/2.webp",
+      "width": 750,
+      "height": 1200,
+      "alt": "Gambar contoh 2"
+    },
+    {
+      "src": "gallery/3.webp",
+      "width": 1200,
+      "height": 675,
+      "alt": "Gambar contoh 3"
+    },
+    {
+      "src": "gallery/4.webp",
+      "width": 900,
+      "height": 1125,
+      "alt": "Gambar contoh 4"
+    },
+    {
+      "src": "gallery/5.webp",
+      "width": 1200,
+      "height": 800,
+      "alt": "Gambar contoh 5"
+    }
+  ],
+  "rsvp": {
+    "maxGuests": 2
+  },
+  "gifts": {
+    "groupMinPrice": 500,
+    "shop": "Shopee",
+    "items": [
+      {
+        "id": "g1",
+        "price": "150.00",
+        "url": "https://shopee.com.my/",
+        "name": "Set Pinggan Mangkuk",
+        "note": "Contoh hadiah"
+      },
+      {
+        "id": "g2",
+        "price": "299.00",
+        "url": "https://shopee.com.my/",
+        "name": "Mesin Pembuat Kopi",
+        "note": "Contoh hadiah"
+      },
+      {
+        "id": "g3",
+        "price": "650.00",
+        "url": "https://shopee.com.my/",
+        "name": "Cadar dan Sarung Bantal",
+        "note": "Contoh hadiah"
+      },
+      {
+        "id": "g4",
+        "price": "1200.00",
+        "url": "https://shopee.com.my/",
+        "name": "Peti Sejuk",
+        "note": "Contoh hadiah"
+      }
+    ]
+  },
+  "duitnow": {
+    "image": "duitnow/qr.png",
+    "accountName": "Nur Aisyah (contoh)"
+  },
+  "features": {
+    "mempelai": true,
+    "countdown": true,
+    "programme": true,
+    "portraits": true,
+    "gallery": true,
+    "dressCode": true,
+    "doa": true,
+    "rsvp": true,
+    "wishes": true,
+    "music": false,
+    "ayat": true,
+    "venueSign": true,
+    "gifts": true,
+    "duitnow": true,
+    "kenang": false,
+    "guestName": false
+  },
+  "lang": "ms",
+  "meta": {
+    "title": "Majlis Perkahwinan Aisyah & Hafiz",
+    "description": "Undangan Majlis Perkahwinan Nur Aisyah & Muhammad Hafiz, Sabtu 20 Mac 2027, Dewan Seri Kenanga, Shah Alam.",
+    "ogAlt": "Kad jemputan Aisyah & Hafiz, Sabtu 20 Mac 2027."
+  },
+  "aturcara": [
+    {
+      "icon": "jam",
+      "label": "Ketibaan Tetamu",
+      "time": "11:00 AM – 4:00 PM"
+    },
+    {
+      "icon": "pengantin",
+      "label": "Ketibaan Pengantin",
+      "time": "12:30 PM"
+    },
+    {
+      "icon": "makan",
+      "label": "Jamuan Makan",
+      "time": "1:00 PM"
+    },
+    {
+      "icon": "bersurai",
+      "label": "Majlis Bersurai",
+      "time": "4:00 PM"
+    }
+  ],
+  "contacts": [
+    {
+      "name": "Hjh. Rohani",
+      "role": "Ibu",
+      "phone": "012-345 6789"
+    },
+    {
+      "name": "Hj. Kamal",
+      "role": "Ayah",
+      "phone": "012-345 6780"
+    }
+  ],
+  "calendarDescription": "Majlis Perkahwinan Nur Aisyah binti Hj. Kamal & Muhammad Hafiz bin Hj. Rahman. Ketibaan tetamu 11:00 AM - 4:00 PM, ketibaan pengantin 12:30 PM. #AisyahHafiz2027",
+  "dressCode": {
+    "colors": [
+      {
+        "label": "Biru",
+        "tone": "blue",
+        "icon": "shirt"
+      },
+      {
+        "label": "Pink",
+        "tone": "pink",
+        "icon": "dress"
+      }
+    ],
+    "note": "Kod warna biru/pink."
+  },
+  "text": {
+    "rsvpDeadlineHtml": "Sila sahkan kehadiran sebelum<br><strong>1 Mac 2027</strong>"
+  }
+}

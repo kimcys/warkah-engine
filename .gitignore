@@ -6,3 +6,4 @@ dist/
 .firebase.deploy.json
 .DS_Store
 *.log
+events/sample-*

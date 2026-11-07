@@ -1,0 +1,11 @@
+{
+  "_comment": "What the builder preview shows for this theme before the customer fills a field in: the theme, which sample photo set suits its look, and the figures to suggest.",
+  "theme": "lover",
+  "assetSet": "modern",
+  "couple": {
+    "model": {
+      "groom": "groom-3",
+      "bride": "bride-4"
+    }
+  }
+}
