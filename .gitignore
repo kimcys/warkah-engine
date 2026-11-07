@@ -8,3 +8,4 @@ dist/
 *.log
 events/sample-*
 events/preview-*
+previews/

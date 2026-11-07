@@ -164,6 +164,10 @@ Behaviour:
 
 ## 7. New helpers needed in the engine / kit
 
+**Status: built and tested (step 1 of section 10 is done).** `npm run kit` packages them; `npm test` has 7 test files and fails if `kit/` is stale. Differences from the first sketch: `draftStatus` returns `locked` (a switch outside the package, or not offered)
+instead of a tier list and takes the `assets` list to check uploaded files; `effectiveFeatures(draft, tier)` is new (the build applies the package with it); the programme is required only while the programme page is on; the cover image is now a required field;
+`checkUrl` and `LIMITS` (rows per list) are used by `draftStatus`; every helper is safe on garbage input (a test feeds it 29 odd shapes).
+
 | Helper | What |
 |---|---|
 | `draftStatus(draft, tier, lang)` | `{ problems, missing, ready }` as in section 4. `missing` also covers the data of every ticked feature (a ticked gallery with no photo, gifts with no items ...) |
@@ -196,7 +200,7 @@ Behaviour:
 
 ## 10. Build order (est. about 3 weeks for Phase 1, then Phase 2 straight after)
 
-1. **Kit and engine helpers** (3 days): section 7, `npm run kit`, `npm run previews`, the `?groom=` swap.
+1. **Kit and engine helpers: DONE.** Section 7, `npm run kit`, `npm run previews`, the `?groom=` / `?bride=` swap.
 2. **API** (4 days): migration 0013, host-based routing for the `kad` host, routes, tests. Includes tier enforcement and uploads.
 3. **App shell and steps 1 to 3** (4 days): routes, autosave, text / lines / datetime / select fields, theme, palette, model pickers, instant preview.
 4. **Steps 4 and 5** (4 days): uploads, list editors (aturcara, contacts, gifts, dress code), feature toggles with tier locks.

@@ -62,7 +62,9 @@ export function stage(slug, event) {
 // A theme with neither (it paints its own couple) ships none. If the theme's defaults cannot be read, ship the whole library.
 function stageModels(event, out) {
   const dir = join(ROOT, "models");
-  if (!existsSync(dir) || event.features?.mempelai === false) return;   // no groom/bride pages, no figures
+  if (!existsSync(dir)) return;
+  if (process.env.WARKAH_ALL_MODELS) return copyInto(dir, join(out, "models"));   // the builder's instant previews let the customer swap models
+  if (event.features?.mempelai === false) return;                                  // no groom/bride pages, no figures
   const themeSource = readFileSync(join(ROOT, "src", "themes", event.theme, "theme.ts"), "utf8");
   const wantsDefaults = themeSource.includes("defaultModels");
   const defaults = themeSource.match(/defaultModels:\s*\{\s*groom:\s*"([^"]+)"\s*,\s*bride:\s*"([^"]+)"/);

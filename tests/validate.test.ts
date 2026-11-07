@@ -17,7 +17,11 @@ if (!r.ok) {
   check("explains a bad link", /bermula dengan https/.test(by["venue.maps"] ?? ""));
   check("lists the valid models", /groom-1, groom-2, groom-3/.test(by["couple.model.groom"] ?? ""));
   check("limits the parents", /maksimum 2/.test(by["host.parents"] ?? ""));
-  check("asks for a programme", /Atur cara majlis/.test(by["aturcara"] ?? ""));
 }
+const noProgramme: any = structuredClone(sampleFor("lover", "ms")); noProgramme.aturcara = [];
+const np = validateEvent(noProgramme);
+check("a programme is required while the programme page is on", !np.ok && /atur cara majlis/i.test(np.problems.find((p) => p.path === "aturcara")?.message ?? ""));
+noProgramme.features.programme = false;
+check("...and not required once the programme page is switched off", validateEvent(noProgramme).ok);
 console.log(fails ? `${fails} FAILED` : "all passed");
 process.exit(fails ? 1 : 0);

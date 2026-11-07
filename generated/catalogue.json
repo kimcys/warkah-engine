@@ -2641,6 +2641,7 @@
           "path": "meta.ogImage",
           "label": "Gambar pratonton (bila pautan dikongsi)",
           "kind": "image",
+          "required": true,
           "asset": "cover"
         },
         {
@@ -3019,7 +3020,7 @@
         ]
       },
       "aturcara": {
-        "minItems": 1,
+        "default": [],
         "type": "array",
         "items": {
           "type": "object",
@@ -3502,7 +3503,6 @@
       "host",
       "date",
       "venue",
-      "aturcara",
       "calendarDescription"
     ]
   }

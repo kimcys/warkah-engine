@@ -12,6 +12,14 @@ import { DAYS, MONTHS, partsIn } from "./dates.js";
 // already shared with guests contain it.
 export const CARD_DOMAIN = "kad.aimanhakimcy.com";
 
+// The wall-clock parts of the event start, or null when the draft's date is not a real date (a customer may type anything).
+function safeParts(date) {
+  try {
+    if (typeof date.start !== "string" || Number.isNaN(Date.parse(date.start))) return null;
+    return partsIn(date.start, typeof date.timeZone === "string" ? date.timeZone : "Asia/Kuala_Lumpur");
+  } catch { return null; }
+}
+
 export function builderHosting(slug, domain = CARD_DOMAIN) {
   return { domain, base: `/${slug}/` };
 }
@@ -21,8 +29,9 @@ export function metaFor(draft, lang = "ms") {
   const couple = draft?.couple, date = draft?.date, venue = draft?.venue;
   const groom = couple?.groom, bride = couple?.bride;
   if (!groom?.short || !bride?.short || !groom?.name || !bride?.name || !date?.start || !venue?.name) return {};
+  const when = safeParts(date);
+  if (!when) return {};
   const [a, b] = (couple.first || "groom") === "bride" ? [bride, groom] : [groom, bride];
-  const when = partsIn(date.start, date.timeZone || "Asia/Kuala_Lumpur");
   const day = DAYS[lang][when.weekday];
   const long = `${when.d} ${MONTHS[lang][when.m - 1]} ${when.y}`;
   const where = [venue.name, venue.area].filter(Boolean).join(", ");
@@ -44,8 +53,9 @@ export function calendarTextFor(draft, lang = "ms") {
   const couple = draft?.couple, date = draft?.date, venue = draft?.venue;
   const groom = couple?.groom, bride = couple?.bride;
   if (!groom?.name || !bride?.name || !date?.start || !venue?.name) return "";
+  const when = safeParts(date);
+  if (!when) return "";
   const [a, b] = (couple.first || "groom") === "bride" ? [bride, groom] : [groom, bride];
-  const when = partsIn(date.start, date.timeZone || "Asia/Kuala_Lumpur");
   const long = `${DAYS[lang][when.weekday]} ${when.d} ${MONTHS[lang][when.m - 1]} ${when.y}`;
   const names = `${a.name} ${a.full || ""}`.trim() + " & " + `${b.name} ${b.full || ""}`.trim();
   const where = [venue.name, venue.area].filter(Boolean).join(", ");

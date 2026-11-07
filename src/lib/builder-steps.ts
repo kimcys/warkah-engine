@@ -70,7 +70,7 @@ export const BUILDER_STEPS: BuilderStep[] = [
   {
     id: "gambar", title: "Gambar",
     fields: [
-      { path: "meta.ogImage", label: "Gambar pratonton (bila pautan dikongsi)", kind: "image", asset: "cover" },
+      { path: "meta.ogImage", label: "Gambar pratonton (bila pautan dikongsi)", kind: "image", required: true, asset: "cover" },
       { path: "portraits", label: "Potret pengantin", kind: "images", feature: "portraits", asset: "portrait" },
       { path: "gallery", label: "Galeri", kind: "images", feature: "gallery", asset: "gallery" }
     ]

@@ -59,6 +59,20 @@ if (guest && FEATURES.guestName) {
   openGuest.hidden = false;
 }
 
+/* ---------- Builder previews: ?groom=<id>&bride=<id> swaps the figure on the groom / bride page (only for cards served under /preview/) ---------- */
+
+function applyPreviewModels() {
+  if (!DATA.assets || !DATA.assets.includes("/preview/")) return;
+  const params = new URLSearchParams(location.search);
+  ["groom", "bride"].forEach((who) => {
+    const id = params.get(who);
+    if (!id || !new RegExp("^" + who + "-\\d+$").test(id)) return;
+    const image = $(".mempelai-" + who + " .model-figure img");
+    if (image) image.src = DATA.assets.replace(/event\/$/, "models/") + id + ".webp";
+  });
+}
+applyPreviewModels();
+
 /* ---------- Full-page scenes ---------- */
 
 function initScenes() {

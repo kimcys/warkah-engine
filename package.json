@@ -10,6 +10,8 @@
     "test": "node scripts/test.mjs",
     "thumbnails": "node scripts/thumbnails.mjs",
     "preview": "node scripts/preview.mjs",
+    "previews": "node scripts/previews.mjs",
+    "kit": "node scripts/kit.mjs",
     "sample": "node scripts/sample.mjs",
     "i18n": "node scripts/i18n-check.mjs",
     "catalogue": "node scripts/run.mjs build minimal-demo --catalogue",

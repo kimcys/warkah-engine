@@ -47,6 +47,24 @@ component when it wants a different design. Features switch pages off per client
 - Try it: `npm run sample -- lover --builder --build` builds a sample card exactly the way the builder would. Serve `dist/` to see it at `/sample-lover-ms/`.
 - Cards at a non-root base carry `noindex` (search engines are told not to list them), which suits private invitations.
 
+## The card kit (what the builder uses)
+
+`npm run kit` packages the pure modules into `kit/` (`index.js`, `index.d.ts`, `catalogue.json`, `package.json`): Kenang's Worker and app depend on it as `"@warkah/card-kit": "file:../warkah-engine/kit"`.
+The engine repository stays private and is never shared with customers; only the kit's modules are bundled elsewhere. `KIT_VERSION` fingerprints the sources, and **`npm test` fails when `kit/` is out of date**:
+run `npm run kit` after changing any file the kit is built from (`src/kit.ts`, `src/lib/*` listed in `scripts/kit-hash.mjs`, the samples, `models/library.json`, the catalogue).
+
+What is in it (types in `src/kit.d.ts`; add a function there when you export one):
+- `draftStatus(draft, { tier, lang, slug, assets })` returns `problems` (a value they wrote is wrong, Malay messages), `missing` (required things still empty, in form order, with the step), `locked` (a switch outside their package, or not offered), `features` (what really applies), `completeness` and `ready`. It never throws, whatever it is given.
+  A switched-on feature must come with its data (a ticked gallery needs a photo, gifts need items, DuitNow its QR, music its file, title and artist); with an `assets` list it also checks the uploaded files exist; the cover image is required.
+- `effectiveFeatures(draft, tier)`: the defaults and the customer's choices, minus whatever their package does not include. The build uses this, so a package is enforced even if a draft says otherwise.
+- `sanitizeDraft` (trims, strips control characters, caps text, reduces the HTML fields to `<br>`, `<strong>`, `<em>` and known entities), `checkUrl` (https only; Maps and Waze links must be Google and Waze; no credentials or IP addresses),
+  `linesToHtml` / `htmlToLines` (plain lines <-> the stored `<br>` HTML), `toIso` / `fromIso` / `addHours` (date and time boxes <-> ISO with offset), `imageInfo` / `fileKind` (what an upload really is and its size, from its bytes).
+- plus validation, system fields, slugs, samples and the catalogue data (see the sections above).
+- `programme` (the `aturcara` list) is required only while the programme page is switched on; a card without the page needs no programme.
+
+`npm run previews` builds the 8 sample cards (4 themes x 2 languages) to `previews/<theme>-<lang>/` for the builder's instant design preview. They live at `/preview/<theme>-<lang>/` and ship every model:
+on a card served under `/preview/`, `?groom=<id>&bride=<id>` swaps the figures and `?palette=<id>` the colours (ignored on a real card). `previews/` is generated and git-ignored.
+
 ## How a theme is presented (theme chooser)
 
 Each theme declares `display` in `theme.ts`: a label and a one-sentence description in Malay and English, and its `culture` (`malay` or `modern`, which decides the suggested models and sample photos).

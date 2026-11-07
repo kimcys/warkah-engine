@@ -93,7 +93,7 @@ export const eventSchema = z.object({
       icon: z.enum(["makan", "pengantin", "bersurai", "akad", "doa", "jam"]).default("jam"),
       label: z.string(),
       time: z.string()
-    })).min(1),
+    })).default([]),                 // required (at least one) only while features.programme is on: see the check at the end of this schema
 
     music: z.object({
       src: z.string().default("audio/song.m4a"),
@@ -191,4 +191,9 @@ export const eventSchema = z.object({
       thanks: z.string().default("Semoga dengan kehadiran dan doa daripada para undangan yang dihormati akan menyerikan lagi majlis kami serta diberkati Allah S.W.T."),
       giftIntro: z.string().default("Doa dan kehadiran anda sudah cukup bermakna. Jika ingin memberi hadiah, berikut senarai yang kami perlukan.")
     }).prefault({})
+  }).refine((e) => !(e.features.programme && e.aturcara.length === 0), {
+    // runs even while other fields still have problems, so the customer sees it straight away
+    when: (payload) => { const v = payload.value as any; return !!v && typeof v === "object" && !!v.features && Array.isArray(v.aturcara); },
+    message: "Sila tambah sekurang-kurangnya satu acara dalam atur cara majlis.",
+    path: ["aturcara"]
   });
