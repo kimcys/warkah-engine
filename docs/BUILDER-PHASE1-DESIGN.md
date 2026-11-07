@@ -226,3 +226,7 @@ instead of a tier list and takes the `assets` list to check uploaded files; `eff
 | 5 | **The engine repository is never shared with customers.** Warkah Kad consumes the kit as a local `file:` dependency; only the kit's modules are bundled |
 | 6 | Cards and the builder are served from **`kad.aimanhakimcy.com`**, later **`kad.warkah.com.my`** (settings `PUBLIC_ORIGIN` and `CARD_HOST`); Warkah Kad does not link to Kenang and Kenang does not link to it |
 | 7 | Until payment exists an **admin sets the tier** (by hand); every new draft starts as **Asas** (`basic`) |
+
+## 12. Live card updates (built)
+
+Published cards are static, so the engine reports a fingerprint of what builds a card (`scripts/engine-version.mjs`: `src/`, `public/core`, `package-lock.json`, the config), the build server sends it to Warkah Kad (header `X-Engine`, and `engine` in the done call) and each live card records the one it was built with. An admin rebuilds every live card that is behind (`POST /api/admin/live/refresh`): only cards with no unpublished changes, as they are, from the version the customer approved, under a new job prefix with a switch at the end (no downtime), invisible to the customer. See `warkah-kad/README.md`.

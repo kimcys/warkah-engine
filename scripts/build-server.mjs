@@ -6,6 +6,8 @@ import { mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, wr
 import { tmpdir } from "node:os";
 import { dirname, join, relative } from "node:path";
 import { buildJob } from "./build-job.mjs";
+import { engineVersion } from "./engine-version.mjs";
+import { ROOT } from "./lib.mjs";
 
 const args = process.argv.slice(2);
 const flag = (n, d) => (args.includes(n) ? args[args.indexOf(n) + 1] : d);
@@ -16,8 +18,10 @@ const INTERVAL = Number(flag("--interval", 3000));
 if (!BASE || !SECRET) { console.error("Set KAD_URL and BUILD_SECRET."); process.exit(2); }
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+// What this build server builds with: sent on every call, so Warkah Kad knows which engine is current and which live cards are out of date.
+const ENGINE = engineVersion(ROOT);
 const call = (method, path, body, headers = {}) => fetch(`${BASE}/api/build${path}`, {
-  method, headers: { Authorization: `Bearer ${SECRET}`, ...(body && typeof body === "object" && !(body instanceof Uint8Array) ? { "Content-Type": "application/json" } : {}), ...headers },
+  method, headers: { Authorization: `Bearer ${SECRET}`, "X-Engine": ENGINE, ...(body && typeof body === "object" && !(body instanceof Uint8Array) ? { "Content-Type": "application/json" } : {}), ...headers },
   body: body === undefined ? undefined : body instanceof Uint8Array ? body : JSON.stringify(body)
 });
 const encodePath = (p) => p.split("/").map(encodeURIComponent).join("/");
@@ -60,7 +64,7 @@ async function handle({ job, draft, assets }) {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
       })));
     }
-    const done = await call("POST", `/jobs/${job.id}/done`, { files });
+    const done = await call("POST", `/jobs/${job.id}/done`, { files, engine: ENGINE });
     if (!done.ok) throw new Error(`done: HTTP ${done.status}`);
     console.log(`✔ job ${job.id.slice(0, 8)}  ${files.length} files  ${((Date.now() - started) / 1000).toFixed(1)}s`);
   } catch (e) {
