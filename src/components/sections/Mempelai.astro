@@ -3,18 +3,19 @@
 import type { Card } from "../../lib/event";
 interface Props { card: Card; attrs: Record<string, string>; who: "groom" | "bride"; isFirst: boolean }
 const { card, attrs, who, isFirst } = Astro.props;
+const { t } = card;
 const person = card.e.couple[who];
 // Themes with groom/bride scenes name them by role; the scene follows the person actually on this page (couple.first decides who comes first).
 const model = card.modelOf(who);
 const scene = ["groom", "bride"].includes(attrs["data-scene"]) ? who : attrs["data-scene"];
-const role = person.role ?? (who === "groom" ? "Putera kepada" : "Puteri kepada");
+const role = person.role ?? (who === "groom" ? t("Putera kepada") : t("Puteri kepada"));
 ---
 <section
   class={`section-card mempelai mempelai-${who} reveal${model ? " has-model" : ""}`}
   {...attrs}
   data-scene={scene}
   id={isFirst ? "mempelai" : undefined}
-  aria-label={who === "groom" ? "Pengantin lelaki" : "Pengantin perempuan"}
+  aria-label={who === "groom" ? t("Pengantin lelaki") : t("Pengantin perempuan")}
 >
   {model && (
     <div class="model-figure" aria-hidden="true">

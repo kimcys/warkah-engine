@@ -3,15 +3,16 @@ import type { Card } from "../../lib/event";
 import FooterCredit from "../ui/FooterCredit.astro";
 interface Props { card: Card; attrs: Record<string, string> }
 const { card, attrs } = Astro.props;
+const { t } = card;
 const { e, asset } = card;
 ---
-<section class="section-card thanks reveal" {...attrs} aria-label="Penghargaan">
+<section class="section-card thanks reveal" {...attrs} aria-label={t("Penghargaan")}>
   <p class="thanks-poem">
     {e.text.poem.map((line, index) => (<>{line}{index < e.text.poem.length - 1 && <br />}</>))}
   </p>
   <p class="thanks-copy">{e.text.thanks}</p>
-  <p class="thanks-insya">InsyaAllah</p>
-  <p class="thanks-sign">Terima Kasih</p>
+  <p class="thanks-insya">{t("InsyaAllah")}</p>
+  <p class="thanks-sign">{t("Terima Kasih")}</p>
   {e.art?.hashtag
     ? <p class="hashtag is-art" aria-label={e.couple.hashtag}><img src={asset(e.art.hashtag)} alt="" /></p>
     : e.couple.hashtag && <p class="hashtag">{e.couple.hashtag}</p>}

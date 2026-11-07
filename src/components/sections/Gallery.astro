@@ -2,11 +2,12 @@
 import type { Card } from "../../lib/event";
 interface Props { card: Card; attrs: Record<string, string> }
 const { card, attrs } = Astro.props;
+const { t } = card;
 const { e, asset } = card;
 ---
-<section class="section-card gallery reveal" {...attrs} id="gallery" aria-label="Galeri">
-  <h2>Galeri</h2>
-  <p class="tap-hint">Sentuh gambar untuk paparan penuh</p>
+<section class="section-card gallery reveal" {...attrs} id="gallery" aria-label={t("Galeri")}>
+  <h2>{t("Galeri")}</h2>
+  <p class="tap-hint">{t("Sentuh gambar untuk paparan penuh")}</p>
   <div class="carousel" data-carousel>
     <div class="carousel-viewport">
       <div class="carousel-track" data-carousel-track>
@@ -18,11 +19,11 @@ const { e, asset } = card;
       </div>
     </div>
     <div class="carousel-controls">
-      <button class="carousel-button" type="button" data-carousel-prev aria-label="Slaid sebelumnya">
+      <button class="carousel-button" type="button" data-carousel-prev aria-label={t("Slaid sebelumnya")}>
         <svg class="carousel-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6.5 8.8 12l5.7 5.5" /></svg>
       </button>
-      <div class="carousel-dots" data-carousel-dots aria-label="Pilihan slaid"></div>
-      <button class="carousel-button" type="button" data-carousel-next aria-label="Slaid seterusnya">
+      <div class="carousel-dots" data-carousel-dots aria-label={t("Pilihan slaid")}></div>
+      <button class="carousel-button" type="button" data-carousel-next aria-label={t("Slaid seterusnya")}>
         <svg class="carousel-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 6.5 5.7 5.5-5.7 5.5" /></svg>
       </button>
     </div>

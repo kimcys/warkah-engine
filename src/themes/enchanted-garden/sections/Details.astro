@@ -2,6 +2,7 @@
 import type { Card } from "../../../lib/event";
 interface Props { card: Card; attrs: Record<string, string> }
 const { card, attrs } = Astro.props;
+const { t } = card;
 const { e, date } = card;
 const address = e.venue.address.startsWith(e.venue.name) ? e.venue.address.slice(e.venue.name.length).replace(/^[,\s]+/, "") : e.venue.address;
 const lines = address.split(",").map((part) => part.trim()).filter((part) => part && part !== "Malaysia");
@@ -9,8 +10,8 @@ const lines = address.split(",").map((part) => part.trim()).filter((part) => par
 const lineOne = lines.slice(0, 2).join(", ") + (lines.length > 2 ? "," : "");
 const lineTwo = lines.slice(2).join(", ");
 ---
-<section class="section-card details reveal" {...attrs} id="details" aria-label="Butiran majlis">
-  <h2>Butiran Majlis</h2>
+<section class="section-card details reveal" {...attrs} id="details" aria-label={t("Butiran majlis")}>
+  <h2>{t("Butiran Majlis")}</h2>
   <div class="date-block">
     <span class="date-day">{date.dayName}</span>
     <div class="date-row">
@@ -29,7 +30,7 @@ const lineTwo = lines.slice(2).join(", ");
     <p>{lineOne}{lineTwo && <><br />{lineTwo}</>}</p>
   </div>
   <div class="button-row">
-    <button class="primary-button" data-panel="locationPanel" type="button">Lokasi</button>
-    <button class="secondary-button" data-panel="calendarPanel" type="button">Simpan Tarikh</button>
+    <button class="primary-button" data-panel="locationPanel" type="button">{t("Lokasi")}</button>
+    <button class="secondary-button" data-panel="calendarPanel" type="button">{t("Simpan Tarikh")}</button>
   </div>
 </section>

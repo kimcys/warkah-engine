@@ -76,7 +76,7 @@ Slug rules, rate limits and email-code sign-in come from the existing Worker. `s
 - DONE: friendly validation in Malay (`src/lib/validate.ts`): each problem names the field and says what to fix. It is plain TypeScript, so the API Worker can import it.
 - TODO: a `sample.json` per theme so the preview is full of believable content before the customer types anything.
 - TODO: theme thumbnails and one-line descriptions (screenshots are already generated into `design-export/`).
-- TODO (0b): move the fixed Malay wording of the shared pages and panels into a string table, ready for English.
+- DONE (0b): fixed wording is in a string table. `lang: "en"` gives an English card (122 strings, English defaults for the couple-facing text, English month and day names, browser messages), `npm run i18n` checks completeness, and `events/english-demo` shows it. Malay output is unchanged on every card.
 - TODO: system fields. The builder fills `hosting`, `store`, `meta` and `package` itself (`hosting.site` is still required today; make it optional for builder cards).
 
 **Phase 1: the builder form and drafts (about 2 to 3 weeks).** Steps 1 to 6 above on top of Kenang's Studio patterns, with palette and

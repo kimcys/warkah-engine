@@ -1,6 +1,12 @@
 // Warkah card engine (shared by every card). Do not put client details here:
 // they come from events/<client>/event.json, rendered into the page as #warkah-data.
 const DATA = JSON.parse(document.getElementById("warkah-data").textContent);
+// Fixed wording: the Malay text is the key; an English card gets its translations in DATA.i18n (see src/lib/i18n.ts).
+const T = (ms, vars) => {
+  let text = (DATA.i18n && DATA.i18n[ms]) || ms;
+  if (vars) for (const name in vars) text = text.split("{" + name + "}").join(vars[name]);
+  return text;
+};
 const INVITATION = DATA.invitation;
 const THEME = DATA.theme || {};
 const FEATURES = INVITATION.features || {};
@@ -48,7 +54,7 @@ if (guest && FEATURES.guestName) {
 
   const openGuest = $("#openGuest");
   const label = document.createElement("span");
-  label.textContent = "Kepada";
+  label.textContent = T("Kepada");
   openGuest.append(label, document.createTextNode(guest));
   openGuest.hidden = false;
 }
@@ -189,9 +195,9 @@ function updateCountdown() {
   if (note) {
     note.hidden = state === "before";
     note.textContent = state === "live"
-      ? "Majlis sedang berlangsung. Jemput hadir!"
+      ? T("Majlis sedang berlangsung. Jemput hadir!")
       : state === "over"
-        ? "Terima kasih atas kehadiran dan doa anda. Semoga Allah membalas kebaikan anda."
+        ? T("Terima kasih atas kehadiran dan doa anda. Semoga Allah membalas kebaikan anda.")
         : "";
     $$("[data-countdown]").forEach((element) => { element.hidden = state !== "before"; });
   }
@@ -375,7 +381,7 @@ function renderContacts() {
   if (INVITATION.contacts.length === 0) {
     const note = document.createElement("p");
     note.className = "small-note";
-    note.textContent = "Maklumat untuk dihubungi akan dikemas kini.";
+    note.textContent = T("Maklumat untuk dihubungi akan dikemas kini.");
     list.append(note);
     return;
   }
@@ -470,7 +476,7 @@ function initCarousel(root) {
     const dot = document.createElement("button");
     dot.type = "button";
     dot.className = "carousel-dot";
-    dot.setAttribute("aria-label", `Pergi ke slaid ${slideIndex + 1}`);
+    dot.setAttribute("aria-label", T("Pergi ke slaid {n}", { n: slideIndex + 1 }));
     dot.addEventListener("click", () => moveTo(slideIndex));
     dots.append(dot);
   });
@@ -821,15 +827,15 @@ function initGifts(store) {
       note.textContent = gift.note;
       const price = document.createElement("span");
       price.className = "gift-price";
-      price.textContent = `Anggaran RM${gift.price}`;
+      price.textContent = T("Anggaran RM{price}", { price: gift.price });
       body.append(title, note, price);
 
       if (gift.group) {
         const tag = document.createElement("span");
         tag.className = "gift-group";
         tag.textContent = claimers.length
-          ? `Boleh dikongsi. Dipilih oleh: ${claimers.map((claimer) => claimer.name).join(", ")}`
-          : "Boleh dikongsi. Beberapa tetamu boleh menyertai";
+          ? T("Boleh dikongsi. Dipilih oleh: {names}", { names: claimers.map((claimer) => claimer.name).join(", ") })
+          : T("Boleh dikongsi. Beberapa tetamu boleh menyertai");
         body.append(tag);
       }
 
@@ -841,13 +847,13 @@ function initGifts(store) {
       link.href = gift.url;
       link.target = "_blank";
       link.rel = "noopener noreferrer";
-      link.textContent = `Lihat di ${INVITATION.giftShop || "Shopee"}`;
+      link.textContent = T("Lihat di {shop}", { shop: INVITATION.giftShop || "Shopee" });
       actions.append(link);
 
       if (claimed) {
         const badge = document.createElement("span");
         badge.className = "gift-badge";
-        badge.textContent = isMine ? "Pilihan anda" : "Sudah dipilih";
+        badge.textContent = isMine ? T("Pilihan anda") : T("Sudah dipilih");
         actions.append(badge);
       } else if (openForm === gift.id) {
         const form = document.createElement("form");
@@ -856,8 +862,8 @@ function initGifts(store) {
         input.type = "text";
         input.maxLength = 80;
         input.required = true;
-        input.placeholder = "Nama anda";
-        input.setAttribute("aria-label", "Nama anda");
+        input.placeholder = T("Nama anda");
+        input.setAttribute("aria-label", T("Nama anda"));
         try {
           input.value = draftName || localStorage.getItem(RSVP_DONE_KEY) || "";
         } catch {
@@ -868,7 +874,7 @@ function initGifts(store) {
         const confirm = document.createElement("button");
         confirm.type = "submit";
         confirm.className = "gift-confirm";
-        confirm.textContent = "Sahkan";
+        confirm.textContent = T("Sahkan");
         const status = document.createElement("span");
         status.className = "gift-status";
         status.setAttribute("role", "status");
@@ -886,7 +892,7 @@ function initGifts(store) {
           draftName = "";
           try {
             await store.claimGift(gift, name);
-            showToast(`Terima kasih, ${name}! Hadiah itu telah ditanda untuk anda.`);
+            showToast(T("Terima kasih, {name}! Hadiah itu telah ditanda untuk anda.", { name }));
             render();
           } catch (error) {
             console.error("Error claiming gift:", error);
@@ -895,7 +901,7 @@ function initGifts(store) {
             draftName = name;
             render();
             const retry = $(".gift-form .gift-status", list);
-            if (retry) retry.textContent = "Maaf, tidak dapat disimpan. Hadiah ini mungkin sudah dipilih, atau sambungan terputus. Sila cuba lagi.";
+            if (retry) retry.textContent = T("Maaf, tidak dapat disimpan. Hadiah ini mungkin sudah dipilih, atau sambungan terputus. Sila cuba lagi.");
             confirm.disabled = false;
           }
         });
@@ -904,7 +910,7 @@ function initGifts(store) {
         const claim = document.createElement("button");
         claim.type = "button";
         claim.className = "gift-claim";
-        claim.textContent = gift.group ? "Saya nak sertai" : "Saya akan beli ini";
+        claim.textContent = gift.group ? T("Saya nak sertai") : T("Saya akan beli ini");
         claim.addEventListener("click", () => {
           openForm = gift.id;
           render();
@@ -1054,10 +1060,10 @@ const RSVP_DONE_KEY = `${KEY_PREFIX}-rsvp-done`;
 function showRsvpDone(name) {
   if (!name || !$("#rsvpDone")) return;
   const note = $("#rsvpDone");
-  note.textContent = `\u2713 Terima kasih, ${name}. Kehadiran anda telah disahkan.`;
+  note.textContent = "\u2713 " + T("Terima kasih, {name}. Kehadiran anda telah disahkan.", { name });
   note.hidden = false;
   const button = $("#rsvpOpenButton");
-  button.textContent = "Sahkan Untuk Tetamu Lain";
+  button.textContent = T("Sahkan Untuk Tetamu Lain");
   button.classList.replace("primary-button", "secondary-button");
 }
 
@@ -1120,7 +1126,7 @@ async function initGuestbook() {
     const submitButton = $("button[type='submit']", formElement);
     const status = $("#rsvpStatus");
     submitButton.disabled = true;
-    status.textContent = "Menghantar RSVP...";
+    status.textContent = T("Menghantar RSVP...");
 
     try {
       await Promise.all([
@@ -1140,7 +1146,7 @@ async function initGuestbook() {
         // Not remembered; harmless.
       }
       showRsvpDone(rsvp.name);
-      showToast(`Terima kasih, ${rsvp.name}! ${message ? "RSVP dan ucapan anda telah dihantar." : "RSVP anda telah dihantar."}`);
+      showToast(T("Terima kasih, {name}! {result}", { name: rsvp.name, result: message ? T("RSVP dan ucapan anda telah dihantar.") : T("RSVP anda telah dihantar.") }));
       // Bring the guest to their ucapan, now at the top of Ucapan Tetamu.
       // Scroll only the card: scrollIntoView would also shift the clipped shell/body and expose the gap around it.
       if (message && $("#wishesSection")) {
@@ -1152,7 +1158,7 @@ async function initGuestbook() {
       }
     } catch (error) {
       console.error("Error sending RSVP:", error);
-      status.textContent = "Maaf, RSVP tidak dapat dihantar. Sila cuba lagi.";
+      status.textContent = T("Maaf, RSVP tidak dapat dihantar. Sila cuba lagi.");
     } finally {
       submitButton.disabled = false;
     }
@@ -1228,7 +1234,7 @@ function startAmbience() {
 function setMusicUI(playing, statusText) {
   musicPlaying = playing;
   if (!musicToggle) return;
-  musicToggle.textContent = playing ? "Hentikan Lagu" : "Mainkan Lagu";
+  musicToggle.textContent = playing ? T("Hentikan Lagu") : T("Mainkan Lagu");
   musicNavButton?.classList.toggle("is-playing", playing);
   body.classList.toggle("is-music-playing", playing);
   if (statusText) musicStatus.textContent = statusText;
@@ -1240,22 +1246,22 @@ async function startMusic() {
   try {
     bgAudio.volume = 0.6;
     await bgAudio.play();
-    setMusicUI(true, "Lagu sedang dimainkan.");
+    setMusicUI(true, T("Lagu sedang dimainkan."));
   } catch (error) {
     setMusicUI(false, bgAudio.error || bgAudio.networkState === HTMLMediaElement.NETWORK_NO_SOURCE
-      ? "Fail lagu belum tersedia."
-      : "Lagu tidak dapat dimainkan. Sila tekan butang sekali lagi.");
+      ? T("Fail lagu belum tersedia.")
+      : T("Lagu tidak dapat dimainkan. Sila tekan butang sekali lagi."));
   }
 }
 
 function stopMusic() {
   if (!bgAudio) return;
   bgAudio.pause();
-  setMusicUI(false, "Lagu dihentikan.");
+  setMusicUI(false, T("Lagu dihentikan."));
 }
 
 bgAudio?.addEventListener("error", () => {
-  setMusicUI(false, "Fail lagu belum tersedia.");
+  setMusicUI(false, T("Fail lagu belum tersedia."));
 });
 
 musicToggle?.addEventListener("click", () => {

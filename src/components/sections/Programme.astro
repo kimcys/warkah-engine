@@ -2,6 +2,7 @@
 import type { Card } from "../../lib/event";
 interface Props { card: Card; attrs: Record<string, string> }
 const { card, attrs } = Astro.props;
+const { t } = card;
 const { e, date } = card;
 
 // Icons for aturcara items (event.json → aturcara[].icon)
@@ -14,8 +15,8 @@ const ICONS: Record<string, string> = {
   jam: '<circle cx="12" cy="12" r="8.5" /><path d="M12 7.5V12l3 2" />'
 };
 ---
-<section class="section-card programme reveal" {...attrs} id="programme" aria-label="Aturcara majlis">
-  <h2>Aturcara Majlis</h2>
+<section class="section-card programme reveal" {...attrs} id="programme" aria-label={t("Aturcara majlis")}>
+  <h2>{t("Aturcara Majlis")}</h2>
   <div class="date-block">
     <span class="date-day">{date.dayName}</span>
     <div class="date-row">

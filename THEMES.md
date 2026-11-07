@@ -32,6 +32,20 @@ component when it wants a different design. Features switch pages off per client
 - **Hadiah.** Only gifts or only DuitNow: that one, no tab bar. Both: a tab bar (`Senarai Hadiah | DuitNow`) in the sheet and on the page
   (`data-tabs` / `data-tab` / `data-tab-pane`, handled in `card.js`).
 
+## Languages (Malay now, English ready)
+
+`event.json` `"lang": "ms" | "en"` sets the language of the card's **fixed wording** (buttons, headings, messages, month and day names). What the couple
+types (names, venue, programme, their own text) is shown as typed.
+
+- In a component: `const { t } = card;` then `{t("Buka Kad")}`. The Malay text is the key; English lives in `src/lib/i18n/en.ts`.
+  Placeholders: `t("Hari ke {n}", { n: 3 })`. Never build Malay sentences with template strings: use a key with placeholders.
+- In `public/core/card.js`: `T("...")` the same way; list the key in `src/lib/i18n/browser-keys.ts` (only those are sent to the browser, and only for English cards).
+- The defaults the couple did not write (the `text` block, default ayat translation, default wishes) have English versions in `src/lib/i18n/en-defaults.ts`;
+  they replace the Malay default only when the card is English and the field was left at its default.
+- `npm run i18n` fails if a `t()`/`T()` key has no English entry or a card.js key is missing from `browser-keys.ts`. A missing entry never breaks a card (it falls back to Malay).
+- `events/english-demo` is a full English card (Lover theme) to look at. A new theme must use `t()` for every fixed word too.
+- Adding a language later: a new dictionary file next to `en.ts`, the code in `LANGS`, and the `lang` enum in the schema.
+
 ## Features (what a client can switch on or off)
 
 `event.json` `"features"` holds the switches; the catalogue is `src/lib/features.ts` (label, default, what data it needs), and the schema,

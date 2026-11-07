@@ -4,10 +4,11 @@ import type { Card } from "../../../lib/event";
 import SignText from "../SignText.astro";
 interface Props { card: Card; attrs: Record<string, string> }
 const { card, attrs } = Astro.props;
+const { t } = card;
 const { e, first, second, date } = card;
 const city = e.venue.area.split(",")[0].trim();
 ---
-<section class="frame-page hero" id="home" {...attrs} aria-label={`${first.short} dan ${second.short}, ${date.dayName} ${date.long}`}>
+<section class="frame-page hero" id="home" {...attrs} aria-label={t("{a} dan {b}, {day} {date}", { a: first.short, b: second.short, day: date.dayName, date: date.long })}>
   <h2 class="sr-only">{first.short} &amp; {second.short} — {date.dayName}, {date.long} — {e.venue.name}, {city}</h2>
   <SignText card={card} />
   <div class="page-hint" aria-hidden="true">

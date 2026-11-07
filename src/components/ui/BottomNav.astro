@@ -2,6 +2,7 @@
 import type { Card } from "../../lib/event";
 interface Props { card: Card }
 const { card } = Astro.props;
+const { t } = card;
 const { e } = card;
 const hasGiftPanel = e.features.gifts || e.features.duitnow;
 
@@ -13,53 +14,53 @@ const base = [hasGiftPanel, true, !!e.music, e.features.rsvp, true].filter(Boole
 const showKenang = !!card.kenangHref && base < maxButtons;
 const navCount = Math.max(5, base + (showKenang ? 1 : 0));   // themes that lay the bar out in fixed columns need this
 ---
-<nav class="bottom-nav" aria-label="Tindakan kad jemputan" style={`--nav-count:${navCount}`}>
+<nav class="bottom-nav" aria-label={t("Tindakan kad jemputan")} style={`--nav-count:${navCount}`}>
   {hasGiftPanel && (
-    <button id="giftNavButton" data-panel="giftPanel" type="button" aria-label="Hadiah">
+    <button id="giftNavButton" data-panel="giftPanel" type="button" aria-label={t("Hadiah")}>
       <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M4 10h16v10H4zM3 7h18v3H3zM12 7v13" />
         <path d="M12 7c-1.2-3.2-5-3.4-5-1.2C7 7 9 7 12 7Zm0 0c1.2-3.2 5-3.4 5-1.2 0 1.2-2 1.2-5 1.2Z" />
       </svg>
-      <span class="sr-only">Hadiah</span>
+      <span class="sr-only">{t("Hadiah")}</span>
     </button>
   )}
-  <button data-panel="locationPanel" data-page="details" type="button" aria-label="Lokasi">
+  <button data-panel="locationPanel" data-page="details" type="button" aria-label={t("Lokasi")}>
     <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
       <path d="M12 21s6-5.2 6-11a6 6 0 0 0-12 0c0 5.8 6 11 6 11Z" />
       <path d="M12 12.2a2.2 2.2 0 1 0 0-4.4 2.2 2.2 0 0 0 0 4.4Z" />
     </svg>
-    <span class="sr-only">Lokasi</span>
+    <span class="sr-only">{t("Lokasi")}</span>
   </button>
   {e.music && (
-    <button id="musicNavButton" class="music-nav" data-panel="musicPanel" type="button" aria-label="Muzik">
+    <button id="musicNavButton" class="music-nav" data-panel="musicPanel" type="button" aria-label={t("Muzik")}>
       <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M9 18.2a2.7 2.7 0 1 1-1.2-2.25V6.5l10-2v11.2a2.7 2.7 0 1 1-1.2-2.25V8.2L9 9.7v8.5Z" />
       </svg>
-      <span class="sr-only">Muzik</span>
+      <span class="sr-only">{t("Muzik")}</span>
     </button>
   )}
   {e.features.rsvp && (
-    <button data-panel="rsvpPanel" data-page="rsvpSummary" type="button" aria-label="RSVP">
+    <button data-panel="rsvpPanel" data-page="rsvpSummary" type="button" aria-label={t("RSVP")}>
       <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M5.5 6.5h13c.8 0 1.5.7 1.5 1.5v8c0 .8-.7 1.5-1.5 1.5h-13C4.7 17.5 4 16.8 4 16V8c0-.8.7-1.5 1.5-1.5Z" />
         <path d="m5 8 7 5 7-5M9.3 14.4l1.6 1.6 3.8-4" />
       </svg>
-      <span class="sr-only">RSVP</span>
+      <span class="sr-only">{t("RSVP")}</span>
     </button>
   )}
   {showKenang && (
-    <a class="nav-link" href={card.kenangHref} target="_blank" rel="noopener" aria-label="Kenangan">
+    <a class="nav-link" href={card.kenangHref} target="_blank" rel="noopener" aria-label={t("Kenangan")}>
       <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M4 8h3l1.6-2.4h6.8L17 8h3v11H4z" />
         <circle cx="12" cy="13" r="3.6" />
       </svg>
-      <span class="sr-only">Kenangan</span>
+      <span class="sr-only">{t("Kenangan")}</span>
     </a>
   )}
-  <button data-panel="contactPanel" type="button" aria-label="Hubungi">
+  <button data-panel="contactPanel" type="button" aria-label={t("Hubungi")}>
     <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
       <path d="M7.2 4.8 9.8 7.4 8.5 9.2c.8 1.7 2.1 3 3.9 3.9l1.7-1.3 2.7 2.7-1.1 3.2c-.2.5-.7.8-1.2.8A12.7 12.7 0 0 1 5.1 9.1c0-.5.3-1 .8-1.2l3.2-1.1Z" />
     </svg>
-    <span class="sr-only">Hubungi</span>
+    <span class="sr-only">{t("Hubungi")}</span>
   </button>
 </nav>

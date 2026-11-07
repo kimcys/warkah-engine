@@ -3,9 +3,10 @@
 import type { Card } from "../../lib/event";
 interface Props { card: Card }
 const { card } = Astro.props;
+const { t } = card;
 const { e, first, second, themeAsset } = card;
 ---
-<section id="opening" class="opening-screen" aria-label="Buka kad jemputan">
+<section id="opening" class="opening-screen" aria-label={t("Buka kad jemputan")}>
   <div class="sky-cloud sky-cloud-one" aria-hidden="true"></div>
   <div class="sky-cloud sky-cloud-two" aria-hidden="true"></div>
   <div class="sky-cloud sky-cloud-three" aria-hidden="true"></div>
@@ -17,15 +18,15 @@ const { e, first, second, themeAsset } = card;
     </div>
 
     <p class="cover-kicker">{e.text.openingKicker}</p>
-    <h1 class="opening-names" aria-label={`${first.short} dan ${second.short}`}>{first.short} <span>&amp;</span> {second.short}</h1>
-    <p class="opening-quote">&ldquo;Dan Kami menciptakan kamu berpasang-pasangan&rdquo;<br /><span>An-Naba&rsquo; : 8</span></p>
+    <h1 class="opening-names" aria-label={t("{a} dan {b}", { a: first.short, b: second.short })}>{first.short} <span>&amp;</span> {second.short}</h1>
+    <p class="opening-quote">{t("“Dan Kami menciptakan kamu berpasang-pasangan”")}<br /><span>{t("An-Naba’ : 8")}</span></p>
 
-    <button id="openInvite" class="open-button" type="button" aria-label="Buka kad jemputan">
+    <button id="openInvite" class="open-button" type="button" aria-label={t("Buka kad jemputan")}>
       <svg class="open-button-icon" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M4 8.5 12 3l8 5.5v10c0 .8-.7 1.5-1.5 1.5h-13C4.7 20 4 19.3 4 18.5v-10Z" />
         <path d="m4 8.5 8 6 8-6" />
       </svg>
-      <span>Buka Kad</span>
+      <span>{t("Buka Kad")}</span>
     </button>
     <p id="openGuest" class="opening-guest" hidden></p>
   </div>

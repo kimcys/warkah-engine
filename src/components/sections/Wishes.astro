@@ -3,10 +3,11 @@
 import type { Card } from "../../lib/event";
 interface Props { card: Card; attrs: Record<string, string> }
 const { card, attrs } = Astro.props;
+const { t } = card;
 ---
 {card.e.features.wishes && (
-  <section class="section-card wishes reveal" {...attrs} id="wishesSection" aria-label="Ucapan tetamu">
-    <h2>Ucapan Tetamu</h2>
+  <section class="section-card wishes reveal" {...attrs} id="wishesSection" aria-label={t("Ucapan tetamu")}>
+    <h2>{t("Ucapan Tetamu")}</h2>
     <div id="wishList" class="wish-list" aria-live="polite"></div>
   </section>
 )}

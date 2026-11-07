@@ -3,11 +3,12 @@
 import type { Card } from "../../../lib/event";
 interface Props { card: Card; attrs: Record<string, string> }
 const { card, attrs } = Astro.props;
+const { t } = card;
 const { e, first, second, date, asset } = card;
 const art = e.art;
 const city = e.venue.area.split(",")[0].trim();
 ---
-<section class="hero" id="home" {...attrs} aria-label={`${first.short} dan ${second.short}, ${date.dayName} ${date.long}`}>
+<section class="hero" id="home" {...attrs} aria-label={t("{a} dan {b}, {day} {date}", { a: first.short, b: second.short, day: date.dayName, date: date.long })}>
   <h1 class="sr-only">{first.short} &amp; {second.short} — {date.dayName}, {date.long} — {e.venue.name}, {city}</h1>
   <div class="hero-copy" aria-hidden="true">
     <p class="kicker">{e.text.heroKicker}</p>

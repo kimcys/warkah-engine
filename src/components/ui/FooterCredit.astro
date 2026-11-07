@@ -9,6 +9,7 @@ import markRaw from "../../assets/warkah/mark.svg?raw";
 import wordRaw from "../../assets/warkah/wordmark.svg?raw";
 interface Props { card: Card }
 const { card } = Astro.props;
+const { t } = card;
 const { credit } = card;
 
 const inside = (raw: string) => raw.replace(/^<svg[^>]*>/, "").replace(/<\/svg>\s*$/, "").replace(/<title>.*?<\/title>/, "");
@@ -19,10 +20,10 @@ const mark = inside(markRaw)
 const word = inside(wordRaw).replaceAll('fill="#2B1B18"', 'fill="currentColor"');
 ---
 <div class="warkah-credit">
-  <a class="credit-scroll" href={credit.url} target="_blank" rel="noopener noreferrer" aria-label={`${credit.label} warkah · ${credit.domain}`}>
+  <a class="credit-scroll" href={credit.url} target="_blank" rel="noopener noreferrer" aria-label={`${t(credit.label)} warkah · ${credit.domain}`}>
     <span class="roll" aria-hidden="true"></span>
     <span class="paper">
-      <span class="credit-by">{credit.label}</span>
+      <span class="credit-by">{t(credit.label)}</span>
       <svg class="credit-mark" viewBox="0 0 200 200" aria-hidden="true" focusable="false" set:html={mark} />
       <svg class="credit-name" viewBox="0 0 671 240" aria-hidden="true" focusable="false" set:html={word} />
       <span class="credit-dot" aria-hidden="true">·</span>

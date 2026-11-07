@@ -4,23 +4,24 @@ import type { Card } from "../../../lib/event";
 import { frameBox, wrap } from "../frame";
 interface Props { card: Card; attrs: Record<string, string> }
 const { card, attrs } = Astro.props;
+const { t } = card;
 const { e, date } = card;
 const address = wrap(e.venue.address.replace(e.venue.name + ", ", ""), 44);
 const cx = 290;
 ---
-<section class="frame-page details reveal" {...attrs} id="details" aria-label="Butiran majlis">
+<section class="frame-page details reveal" {...attrs} id="details" aria-label={t("Butiran majlis")}>
   <div class="sr-only">
-    <h2>Tarikh &amp; Hari</h2><p>{date.dayName}, {date.long}</p>
-    <h2>Waktu Majlis</h2><p>{date.timeRange}</p>
-    <h2>Alamat Majlis</h2><p>{e.venue.name}, {e.venue.address}</p>
+    <h2>{t("Tarikh & Hari")}</h2><p>{date.dayName}, {date.long}</p>
+    <h2>{t("Waktu Majlis")}</h2><p>{date.timeRange}</p>
+    <h2>{t("Alamat Majlis")}</h2><p>{e.venue.name}, {e.venue.address}</p>
   </div>
   <svg class="frame-text" {...frameBox} aria-hidden="true" focusable="false">
-    <text x={cx} y="132" class="ft-script" font-size="34">Tarikh &amp; Hari</text>
+    <text x={cx} y="132" class="ft-script" font-size="34">{t("Tarikh & Hari")}</text>
     <text x={cx} y="178" class="ft-bold" font-size="16">{date.dayName.toUpperCase()}</text>
     <text x={cx} y="202" class="ft-bold" font-size="16">{date.long.toUpperCase()}</text>
-    <text x={cx} y="262" class="ft-script" font-size="34">Waktu Majlis</text>
+    <text x={cx} y="262" class="ft-script" font-size="34">{t("Waktu Majlis")}</text>
     <text x={cx} y="306" class="ft-bold" font-size="16">{date.timeRange}</text>
-    <text x={cx} y="366" class="ft-script" font-size="34">Alamat Majlis</text>
+    <text x={cx} y="366" class="ft-script" font-size="34">{t("Alamat Majlis")}</text>
     <text x={cx} y="410" class="ft-bold" font-size="16">{e.venue.name.toUpperCase()}</text>
     {address.map((line, i) => <text x={cx} y={434 + i * 18} class="ft-serif" font-size="13">{line}</text>)}
   </svg>

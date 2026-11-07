@@ -4,9 +4,9 @@ import { getEntry } from "astro:content";
 import warkah from "../../warkah.config.json";
 import { themes } from "../themes";
 import modelLibrary from "../../models/library.json";
-
-const DAYS = ["Ahad", "Isnin", "Selasa", "Rabu", "Khamis", "Jumaat", "Sabtu"];
-const MONTHS = ["Januari", "Februari", "Mac", "April", "Mei", "Jun", "Julai", "Ogos", "September", "Oktober", "November", "Disember"];
+import { DAYS, MONTHS, browserStrings, makeT, type Lang } from "./i18n";
+import { BROWSER_KEYS } from "./i18n/browser-keys";
+import { localise } from "./localise";
 
 function partsIn(iso: string, timeZone: string) {
   const fmt = new Intl.DateTimeFormat("en-GB", {
@@ -34,8 +34,11 @@ export async function loadEvent() {
   }
   // A switched-off feature hides its data from every component (music, dressCode); the page switches are in sections.ts.
   const f = entry.data.features;
-  const e = { ...entry.data, music: f.music ? entry.data.music : undefined, dressCode: f.dressCode ? entry.data.dressCode : undefined };
+  const data = localise(entry.data, entry.data.lang);
+  const e = { ...data, music: f.music ? data.music : undefined, dressCode: f.dressCode ? data.dressCode : undefined };
   const theme = themes[e.theme];
+  const lang: Lang = e.lang;
+  const t = makeT(lang);
 
   // Colour option: "classic" = the theme as designed; others override CSS variables and tint the artwork (see Palette).
   const paletteId = e.palette;
@@ -57,10 +60,10 @@ export async function loadEvent() {
   const end = partsIn(e.date.end, e.date.timeZone);
   const pad = (n: number) => String(n).padStart(2, "0");
   const date = {
-    dayName: DAYS[s.weekday],                                   // Sabtu
+    dayName: DAYS[lang][s.weekday],                                   // Sabtu
     dotted: `${pad(s.d)}.${pad(s.m)}.${s.y}`,                   // 12.12.2026
-    long: `${s.d} ${MONTHS[s.m - 1]} ${s.y}`,                   // 12 Disember 2026
-    day: String(s.d), month: MONTHS[s.m - 1], year: String(s.y),
+    long: `${s.d} ${MONTHS[lang][s.m - 1]} ${s.y}`,                   // 12 Disember 2026
+    day: String(s.d), month: MONTHS[lang][s.m - 1], year: String(s.y),
     timeRange: `${time12(s.h, s.min)} – ${time12(end.h, end.min)}`  // 11:00 AM – 4:00 PM
   };
 
@@ -94,6 +97,7 @@ export async function loadEvent() {
     assets: `${base}event/`,
     store,
     theme: { ...theme.client, petals: palette.petals },
+    i18n: browserStrings(lang, BROWSER_KEYS),   // English wording for card.js (empty for Malay)
     // false = nothing on the card reads or writes guest data (no RSVP, wishes or gifts), so the guestbook code is not started
     needsStore: e.features.rsvp || e.features.wishes || (e.features.gifts && e.gifts.items.length > 0),
     invitation: {
@@ -116,7 +120,7 @@ export async function loadEvent() {
   };
 
   return {
-    slug, e, theme, date, base, siteUrl, asset, themeAsset, first, second, modelOf, palette, clientData,
+    slug, e, theme, lang, t, date, base, siteUrl, asset, themeAsset, first, second, modelOf, palette, clientData,
     credit: warkah.credit,
     kenangHref: warkah.kenangEnabled && e.features.kenang ? `${warkah.kenangUrl.replace(/\/$/, "")}/${e.kenang.slug ?? slug}` : null,
     version: Date.now().toString(36)   // cache-busting tag for css/js on every build

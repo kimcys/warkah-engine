@@ -5,32 +5,33 @@
 import type { Card } from "../../lib/event";
 interface Props { card: Card; attrs: Record<string, string> }
 const { card, attrs } = Astro.props;
+const { t } = card;
 const { e, asset, slug } = card;
 const hasGifts = e.features.gifts && e.gifts.items.length > 0;
 const hasDuitnow = e.features.duitnow && !!e.duitnow.image;
 ---
-<section class="section-card gifts reveal" {...attrs} id="giftSummary" aria-label="Hadiah">
-  <h2>Hadiah</h2>
+<section class="section-card gifts reveal" {...attrs} id="giftSummary" aria-label={t("Hadiah")}>
+  <h2>{t("Hadiah")}</h2>
   <p class="gift-intro">{e.text.giftIntro}</p>
   <div class="gift-tabs-wrap" data-tabs>
     {hasGifts && hasDuitnow && (
-      <div class="tab-bar" role="tablist" aria-label="Jenis hadiah">
-        <button class="is-active" type="button" role="tab" aria-selected="true" data-tab="gifts">Senarai Hadiah</button>
-        <button type="button" role="tab" aria-selected="false" data-tab="duitnow">DuitNow</button>
+      <div class="tab-bar" role="tablist" aria-label={t("Jenis hadiah")}>
+        <button class="is-active" type="button" role="tab" aria-selected="true" data-tab="gifts">{t("Senarai Hadiah")}</button>
+        <button type="button" role="tab" aria-selected="false" data-tab="duitnow">{t("DuitNow")}</button>
       </div>
     )}
     {hasGifts && (
       <div data-tab-pane="gifts" class="gift-page-pane">
-        <button class="primary-button" data-panel="giftPanel" type="button">Lihat Senarai Hadiah</button>
+        <button class="primary-button" data-panel="giftPanel" type="button">{t("Lihat Senarai Hadiah")}</button>
       </div>
     )}
     {hasDuitnow && (
       <div data-tab-pane="duitnow" class="gift-page-pane" hidden={hasGifts}>
         <figure class="qr-card gift-qr">
-          <img src={asset(e.duitnow.image)} alt="Kod QR DuitNow" width="200" height="200" loading="lazy" decoding="async" />
+          <img src={asset(e.duitnow.image)} alt={t("Kod QR DuitNow")} width="200" height="200" loading="lazy" decoding="async" />
           {e.duitnow.accountName && <figcaption>{e.duitnow.accountName}</figcaption>}
         </figure>
-        <a class="secondary-button" href={asset(e.duitnow.image)} download={`duitnow-${slug}.png`}>Simpan QR</a>
+        <a class="secondary-button" href={asset(e.duitnow.image)} download={`duitnow-${slug}.png`}>{t("Simpan QR")}</a>
       </div>
     )}
   </div>

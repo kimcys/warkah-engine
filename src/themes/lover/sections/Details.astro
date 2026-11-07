@@ -3,10 +3,11 @@
 import type { Card } from "../../../lib/event";
 interface Props { card: Card; attrs: Record<string, string> }
 const { card, attrs } = Astro.props;
+const { t } = card;
 const { e, date } = card;
 ---
-<section class="section-card details reveal" {...attrs} id="details" aria-label="Butiran majlis">
-  <h2>Butiran Majlis</h2>
+<section class="section-card details reveal" {...attrs} id="details" aria-label={t("Butiran majlis")}>
+  <h2>{t("Butiran Majlis")}</h2>
   <div class="detail-board">
     <div class="date-block">
       <span>{date.dayName}</span>
@@ -14,10 +15,10 @@ const { e, date } = card;
       <span>{date.month} {date.year}</span>
     </div>
     <div class="line-block">
-      <h3 class="tulisan-bold">Lokasi</h3>
+      <h3 class="tulisan-bold">{t("Lokasi")}</h3>
       <p>{e.venue.name}<br />{e.venue.address.replace(e.venue.name + ", ", "")}</p>
       <div class="line-block-segment">
-        <h3 class="tulisan-bold">Aturcara Majlis</h3>
+        <h3 class="tulisan-bold">{t("Aturcara Majlis")}</h3>
         <p>{date.timeRange}</p>
       </div>
     </div>

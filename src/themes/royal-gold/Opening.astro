@@ -3,15 +3,16 @@
 import type { Card } from "../../lib/event";
 interface Props { card: Card }
 const { card } = Astro.props;
+const { t } = card;
 const { e, first, second, themeAsset } = card;
 ---
-<section id="opening" class="opening-screen" aria-label="Buka kad jemputan">
+<section id="opening" class="opening-screen" aria-label={t("Buka kad jemputan")}>
   <div class="desk-stage" aria-hidden="true">
     <img class="desk-img" src={themeAsset("opening/desk.webp?v=3")} alt="" />
     <span class="candle-glow"></span>
     <span class="frame-glint"></span>
 
-    <svg class="ribbon" viewBox="0 0 320 300" role="img" aria-label={`${first.short} dan ${second.short}`}>
+    <svg class="ribbon" viewBox="0 0 320 300" role="img" aria-label={t("{a} dan {b}", { a: first.short, b: second.short })}>
       <defs>
         <linearGradient id="ribbonFace" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0" stop-color="#f1e6cc" />
@@ -37,12 +38,12 @@ const { e, first, second, themeAsset } = card;
   <p class="opening-kicker">{e.text.openingKicker}</p>
 
   <div class="opening-actions">
-    <button id="openInvite" class="open-button" type="button" aria-label="Buka kad jemputan">
+    <button id="openInvite" class="open-button" type="button" aria-label={t("Buka kad jemputan")}>
       <svg class="open-button-icon" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M4 8.5 12 3l8 5.5v10c0 .8-.7 1.5-1.5 1.5h-13C4.7 20 4 19.3 4 18.5v-10Z" />
         <path d="m4 8.5 8 6 8-6" />
       </svg>
-      <span>Buka Kad</span>
+      <span>{t("Buka Kad")}</span>
     </button>
     <p id="openGuest" class="opening-guest" hidden></p>
   </div>

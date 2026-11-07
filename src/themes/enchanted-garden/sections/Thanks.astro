@@ -4,12 +4,13 @@ import type { Card } from "../../../lib/event";
 import FooterCredit from "../../../components/ui/FooterCredit.astro";
 interface Props { card: Card; attrs: Record<string, string> }
 const { card, attrs } = Astro.props;
+const { t } = card;
 const { e } = card;
 ---
-<section class="section-card thanks reveal" {...attrs} aria-label="Penghargaan">
+<section class="section-card thanks reveal" {...attrs} aria-label={t("Penghargaan")}>
   <p>{e.text.thanks}</p>
-  <p class="thanks-insya">InsyaAllah</p>
-  <p class="thanks-sign">Terima Kasih</p>
+  <p class="thanks-insya">{t("InsyaAllah")}</p>
+  <p class="thanks-sign">{t("Terima Kasih")}</p>
   <div class="thanks-illustration">
     {e.couple.hashtag && <p class="hashtag">{e.couple.hashtag}</p>}
   </div>

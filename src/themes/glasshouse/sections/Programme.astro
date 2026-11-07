@@ -3,10 +3,11 @@
 import type { Card } from "../../../lib/event";
 interface Props { card: Card; attrs: Record<string, string> }
 const { card, attrs } = Astro.props;
+const { t } = card;
 const { e } = card;
 ---
-<section class="section-card programme reveal" {...attrs} id="programme" aria-label="Aturcara majlis">
-  <h2>Aturcara Majlis</h2>
+<section class="section-card programme reveal" {...attrs} id="programme" aria-label={t("Aturcara majlis")}>
+  <h2>{t("Aturcara Majlis")}</h2>
   <ol class="timeline">
     {e.aturcara.map((item) => (
       <li class="timeline-item">

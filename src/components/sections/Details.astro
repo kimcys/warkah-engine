@@ -2,9 +2,10 @@
 import type { Card } from "../../lib/event";
 interface Props { card: Card; attrs: Record<string, string> }
 const { card, attrs } = Astro.props;
+const { t } = card;
 const { e, asset } = card;
 ---
-<section class="section-card details reveal" {...attrs} id="details" aria-label="Lokasi majlis">
+<section class="section-card details reveal" {...attrs} id="details" aria-label={t("Lokasi majlis")}>
   <h2>{e.text.venueHeading}</h2>
   <div class="venue-block">
     <h3>{e.venue.name}</h3>
@@ -13,14 +14,14 @@ const { e, asset } = card;
   {e.venue.qrWaze && (
     <>
       <p class="qr-lead" set:html={e.text.qrLeadHtml} />
-      <a class="scan-qr" href={e.venue.waze} target="_blank" rel="noopener" aria-label="Buka lokasi di Waze">
-        <img src={asset(`${e.venue.qrWaze}?v=${e.meta.version}`)} alt="Kod QR Waze lokasi majlis" width="132" height="132" loading="lazy" decoding="async" />
-        <span class="scan-tag" aria-hidden="true">Scan Me</span>
+      <a class="scan-qr" href={e.venue.waze} target="_blank" rel="noopener" aria-label={t("Buka lokasi di Waze")}>
+        <img src={asset(`${e.venue.qrWaze}?v=${e.meta.version}`)} alt={t("Kod QR Waze lokasi majlis")} width="132" height="132" loading="lazy" decoding="async" />
+        <span class="scan-tag" aria-hidden="true">{t("Scan Me")}</span>
       </a>
     </>
   )}
   <div class="button-row">
-    <button class="primary-button" data-panel="locationPanel" type="button">Lokasi</button>
-    <button class="secondary-button" data-panel="calendarPanel" type="button">Simpan Tarikh</button>
+    <button class="primary-button" data-panel="locationPanel" type="button">{t("Lokasi")}</button>
+    <button class="secondary-button" data-panel="calendarPanel" type="button">{t("Simpan Tarikh")}</button>
   </div>
 </section>

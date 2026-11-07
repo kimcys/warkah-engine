@@ -23,7 +23,7 @@ export const eventSchema = z.object({
     theme: z.enum(THEME_KEYS),
     palette: z.string().default("classic"),           // colour option of the theme (see Palette in src/themes/define.ts)
     package: z.enum(["signature", "custom"]).default("signature"),
-    lang: z.string().default("ms"),
+    lang: z.enum(["ms", "en"]).default("ms"),      // language of the card's fixed wording (the couple's own text is whatever they typed)
 
     hosting: z.object({
       site: z.string(),                       // Firebase Hosting site id → <site>.web.app

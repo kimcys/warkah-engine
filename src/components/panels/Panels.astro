@@ -3,56 +3,57 @@
 import type { Card } from "../../lib/event";
 interface Props { card: Card }
 const { card } = Astro.props;
+const { t } = card;
 const { e, date, asset, slug } = card;
 const v = e.meta.version;
 const guestOptions = Array.from({ length: e.rsvp.maxGuests }, (_, i) => i + 1);
 const hasGiftPanel = e.features.gifts || e.features.duitnow;
 const gifts = e.gifts;
 ---
-<section id="calendarPanel" class="bottom-panel" aria-label="Kalendar" hidden>
-  <button class="panel-close" type="button" aria-label="Tutup">&times;</button>
-  <h2>Kalendar</h2>
+<section id="calendarPanel" class="bottom-panel" aria-label={t("Kalendar")} hidden>
+  <button class="panel-close" type="button" aria-label={t("Tutup")}>&times;</button>
+  <h2>{t("Kalendar")}</h2>
   <p>{date.dayName}, {date.long}<br />{date.timeRange}</p>
   <div class="button-row">
-    <a id="googleCalendar" class="primary-button" target="_blank" rel="noopener">Google Calendar</a>
-    <button id="appleCalendar" class="secondary-button" type="button">Apple / ICS</button>
+    <a id="googleCalendar" class="primary-button" target="_blank" rel="noopener">{t("Google Calendar")}</a>
+    <button id="appleCalendar" class="secondary-button" type="button">{t("Apple / ICS")}</button>
   </div>
 </section>
 
-<section id="locationPanel" class="bottom-panel" aria-label="Lokasi" hidden>
-  <button class="panel-close" type="button" aria-label="Tutup">&times;</button>
-  <h2>Lokasi</h2>
+<section id="locationPanel" class="bottom-panel" aria-label={t("Lokasi")} hidden>
+  <button class="panel-close" type="button" aria-label={t("Tutup")}>&times;</button>
+  <h2>{t("Lokasi")}</h2>
   <p>{e.venue.name}<br />{e.venue.area}</p>
   {(e.venue.qrMaps || e.venue.qrWaze) && (
     <>
       <div class="qr-grid">
         {e.venue.qrMaps && (
           <figure class="qr-card">
-            <img src={asset(`${e.venue.qrMaps}?v=${v}`)} alt="Kod QR Google Maps" loading="lazy" decoding="async" />
-            <figcaption>Google Maps</figcaption>
+            <img src={asset(`${e.venue.qrMaps}?v=${v}`)} alt={t("Kod QR Google Maps")} loading="lazy" decoding="async" />
+            <figcaption>{t("Google Maps")}</figcaption>
           </figure>
         )}
         {e.venue.qrWaze && (
           <figure class="qr-card">
-            <img src={asset(`${e.venue.qrWaze}?v=${v}`)} alt="Kod QR Waze" loading="lazy" decoding="async" />
-            <figcaption>Waze</figcaption>
+            <img src={asset(`${e.venue.qrWaze}?v=${v}`)} alt={t("Kod QR Waze")} loading="lazy" decoding="async" />
+            <figcaption>{t("Waze")}</figcaption>
           </figure>
         )}
       </div>
-      <p class="qr-note">Imbas QR untuk lokasi majlis.</p>
+      <p class="qr-note">{t("Imbas QR untuk lokasi majlis.")}</p>
     </>
   )}
   <div class="button-row">
-    <a id="googleMaps" class="primary-button" target="_blank" rel="noopener">Google Maps</a>
-    <a id="waze" class="secondary-button" target="_blank" rel="noopener">Waze</a>
+    <a id="googleMaps" class="primary-button" target="_blank" rel="noopener">{t("Google Maps")}</a>
+    <a id="waze" class="secondary-button" target="_blank" rel="noopener">{t("Waze")}</a>
   </div>
-  <button class="text-button" data-panel="calendarPanel" type="button">Simpan Tarikh ke Kalendar</button>
+  <button class="text-button" data-panel="calendarPanel" type="button">{t("Simpan Tarikh ke Kalendar")}</button>
 </section>
 
 {e.music && (
-  <section id="musicPanel" class="bottom-panel" aria-label="Muzik" hidden>
-    <button class="panel-close" type="button" aria-label="Tutup">&times;</button>
-    <h2>Muzik</h2>
+  <section id="musicPanel" class="bottom-panel" aria-label={t("Muzik")} hidden>
+    <button class="panel-close" type="button" aria-label={t("Tutup")}>&times;</button>
+    <h2>{t("Muzik")}</h2>
     <div class="now-playing">
       <span class="vinyl" aria-hidden="true"></span>
       <div>
@@ -64,70 +65,70 @@ const gifts = e.gifts;
       <source src={asset(`${e.music.src}?v=${v}`)} type={e.music.type} />
       {e.music.fallback && <source src={asset(`${e.music.fallback.src}?v=${v}`)} type={e.music.fallback.type} />}
     </audio>
-    <button id="musicToggle" class="primary-button" type="button">Mainkan Lagu</button>
-    <p id="musicStatus" class="small-note" role="status">Lagu akan dimainkan selepas tetamu tekan Buka Kad.</p>
+    <button id="musicToggle" class="primary-button" type="button">{t("Mainkan Lagu")}</button>
+    <p id="musicStatus" class="small-note" role="status">{t("Lagu akan dimainkan selepas tetamu tekan Buka Kad.")}</p>
   </section>
 )}
 
 {e.features.rsvp && (
-  <section id="rsvpPanel" class="bottom-panel" aria-label="RSVP" hidden>
-    <button class="panel-close" type="button" aria-label="Tutup">&times;</button>
-    <h2>RSVP</h2>
-    <p class="panel-sub">Sila sahkan kehadiran anda ke majlis kami.</p>
+  <section id="rsvpPanel" class="bottom-panel" aria-label={t("RSVP")} hidden>
+    <button class="panel-close" type="button" aria-label={t("Tutup")}>&times;</button>
+    <h2>{t("RSVP")}</h2>
+    <p class="panel-sub">{t("Sila sahkan kehadiran anda ke majlis kami.")}</p>
     <form id="rsvpForm" class="form-stack">
       <label>
-        Nama
-        <input name="name" type="text" maxlength="80" placeholder="Nama anda" autocomplete="name" required />
+        {t("Nama")}
+        <input name="name" type="text" maxlength="80" placeholder={t("Nama anda")} autocomplete="name" required />
       </label>
       <label>
-        Kehadiran
+        {t("Kehadiran")}
         <select name="attendance" required>
-          <option value="">Pilih satu</option>
-          <option value="Hadir">Hadir</option>
-          <option value="Tidak Hadir">Tidak Hadir</option>
+          <option value="">{t("Pilih satu")}</option>
+          <option value="Hadir">{t("Hadir")}</option>
+          <option value="Tidak Hadir">{t("Tidak Hadir")}</option>
         </select>
       </label>
       <label id="guestsField">
-        Bilangan Tetamu
+        {t("Bilangan Tetamu")}
         <select name="guests" required>
           {guestOptions.map((n) => <option value={String(n)}>{n}</option>)}
         </select>
       </label>
       {e.features.wishes && (
         <label>
-          Ucapan (pilihan)
-          <textarea name="message" rows="3" maxlength="180" placeholder="Tulis ucapan untuk pengantin (pilihan)"></textarea>
+          {t("Ucapan (pilihan)")}
+          <textarea name="message" rows="3" maxlength="180" placeholder={t("Tulis ucapan untuk pengantin (pilihan)")}></textarea>
         </label>
       )}
-      <button class="primary-button" type="submit">Hantar RSVP</button>
+      <button class="primary-button" type="submit">{t("Hantar RSVP")}</button>
     </form>
     <p id="rsvpStatus" class="status-text" role="status"></p>
   </section>
 )}
 
-<section id="contactPanel" class="bottom-panel" aria-label="Hubungi" hidden>
-  <button class="panel-close" type="button" aria-label="Tutup">&times;</button>
-  <h2>Hubungi</h2>
+<section id="contactPanel" class="bottom-panel" aria-label={t("Hubungi")} hidden>
+  <button class="panel-close" type="button" aria-label={t("Tutup")}>&times;</button>
+  <h2>{t("Hubungi")}</h2>
   <div id="contactList" class="contact-list"></div>
 </section>
 
 {hasGiftPanel && (
-  <section id="giftPanel" class="bottom-panel" aria-label="Hadiah" hidden>
-    <button class="panel-close" type="button" aria-label="Tutup">&times;</button>
-    <h2>Hadiah</h2>
+  <section id="giftPanel" class="bottom-panel" aria-label={t("Hadiah")} hidden>
+    <button class="panel-close" type="button" aria-label={t("Tutup")}>&times;</button>
+    <h2>{t("Hadiah")}</h2>
     <p class="panel-sub">{e.text.giftIntro}</p>
     {/* Both add-ons on → a tab bar switches between them; only one on → no tab bar, just that one. */}
     <div class="gift-tabs-wrap" data-tabs>
       {e.features.gifts && e.features.duitnow && (
-        <div class="tab-bar" role="tablist" aria-label="Jenis hadiah">
-          <button class="is-active" type="button" role="tab" aria-selected="true" data-tab="gifts">Senarai Hadiah</button>
-          <button type="button" role="tab" aria-selected="false" data-tab="duitnow">DuitNow</button>
+        <div class="tab-bar" role="tablist" aria-label={t("Jenis hadiah")}>
+          <button class="is-active" type="button" role="tab" aria-selected="true" data-tab="gifts">{t("Senarai Hadiah")}</button>
+          <button type="button" role="tab" aria-selected="false" data-tab="duitnow">{t("DuitNow")}</button>
         </div>
       )}
       {e.features.gifts && (
         <div data-tab-pane="gifts">
           <p class="gift-note">
-            Harga adalah anggaran dari {gifts.shop} dan boleh berubah. Tekan &ldquo;Saya akan beli ini&rdquo; supaya tetamu lain tahu hadiah itu sudah dipilih. Hadiah bernilai lebih RM{gifts.groupMinPrice} boleh dikongsi beramai-ramai.
+            {t("Harga adalah anggaran dari {shop} dan boleh berubah. Tekan “Saya akan beli ini” supaya tetamu lain tahu hadiah itu sudah dipilih. Hadiah bernilai lebih RM{min} boleh dikongsi beramai-ramai.", { shop: gifts.shop, min: gifts.groupMinPrice })}
           </p>
           <div id="giftList" class="gift-list"></div>
         </div>
@@ -135,12 +136,12 @@ const gifts = e.gifts;
       {e.features.duitnow && (
         <div data-tab-pane="duitnow" hidden={e.features.gifts}>
           <div id="giftDuitnow" class="gift-duitnow" hidden>
-            <p class="gift-or">Sumbangan melalui DuitNow</p>
+            <p class="gift-or">{t("Sumbangan melalui DuitNow")}</p>
             <figure class="qr-card gift-qr">
-              <img id="giftQr" alt="Kod QR DuitNow" width="220" height="220" decoding="async" />
-              <figcaption id="giftName">DuitNow QR</figcaption>
+              <img id="giftQr" alt={t("Kod QR DuitNow")} width="220" height="220" decoding="async" />
+              <figcaption id="giftName">{t("DuitNow QR")}</figcaption>
             </figure>
-            <a id="giftSave" class="secondary-button" download={`duitnow-${slug}.png`}>Simpan QR</a>
+            <a id="giftSave" class="secondary-button" download={`duitnow-${slug}.png`}>{t("Simpan QR")}</a>
           </div>
         </div>
       )}

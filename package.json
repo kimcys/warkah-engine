@@ -7,6 +7,7 @@
     "new": "node scripts/new.mjs",
     "dev": "node scripts/run.mjs dev",
     "build": "node scripts/run.mjs build",
+    "i18n": "node scripts/i18n-check.mjs",
     "catalogue": "node scripts/run.mjs build minimal-demo --catalogue",
     "build:all": "node scripts/run.mjs build --all",
     "deploy": "node scripts/deploy.mjs",

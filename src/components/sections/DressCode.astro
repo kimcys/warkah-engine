@@ -2,6 +2,7 @@
 import type { Card } from "../../lib/event";
 interface Props { card: Card; attrs: Record<string, string> }
 const { card, attrs } = Astro.props;
+const { t } = card;
 const dress = card.e.dressCode;
 const ICONS: Record<string, string> = {
   shirt: '<path d="M18 14 26 10h12l8 4 8 6-5 12-6-3v24H15V29l-6 3-5-12 8-6Z" /><path d="M26 10 32 18 38 10" />',
@@ -9,7 +10,7 @@ const ICONS: Record<string, string> = {
 };
 ---
 {dress && (
-  <section class="section-card dresscode reveal" {...attrs} id="dressCode" aria-label="Tema warna majlis">
+  <section class="section-card dresscode reveal" {...attrs} id="dressCode" aria-label={t("Tema warna majlis")}>
     <h2>{dress.title}</h2>
     <div class="dresscode-grid">
       {dress.colors.map((color) => (
